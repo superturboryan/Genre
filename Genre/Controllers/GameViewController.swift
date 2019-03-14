@@ -191,7 +191,7 @@ class GameViewController: UIViewController {
                         
                         //Darken background view
                         UIView.animate(withDuration: 0.7, animations: {
-                            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.7)
+                            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.4)
                             self.scoreLabel.alpha = 0
                         })
                         
@@ -348,6 +348,7 @@ class GameViewController: UIViewController {
         
         view.addSubview(gameFinishedView)
         
+        
         let endTime = Date()
         
         let timeElapsed  =  String(format: "%.1f", endTime.timeIntervalSince(startTime))
@@ -385,7 +386,7 @@ class GameViewController: UIViewController {
             self.restartButton.alpha = 0
             self.scoreLabel.alpha = 1
             //Lighten background to normal
-            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.7)
+            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.4)
             self.gameFinishedView.removeFromSuperview()
         }
         
@@ -396,6 +397,13 @@ class GameViewController: UIViewController {
         
         
     }
+    
+    @IBAction func backPressed(_ sender: UIButton) {
+        
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+    
     
     
 }
