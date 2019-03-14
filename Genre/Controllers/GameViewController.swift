@@ -40,7 +40,7 @@ class GameViewController: UIViewController {
     
     private var questionBank : [Word] = []
     
-    internal var numberOfQuestions : Int = 10
+    internal var numberOfQuestions : Int = 5
     
     //UI Variables
     
@@ -167,7 +167,7 @@ class GameViewController: UIViewController {
             
             //If more than 0.4 is complete, do completion block and remove
             
-            if velocity.x > 60 || velocity.x < -60 || animator.fractionComplete > 0.4 {
+            if velocity.x > 60 || velocity.x < -60 || animator.fractionComplete > 0.5 {
                 
                 animator.addCompletion { (position) in
                     
@@ -188,7 +188,17 @@ class GameViewController: UIViewController {
                    
                     //Check if quiz has finished!
                     if self.questionNumber == self.questionBank.count {
-                        self.gameFinishedPopup()
+                        
+                        //Darken background view
+                        UIView.animate(withDuration: 0.7, animations: {
+                            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.7)
+                            self.scoreLabel.alpha = 0
+                        })
+                        
+                        //Delay finish popup to show +1 label
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                            self.gameFinishedPopup()
+                        })
                     }
                     else{
                         //Add new card to view
@@ -259,7 +269,8 @@ class GameViewController: UIViewController {
             //Combine previous transform with rotation
             self.wordCardView.transform = CGAffineTransform(rotationAngle: direction == .right ? CGFloat(Double.pi / 8) : -CGFloat(Double.pi / 8)).concatenating(transform)
             
-            //Show masculine or feminine labels
+            //Animate alphas for masculine and feminine labels
+            
             if self.currentSwipeDirection == .right {
                 
                 self.wordCardView.masculineLabel.alpha = 0.8
@@ -355,8 +366,8 @@ class GameViewController: UIViewController {
             
             self.gameFinishedView.alpha = 1
             self.gameFinishedView.transform = CGAffineTransform.identity
-            self.scoreLabel.alpha = 0
-            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.7)
+//            self.scoreLabel.alpha = 0
+//            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.7)
             self.restartButton.alpha = 1
             
         }
@@ -373,6 +384,7 @@ class GameViewController: UIViewController {
         UIView.animate(withDuration: 0.4) {
             self.restartButton.alpha = 0
             self.scoreLabel.alpha = 1
+            //Lighten background to normal
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.7)
             self.gameFinishedView.removeFromSuperview()
         }
