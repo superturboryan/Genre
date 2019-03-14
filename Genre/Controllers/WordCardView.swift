@@ -12,9 +12,15 @@ class WordCardView: UIView {
 
     @IBOutlet weak var wordLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var feminineLabel: UILabel!
+    @IBOutlet weak var masculineLabel: UILabel!
+    
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
+        
+        feminineLabel.alpha = 0
+        masculineLabel.alpha = 0
         
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.4

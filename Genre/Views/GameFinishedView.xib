@@ -17,40 +17,43 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vos résultats" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRz-OW-EUx">
-                    <rect key="frame" x="20" y="40" width="185" height="41.5"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="35"/>
+                    <rect key="frame" x="10" y="107.5" width="247" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="1UG-kl-vZo"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="45"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Réponses correctes: XX / XX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UzN-s2-enO">
-                    <rect key="frame" x="20" y="116.5" width="253.5" height="23"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="19"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Réponses: XX / XX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UzN-s2-enO">
+                    <rect key="frame" x="10" y="167.5" width="173.5" height="24"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-MediumItalic" family="Helvetica Neue" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pourcentage: XXX% " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bc-60-Dna">
-                    <rect key="frame" x="20" y="159.5" width="184" height="23"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="19"/>
+                    <rect key="frame" x="10" y="196.5" width="193.5" height="24"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-MediumItalic" family="Helvetica Neue" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chrono: 000.0s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="She-oh-e81">
-                    <rect key="frame" x="20" y="202.5" width="132.5" height="23"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="19"/>
+                    <rect key="frame" x="10" y="225.5" width="140" height="24"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-MediumItalic" family="Helvetica Neue" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="7bc-60-Dna" firstAttribute="top" secondItem="UzN-s2-enO" secondAttribute="bottom" constant="20" id="1WF-sO-1W8"/>
-                <constraint firstItem="UzN-s2-enO" firstAttribute="top" secondItem="eRz-OW-EUx" secondAttribute="bottom" constant="35" id="CFF-30-1Od"/>
-                <constraint firstItem="She-oh-e81" firstAttribute="top" secondItem="7bc-60-Dna" secondAttribute="bottom" constant="20" id="L6E-ha-uao"/>
+                <constraint firstItem="7bc-60-Dna" firstAttribute="top" secondItem="UzN-s2-enO" secondAttribute="bottom" constant="5" id="1WF-sO-1W8"/>
+                <constraint firstItem="UzN-s2-enO" firstAttribute="top" secondItem="eRz-OW-EUx" secondAttribute="bottom" constant="5" id="CFF-30-1Od"/>
+                <constraint firstItem="She-oh-e81" firstAttribute="top" secondItem="7bc-60-Dna" secondAttribute="bottom" constant="5" id="L6E-ha-uao"/>
                 <constraint firstItem="UzN-s2-enO" firstAttribute="leading" secondItem="eRz-OW-EUx" secondAttribute="leading" id="QKz-g9-ODY"/>
-                <constraint firstItem="eRz-OW-EUx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Skx-FP-x45"/>
+                <constraint firstItem="eRz-OW-EUx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="Skx-FP-x45"/>
                 <constraint firstItem="7bc-60-Dna" firstAttribute="leading" secondItem="UzN-s2-enO" secondAttribute="leading" id="bdY-z7-IZ0"/>
                 <constraint firstItem="She-oh-e81" firstAttribute="leading" secondItem="7bc-60-Dna" secondAttribute="leading" id="kQQ-Gl-huG"/>
-                <constraint firstItem="eRz-OW-EUx" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="40" id="yMu-RU-jMU"/>
+                <constraint firstItem="eRz-OW-EUx" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-10" id="n1g-lE-Xpg"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

@@ -52,6 +52,7 @@ class GameViewController: UIViewController {
         case left, right
     }
     
+    //Pan recognizer for word cards
     lazy var panRecognizer : UIPanGestureRecognizer = {
         
         let recognizer = UIPanGestureRecognizer()
@@ -61,6 +62,7 @@ class GameViewController: UIViewController {
         return recognizer
     }()
     
+    //Animator used for swiping
     var animator : UIViewPropertyAnimator = UIViewPropertyAnimator()
     
     var animateProgress : CGFloat = 0
@@ -144,6 +146,7 @@ class GameViewController: UIViewController {
             }
             
             animator.fractionComplete = fraction + animateProgress
+            
             
             if animator.fractionComplete == CGFloat(0) {
                 
@@ -256,6 +259,16 @@ class GameViewController: UIViewController {
             //Combine previous transform with rotation
             self.wordCardView.transform = CGAffineTransform(rotationAngle: direction == .right ? CGFloat(Double.pi / 8) : -CGFloat(Double.pi / 8)).concatenating(transform)
             
+            //Show masculine or feminine labels
+            if self.currentSwipeDirection == .right {
+                
+                self.wordCardView.masculineLabel.alpha = 0.8
+            }
+            else if self.currentSwipeDirection == .left {
+                
+                self.wordCardView.feminineLabel.alpha = 0.8
+            }
+            
         })
         
         animator.startAnimation()
@@ -330,7 +343,7 @@ class GameViewController: UIViewController {
         
         let percentage = String(format: "%.1f" , (Double(userScore) / Double(questionBank.count)) * 100.0)
         
-        gameFinishedView.correctAnswers.text = "Réponses correctes: \(userScore) / \(questionBank.count)"
+        gameFinishedView.correctAnswers.text = "Réponses: \(userScore) / \(questionBank.count)"
         gameFinishedView.percentage.text = "Pourcentage: " + percentage + "%"
         gameFinishedView.chrono.text = "Chrono: " + timeElapsed + "s"
         

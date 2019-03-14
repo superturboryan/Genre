@@ -83,8 +83,8 @@
 			children = (
 				94EF25522239B979003240B9 /* AppDelegate.swift */,
 				94EF25702239F250003240B9 /* Model */,
-				94EF25722239F286003240B9 /* Controllers */,
 				94EF25712239F263003240B9 /* Views */,
+				94EF25722239F286003240B9 /* Controllers */,
 				94EF256A2239C9A9003240B9 /* Words1592Count.csv */,
 				94EF255E2239B97B003240B9 /* Info.plist */,
 				94EF25592239B97B003240B9 /* Assets.xcassets */,
