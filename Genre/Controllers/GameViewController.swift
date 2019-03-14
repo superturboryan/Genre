@@ -343,7 +343,7 @@ class GameViewController: UIViewController {
             self.gameFinishedView.alpha = 1
             self.gameFinishedView.transform = CGAffineTransform.identity
             self.scoreLabel.alpha = 0
-            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.5)
+            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.7)
             self.restartButton.alpha = 1
             
         }
@@ -360,7 +360,7 @@ class GameViewController: UIViewController {
         UIView.animate(withDuration: 0.4) {
             self.restartButton.alpha = 0
             self.scoreLabel.alpha = 1
-            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.5)
+            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.7)
             self.gameFinishedView.removeFromSuperview()
         }
         

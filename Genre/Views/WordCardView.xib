@@ -16,18 +16,18 @@
             <rect key="frame" x="0.0" y="0.0" width="290" height="290"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="accomplissment" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pi-gF-pGv">
-                    <rect key="frame" x="15" y="112.5" width="265" height="45"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pi-gF-pGv">
+                    <rect key="frame" x="15" y="107.5" width="104.5" height="55"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="45" id="94I-lo-JXe"/>
+                        <constraint firstAttribute="height" constant="55" id="94I-lo-JXe"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="37"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="45"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYk-5b-jVM">
-                    <rect key="frame" x="15" y="162.5" width="43" height="24"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-MediumItalic" family="Helvetica Neue" pointSize="20"/>
+                    <rect key="frame" x="15" y="167.5" width="54" height="30"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-MediumItalic" family="Helvetica Neue" pointSize="25"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -37,7 +37,6 @@
                 <constraint firstItem="PYk-5b-jVM" firstAttribute="top" secondItem="7pi-gF-pGv" secondAttribute="bottom" constant="5" id="33S-zR-KMK"/>
                 <constraint firstItem="7pi-gF-pGv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-10" id="BiJ-B9-vHU"/>
                 <constraint firstItem="7pi-gF-pGv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="ceQ-v3-44Z"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="7pi-gF-pGv" secondAttribute="trailing" constant="10" id="o4T-4b-JTO"/>
                 <constraint firstItem="PYk-5b-jVM" firstAttribute="leading" secondItem="7pi-gF-pGv" secondAttribute="leading" id="q7m-2K-Lzb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
