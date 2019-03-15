@@ -21,6 +21,10 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var restartButton: UIButton!
     
+    @IBOutlet weak var progressBar: UIView!
+
+    @IBOutlet weak var backButton: UIButton!
+    
     
     //MARK: - Variables
     
@@ -40,7 +44,7 @@ class GameViewController: UIViewController {
     
     private var questionBank : [Word] = []
     
-    internal var numberOfQuestions : Int = 5
+    internal var numberOfQuestions : Int = 10
     
     //UI Variables
     
@@ -76,14 +80,16 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         //Set up restart button for later
-        restartButton.layer.shadowColor = UIColor.black.cgColor
-        restartButton.layer.shadowOpacity = 0.4
-        restartButton.layer.shadowOffset = CGSize.zero
-        restartButton.layer.shadowRadius = CGFloat(12)
+//        restartButton.layer.shadowColor = UIColor.black.cgColor
+//        restartButton.layer.shadowOpacity = 0.4
+//        restartButton.layer.shadowOffset = CGSize.zero
+//        restartButton.layer.shadowRadius = CGFloat(12)
         
         restartButton.layer.cornerRadius = CGFloat(10)
         
         restartButton.alpha = 0
+        
+        progressBar.frame.size.width = CGFloat(0)
         
         loadCSV()
         
@@ -105,6 +111,13 @@ class GameViewController: UIViewController {
         
         wordCardView.wordLabel.text = questionBank[questionNumber].word
         scoreLabel.text = "\(userScore) / \(numberOfQuestions)"
+        
+        let viewWidth : CGFloat = view.frame.size.width
+        
+        UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.7, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+            self.progressBar.frame.size.width = (viewWidth / CGFloat(self.numberOfQuestions)) * CGFloat(questionNum)
+        }, completion: nil)
+        
 
     }
     
@@ -167,7 +180,7 @@ class GameViewController: UIViewController {
             
             //If more than 0.4 is complete, do completion block and remove
             
-            if velocity.x > 60 || velocity.x < -60 || animator.fractionComplete > 0.5 {
+            if velocity.x > 90 || velocity.x < -90 || animator.fractionComplete > 0.5 {
                 
                 animator.addCompletion { (position) in
                     
@@ -189,10 +202,13 @@ class GameViewController: UIViewController {
                     //Check if quiz has finished!
                     if self.questionNumber == self.questionBank.count {
                         
-                        //Darken background view
+                        //Darken background view and back button
                         UIView.animate(withDuration: 0.7, animations: {
                             self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.4)
+                            self.backButton.setTitleColor(UIColor.black, for: .normal)
                             self.scoreLabel.alpha = 0
+                            self.progressBar.frame.size.width = self.view.frame.size.width
+                            self.progressBar.backgroundColor = self.progressBar.backgroundColor?.darken(byPercentage: 0.4)
                         })
                         
                         //Delay finish popup to show +1 label
@@ -355,7 +371,7 @@ class GameViewController: UIViewController {
         
         let percentage = String(format: "%.1f" , (Double(userScore) / Double(questionBank.count)) * 100.0)
         
-        gameFinishedView.correctAnswers.text = "Réponses: \(userScore) / \(questionBank.count)"
+        gameFinishedView.correctAnswers.text = "Score: \(userScore) / \(questionBank.count)"
         gameFinishedView.percentage.text = "Pourcentage: " + percentage + "%"
         gameFinishedView.chrono.text = "Chrono: " + timeElapsed + "s"
         
@@ -382,26 +398,57 @@ class GameViewController: UIViewController {
         loadQuestionBank(numOfQuestions: numberOfQuestions)
         startTime = Date()
         
-        UIView.animate(withDuration: 0.4) {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+            
+            //Move gameFinishedView off screen
+            let transform = CGAffineTransform(translationX: self.view.frame.width, y: 0)
+            //Combine previous transform with rotation
+            self.gameFinishedView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
             self.restartButton.alpha = 0
             self.scoreLabel.alpha = 1
-            //Lighten background to normal
+            //Lighten background and progress bar to normal
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.4)
+            self.progressBar.backgroundColor = self.progressBar.backgroundColor?.lighten(byPercentage: 0.4)
+            //Change back button color back to white
+            self.backButton.setTitleColor(UIColor.white, for: .normal)
+            
+        }) { (success) in
+            //And remove from SuperView
             self.gameFinishedView.removeFromSuperview()
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.createNewCard()
             self.updateUI(questionNum: self.questionNumber)
         }
+       
         
         
-    }
+        }
+        
+    
+        
+        
+    
     
     @IBAction func backPressed(_ sender: UIButton) {
         
-        self.dismiss(animated: true, completion: nil)
+        if gameFinishedView == nil {
+            self.scoreLabel.alpha = 0
+            UIView.animate(withDuration: 0.4) {
+                self.wordCardView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
+                
+            }
+        }
+        else {
+            self.restartButton.alpha = 0
+            UIView.animate(withDuration: 0.4) {
+                self.gameFinishedView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
+            }
+        }
         
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.dismiss(animated: true, completion: nil)
+        }
+
     }
     
     

@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vos résultats" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRz-OW-EUx">
-                    <rect key="frame" x="10" y="107.5" width="247" height="55"/>
+                    <rect key="frame" x="15" y="107.5" width="247" height="55"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="1UG-kl-vZo"/>
                     </constraints>
@@ -25,20 +25,20 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Réponses: XX / XX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UzN-s2-enO">
-                    <rect key="frame" x="20" y="167.5" width="173" height="23"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: XX / XX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UzN-s2-enO">
+                    <rect key="frame" x="25" y="167.5" width="139" height="23"/>
                     <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pourcentage: XXX% " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bc-60-Dna">
-                    <rect key="frame" x="20" y="195.5" width="190" height="23"/>
+                    <rect key="frame" x="25" y="195.5" width="190" height="23"/>
                     <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chrono: 000.0s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="She-oh-e81">
-                    <rect key="frame" x="20" y="223.5" width="142.5" height="23"/>
+                    <rect key="frame" x="25" y="223.5" width="142.5" height="23"/>
                     <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                 <constraint firstItem="UzN-s2-enO" firstAttribute="top" secondItem="eRz-OW-EUx" secondAttribute="bottom" constant="5" id="CFF-30-1Od"/>
                 <constraint firstItem="She-oh-e81" firstAttribute="top" secondItem="7bc-60-Dna" secondAttribute="bottom" constant="5" id="L6E-ha-uao"/>
                 <constraint firstItem="UzN-s2-enO" firstAttribute="leading" secondItem="eRz-OW-EUx" secondAttribute="leading" constant="10" id="QKz-g9-ODY"/>
-                <constraint firstItem="eRz-OW-EUx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="Skx-FP-x45"/>
+                <constraint firstItem="eRz-OW-EUx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="Skx-FP-x45"/>
                 <constraint firstItem="7bc-60-Dna" firstAttribute="leading" secondItem="UzN-s2-enO" secondAttribute="leading" id="bdY-z7-IZ0"/>
                 <constraint firstItem="She-oh-e81" firstAttribute="leading" secondItem="7bc-60-Dna" secondAttribute="leading" id="kQQ-Gl-huG"/>
                 <constraint firstItem="eRz-OW-EUx" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-10" id="n1g-lE-Xpg"/>

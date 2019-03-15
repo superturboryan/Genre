@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 class MainMenuViewController: UIViewController {
 
@@ -74,34 +75,25 @@ class MainMenuViewController: UIViewController {
                             
                         }, completion: { (success) in
                             
-                            UIView.animate(withDuration: 0.4, delay: 0.3, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+                            UIView.animate(withDuration: 0.4, delay: 0.2, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
                                 
                                 self.iconButton.transform = CGAffineTransform(scaleX: 1, y: 1)
                                 
                             }, completion: { (success) in
                                 
-                                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+                                UIView.animate(withDuration: 0.6, delay: 0.1, options: .curveEaseOut, animations: {
                                     
-                                    self.iconButton.transform = CGAffineTransform(rotationAngle: 0.6)
+                                    //Lighten background
+                                    self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
                                     
-                                }, completion: { (success) in
+                                    //Add shadow to menu
+                                    self.menuView.layer.shadowColor = UIColor.black.cgColor
+                                    self.menuView.layer.shadowOpacity = 0.4
+                                    self.menuView.layer.shadowOffset = CGSize.zero
+                                    self.menuView.layer.shadowRadius = CGFloat(12)
                                     
-                                    UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                                        
-                                        self.iconButton.transform = CGAffineTransform(rotationAngle: -0.6)
-                                        
-                                    }, completion: { (success) in
-                                        
-                                        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                                            
-                                            self.iconButton.transform = CGAffineTransform(rotationAngle: 0)
-                                            
-                                        }, completion: { (success) in
-                                            
-                                            return
-                                        })
-                                    })
-                                })
+                                }, completion: nil)
+                               
                             })
                         })
                     })
@@ -118,7 +110,6 @@ class MainMenuViewController: UIViewController {
             self.menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
             
         }
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             
             self.performSegue(withIdentifier: "goToGame", sender: nil)
