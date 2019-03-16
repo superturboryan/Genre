@@ -58,6 +58,9 @@
                                                 <state key="normal" title="Options">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="optionsPressed:" destination="esT-rM-L1R" eventType="touchUpInside" id="08h-hv-PfX"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -99,11 +102,65 @@
                         <outlet property="startGameButton" destination="LeV-s5-8jJ" id="2uB-Oj-5D0"/>
                         <outlet property="wordListButton" destination="caJ-xg-UsP" id="ylg-qI-PXc"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="goToGame" modalTransitionStyle="flipHorizontal" id="bxE-Oq-SKt"/>
+                        <segue destination="2La-X6-BlC" kind="showDetail" identifier="goToOptions" animates="NO" id="9KW-9A-a4j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7EU-RK-SV0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-866" y="21"/>
+        </scene>
+        <!--Options View Controller-->
+        <scene sceneID="cbf-Og-RPy">
+            <objects>
+                <viewController id="2La-X6-BlC" customClass="OptionsViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3er-XZ-ic6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EAe-7L-K24">
+                                <rect key="frame" x="45" y="93.5" width="285" height="480"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hints: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRI-bn-wsM">
+                                        <rect key="frame" x="21" y="225" width="74" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yI1-uG-hnM">
+                                        <rect key="frame" x="195" y="225" width="49" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="hintsPressed:" destination="2La-X6-BlC" eventType="valueChanged" id="yP8-a1-9Ce"/>
+                                        </connections>
+                                    </switch>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJX-hg-kqT">
+                                        <rect key="frame" x="23" y="21" width="48" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                                        <state key="normal" title="Back">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backPressed:" destination="2La-X6-BlC" eventType="touchUpInside" id="LBU-Ry-xjw"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="q7w-Ju-8of"/>
+                    </view>
+                    <connections>
+                        <outlet property="hintsSwitch" destination="yI1-uG-hnM" id="uIY-Ov-55m"/>
+                        <outlet property="menuView" destination="EAe-7L-K24" id="eYY-hE-UMb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ckH-Ag-A8T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-866" y="814"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">

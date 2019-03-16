@@ -12,6 +12,8 @@ import ProgressHUD
 import ChameleonFramework
 
 class GameViewController: UIViewController {
+    
+    let options = UserDefaults.standard
 
     //MARK: - Outlets
     
@@ -339,6 +341,11 @@ class GameViewController: UIViewController {
         wordCardView = UINib(nibName: "WordCardView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? WordCardView
         
         wordCardView.frame = CGRect(x: 30, y: (view.frame.height - CGFloat(290)) / 2 , width: view.frame.width - CGFloat(60), height: 290)
+        
+        if options.value(forKey: "Hints") as! Bool == false {
+            
+            wordCardView.hintLabel.alpha = 0
+        }
         
         view.addSubview(wordCardView)
         

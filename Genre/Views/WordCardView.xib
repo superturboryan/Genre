@@ -57,8 +57,8 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="feminineLabel" destination="VvT-Qv-Wss" id="9jN-7C-2cb"/>
+                <outlet property="hintLabel" destination="PYk-5b-jVM" id="2l9-H6-rbp"/>
                 <outlet property="masculineLabel" destination="qES-8r-f4W" id="wUd-HE-dd2"/>
-                <outlet property="typeLabel" destination="PYk-5b-jVM" id="Bz8-Ad-M4Y"/>
                 <outlet property="wordLabel" destination="7pi-gF-pGv" id="63R-y5-hiM"/>
             </connections>
             <point key="canvasLocation" x="132.80000000000001" y="154.72263868065968"/>

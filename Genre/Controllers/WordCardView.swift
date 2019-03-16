@@ -10,8 +10,9 @@ import UIKit
 
 class WordCardView: UIView {
 
+    
     @IBOutlet weak var wordLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var hintLabel: UILabel!
     @IBOutlet weak var feminineLabel: UILabel!
     @IBOutlet weak var masculineLabel: UILabel!
     

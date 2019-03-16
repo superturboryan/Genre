@@ -11,17 +11,19 @@ import ChameleonFramework
 
 class MainMenuViewController: UIViewController {
 
+    let options = UserDefaults.standard
+    
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var startGameButton: UIButton!
     @IBOutlet weak var hintsButton: UIButton!
     @IBOutlet weak var wordListButton: UIButton!
     @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var iconButton: UIButton!
-    
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+  
         //Set soft corners
         menuView.layer.cornerRadius = CGFloat(7.0)
         startGameButton.layer.cornerRadius = CGFloat(5.0)
@@ -43,7 +45,6 @@ class MainMenuViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         
         UIView.animate(withDuration: 0.8, delay: 0.2, usingSpringWithDamping: 0.7, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
             
@@ -97,18 +98,43 @@ class MainMenuViewController: UIViewController {
     
     @IBAction func startPressed(_ sender: UIButton) {
         
+        hideMenu()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            
+            self.performSegue(withIdentifier: "goToGame", sender: nil)
+        }
+    }
+    
+    
+    @IBAction func optionsPressed(_ sender: UIButton) {
+        
+        hideMenu()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            
+            self.performSegue(withIdentifier: "goToOptions", sender: nil)
+        }
+    }
+    
+    
+    func hideMenu() {
+       
         UIView.animate(withDuration: 0.4) {
             
             self.menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
             self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            
-            self.performSegue(withIdentifier: "goToGame", sender: nil)
-        }
-
     }
     
+    
+    func loadOptions() {
+        
+        if options.bool(forKey: "Hints") != true && options.bool(forKey: "Hints") != false {
+            
+            options.set(false, forKey: "Hints")
+        }
+    }
     
     
     

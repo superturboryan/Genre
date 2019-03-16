@@ -3,16 +3,19 @@ PODS:
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
   - CSV.swift (2.3.1)
+  - Plist (1.0.0)
   - ProgressHUD (2.60)
 
 DEPENDENCIES:
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - CSV.swift
+  - Plist
   - ProgressHUD
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CSV.swift
+    - Plist
     - ProgressHUD
 
 EXTERNAL SOURCES:
@@ -27,8 +30,9 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   CSV.swift: d16f671b3090a2c0525d5f2165b18319074aae2b
+  Plist: b103e58c19f0bc39e217b31046e9e0503e17a7ff
   ProgressHUD: 4e4efbaf4f5de8bd32e0c4c3b6644a90ea1a8c3e
 
-PODFILE CHECKSUM: 3151bb8ab690a347cf2766beee1bfff5577fb330
+PODFILE CHECKSUM: 4034a2bb40e4107f665e96386e66668d42fbc66d
 
 COCOAPODS: 1.5.3
