@@ -45,9 +45,16 @@ class MainMenuViewController: UIViewController {
         super.viewDidAppear(animated)
         
         
-        UIView.animate(withDuration: 0.8, delay: 0.7, usingSpringWithDamping: 0.5, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.8, delay: 0.2, usingSpringWithDamping: 0.7, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
             
             self.menuView.transform = CGAffineTransform.identity
+            //Lighten background
+            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
+            //Add shadow to menu
+            self.menuView.layer.shadowColor = UIColor.black.cgColor
+            self.menuView.layer.shadowOpacity = 0.4
+            self.menuView.layer.shadowOffset = CGSize.zero
+            self.menuView.layer.shadowRadius = CGFloat(12)
             
         }) { (success) in
             
@@ -69,32 +76,17 @@ class MainMenuViewController: UIViewController {
                         
                     }, completion: { (success) in
                         
-                        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+                        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
                             
                             self.optionsButton.transform = CGAffineTransform.identity
                             
                         }, completion: { (success) in
                             
-                            UIView.animate(withDuration: 0.4, delay: 0.2, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+                            UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
                                 
                                 self.iconButton.transform = CGAffineTransform(scaleX: 1, y: 1)
-                                
-                            }, completion: { (success) in
-                                
-                                UIView.animate(withDuration: 0.6, delay: 0.1, options: .curveEaseOut, animations: {
-                                    
-                                    //Lighten background
-                                    self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
-                                    
-                                    //Add shadow to menu
-                                    self.menuView.layer.shadowColor = UIColor.black.cgColor
-                                    self.menuView.layer.shadowOpacity = 0.4
-                                    self.menuView.layer.shadowOffset = CGSize.zero
-                                    self.menuView.layer.shadowRadius = CGFloat(12)
-                                    
-                                }, completion: nil)
                                
-                            })
+                            }, completion: nil)
                         })
                     })
                 })
@@ -108,7 +100,7 @@ class MainMenuViewController: UIViewController {
         UIView.animate(withDuration: 0.4) {
             
             self.menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
-            
+            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             

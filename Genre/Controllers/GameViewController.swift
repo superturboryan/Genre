@@ -85,6 +85,8 @@ class GameViewController: UIViewController {
 //        restartButton.layer.shadowOffset = CGSize.zero
 //        restartButton.layer.shadowRadius = CGFloat(12)
         
+        self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
+        
         restartButton.layer.cornerRadius = CGFloat(10)
         
         restartButton.alpha = 0
@@ -102,6 +104,10 @@ class GameViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseOut, animations: {
+            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
+        }, completion: nil)
+        
         createNewCard()
         
         updateUI(questionNum : questionNumber)
@@ -114,7 +120,7 @@ class GameViewController: UIViewController {
         
         let viewWidth : CGFloat = view.frame.size.width
         
-        UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.7, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
             self.progressBar.frame.size.width = (viewWidth / CGFloat(self.numberOfQuestions)) * CGFloat(questionNum)
         }, completion: nil)
         
@@ -345,7 +351,7 @@ class GameViewController: UIViewController {
         wordCardView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
       
         
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.2) {
             
             //Reverse fading and shrinking
             self.wordCardView.alpha = 1
@@ -434,6 +440,7 @@ class GameViewController: UIViewController {
             self.scoreLabel.alpha = 0
             UIView.animate(withDuration: 0.4) {
                 self.wordCardView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
+                self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
                 
             }
         }
@@ -441,6 +448,8 @@ class GameViewController: UIViewController {
             self.restartButton.alpha = 0
             UIView.animate(withDuration: 0.4) {
                 self.gameFinishedView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
+                self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
+
             }
         }
         
