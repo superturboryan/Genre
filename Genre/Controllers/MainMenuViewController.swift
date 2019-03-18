@@ -46,7 +46,7 @@ class MainMenuViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIView.animate(withDuration: 0.8, delay: 0.2, usingSpringWithDamping: 0.7, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
             
             self.menuView.transform = CGAffineTransform.identity
             //Lighten background
@@ -59,7 +59,7 @@ class MainMenuViewController: UIViewController {
             
         }) { (success) in
             
-            UIView.animate(withDuration: 0.2, delay: 0.2, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0.3, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
                 
                 self.startGameButton.transform = CGAffineTransform.identity
                 
@@ -101,7 +101,6 @@ class MainMenuViewController: UIViewController {
         hideMenu()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            
             self.performSegue(withIdentifier: "goToGame", sender: nil)
         }
     }
@@ -111,7 +110,7 @@ class MainMenuViewController: UIViewController {
         
         hideMenu()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             
             self.performSegue(withIdentifier: "goToOptions", sender: nil)
         }
@@ -119,19 +118,56 @@ class MainMenuViewController: UIViewController {
     
     
     func hideMenu() {
-       
-        UIView.animate(withDuration: 0.4) {
-            
+        
+        UIView.animate(withDuration: 0.5, delay: 0.05, options: .curveEaseOut, animations: {
             self.menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
             self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
-        }
+        }, completion: nil)
+       
+    }
+    
+    func hideButtons() {
+        
+        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+            
+            self.startGameButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+            
+        }, completion: { (success) in
+            
+            UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+                
+                self.hintsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+                
+            }, completion: { (success) in
+                
+                UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+                    
+                    self.wordListButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+                    
+                }, completion: { (success) in
+                    
+                    UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+                        
+                        self.optionsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+                        
+                    }, completion: { (success) in
+                        
+                        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+                            
+                            self.iconButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+                            
+                        }, completion: nil)
+                    })
+                })
+            })
+        })
+        
     }
     
     
     func loadOptions() {
         
         if options.bool(forKey: "Hints") != true && options.bool(forKey: "Hints") != false {
-            
             options.set(false, forKey: "Hints")
         }
     }

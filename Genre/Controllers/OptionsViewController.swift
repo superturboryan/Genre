@@ -35,35 +35,32 @@ class OptionsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIView.animate(withDuration: 0.9, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.8, delay: 0.4, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
             
             self.menuView.transform = CGAffineTransform.identity
             
             //Lighten background
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
+            
             //Add shadow to menu
-            self.menuView.layer.shadowColor = UIColor.black.cgColor
-            self.menuView.layer.shadowOpacity = 0.4
-            self.menuView.layer.shadowOffset = CGSize.zero
-            self.menuView.layer.shadowRadius = CGFloat(12)
+            self.addMenuShadow()
             
         }, completion: nil)
-        
     }
     
     @IBAction func backPressed(_ sender: UIButton) {
         
-        UIView.animate(withDuration: 0.9, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-            
-            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
+        UIView.animate(withDuration: 0.5, delay: 0.05, options: .curveEaseOut, animations: {
             
             self.menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
-            
+            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
+        
         }) { (success) in
             
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
     
     @IBAction func hintsPressed(_ sender: UISwitch) {
         
@@ -79,12 +76,16 @@ class OptionsViewController: UIViewController {
     }
     
     
+    func addMenuShadow() {
+        
+        menuView.layer.shadowColor = UIColor.black.cgColor
+        menuView.layer.shadowOpacity = 0.4
+        menuView.layer.shadowOffset = CGSize.zero
+        menuView.layer.shadowRadius = CGFloat(12)
+    }
     
     
-    
-
-    
-    
+ 
     
     
     

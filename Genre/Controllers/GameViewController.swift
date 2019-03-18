@@ -81,11 +81,6 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Set up restart button for later
-//        restartButton.layer.shadowColor = UIColor.black.cgColor
-//        restartButton.layer.shadowOpacity = 0.4
-//        restartButton.layer.shadowOffset = CGSize.zero
-//        restartButton.layer.shadowRadius = CGFloat(12)
         
         self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
         
