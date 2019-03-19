@@ -16,9 +16,14 @@ class OptionsViewController: UIViewController {
     
     @IBOutlet weak var hintsSwitch: UISwitch!
     
+    @IBOutlet weak var timerSwitch: UISwitch!
+    
+    
     let options = UserDefaults.standard
     
     var hintOption : Bool = false
+    
+    var timerOption : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +31,10 @@ class OptionsViewController: UIViewController {
         hintOption = options.value(forKey: "Hints") as! Bool
         
         hintsSwitch.isOn = hintOption
+        
+        timerOption = hintOption
+        
+        timerSwitch.isOn = timerOption
         
         menuView.layer.cornerRadius = CGFloat(7.0)
 
@@ -76,6 +85,19 @@ class OptionsViewController: UIViewController {
     }
     
     
+    @IBAction func timerPressed(_ sender: UISwitch) {
+        
+        if sender.isOn {
+            options.set(true, forKey: "Timer")
+        }
+        else {
+            options.set(false, forKey: "Timer")
+        }
+        
+    }
+    
+    
+    
     func addMenuShadow() {
         
         menuView.layer.shadowColor = UIColor.black.cgColor
@@ -83,12 +105,6 @@ class OptionsViewController: UIViewController {
         menuView.layer.shadowOffset = CGSize.zero
         menuView.layer.shadowRadius = CGFloat(12)
     }
-    
-    
- 
-    
-    
-    
     
     
 

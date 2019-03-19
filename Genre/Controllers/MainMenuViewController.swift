@@ -23,6 +23,8 @@ class MainMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadOptions()
   
         //Set soft corners
         menuView.layer.cornerRadius = CGFloat(7.0)
@@ -100,7 +102,7 @@ class MainMenuViewController: UIViewController {
         
         hideMenu()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             self.performSegue(withIdentifier: "goToGame", sender: nil)
         }
     }
@@ -167,9 +169,14 @@ class MainMenuViewController: UIViewController {
     
     func loadOptions() {
         
+        //Set hints to false by default
         if options.bool(forKey: "Hints") != true && options.bool(forKey: "Hints") != false {
+            
             options.set(false, forKey: "Hints")
+            options.set(false, forKey: "Timer")
         }
+        
+        
     }
     
     

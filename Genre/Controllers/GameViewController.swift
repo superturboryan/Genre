@@ -27,13 +27,13 @@ class GameViewController: UIViewController {
 
     @IBOutlet weak var backButton: UIButton!
     
+    @IBOutlet weak var timerLabel: UILabel!
+    
     
     //MARK: - Variables
     
     //Game variables
-    
-    private var startTime = Date()
-    
+
     private var wordList : [String] = []
     
     internal var wordArray : [Word] = []
@@ -47,6 +47,13 @@ class GameViewController: UIViewController {
     private var questionBank : [Word] = []
     
     internal var numberOfQuestions : Int = 10
+    
+    //Timer variables
+    
+    private var counter = 0.0
+    
+    private var timer = Timer()
+ 
     
     //UI Variables
     
@@ -81,7 +88,6 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
         
         restartButton.layer.cornerRadius = CGFloat(10)
@@ -95,6 +101,15 @@ class GameViewController: UIViewController {
         loadQuestionBank(numOfQuestions : numberOfQuestions)
         
         plusOneLabel.alpha = 0
+        
+        //Check whether to display timer
+        if options.value(forKey: "Timer") as! Bool == false {
+            
+            timerLabel.alpha = 0
+        }
+        
+        timerLabel.text = String(counter)
+        
     }
     
     
@@ -102,12 +117,15 @@ class GameViewController: UIViewController {
         super.viewDidAppear(animated)
         
         UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseOut, animations: {
+            
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
         }, completion: nil)
         
         createNewCard()
         
         updateUI(questionNum : questionNumber)
+        
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
     func updateUI(questionNum : Int) {
@@ -120,10 +138,12 @@ class GameViewController: UIViewController {
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
             self.progressBar.frame.size.width = (viewWidth / CGFloat(self.numberOfQuestions)) * CGFloat(questionNum)
         }, completion: nil)
-        
-
     }
     
+    @objc func updateTimer() {
+        counter += 0.1
+        timerLabel.text = String(format: "%.1f" , counter)
+    }
     
     @objc func wordCardViewPanned(recognizer : UIPanGestureRecognizer) {
         
@@ -204,6 +224,8 @@ class GameViewController: UIViewController {
                    
                     //Check if quiz has finished!
                     if self.questionNumber == self.questionBank.count {
+                        
+                        self.timer.invalidate()
                         
                         //Darken background view and back button
                         UIView.animate(withDuration: 0.7, animations: {
@@ -372,16 +394,11 @@ class GameViewController: UIViewController {
         
         view.addSubview(gameFinishedView)
         
-        
-        let endTime = Date()
-        
-        let timeElapsed  =  String(format: "%.1f", endTime.timeIntervalSince(startTime))
-        
         let percentage = String(format: "%.1f" , (Double(userScore) / Double(questionBank.count)) * 100.0)
         
         gameFinishedView.correctAnswers.text = "Score: \(userScore) / \(questionBank.count)"
         gameFinishedView.percentage.text = "Pourcentage: " + percentage + "%"
-        gameFinishedView.chrono.text = "Chrono: " + timeElapsed + "s"
+        gameFinishedView.chrono.text = "Chrono: " + String(format: "%.1f" , counter) + " s"
         
         
         gameFinishedView.alpha = 0
@@ -389,6 +406,7 @@ class GameViewController: UIViewController {
         
         UIView.animate(withDuration: 0.4) {
             
+            self.timerLabel.alpha = 0
             self.gameFinishedView.alpha = 1
             self.gameFinishedView.transform = CGAffineTransform.identity
 //            self.scoreLabel.alpha = 0
@@ -404,7 +422,8 @@ class GameViewController: UIViewController {
         userScore = 0
         questionNumber = 0
         loadQuestionBank(numOfQuestions: numberOfQuestions)
-        startTime = Date()
+        
+        counter = 0
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
             
@@ -414,6 +433,7 @@ class GameViewController: UIViewController {
             self.gameFinishedView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
             self.restartButton.alpha = 0
             self.scoreLabel.alpha = 1
+            self.timerLabel.alpha = 1
             //Lighten background and progress bar to normal
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.4)
             self.progressBar.backgroundColor = self.progressBar.backgroundColor?.lighten(byPercentage: 0.4)
@@ -425,6 +445,7 @@ class GameViewController: UIViewController {
             self.gameFinishedView.removeFromSuperview()
             self.createNewCard()
             self.updateUI(questionNum: self.questionNumber)
+            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
         }
        
         
@@ -438,25 +459,24 @@ class GameViewController: UIViewController {
     
     @IBAction func backPressed(_ sender: UIButton) {
         
+        //Check if game has finished or not by seeing if a gameFinishedView has loaded
         if gameFinishedView == nil {
             self.scoreLabel.alpha = 0
-            UIView.animate(withDuration: 0.4) {
+            UIView.animate(withDuration: 0.5, delay: 0.05, options: .curveEaseOut, animations: {
                 self.wordCardView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
                 self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
-                
-            }
+                self.timerLabel.alpha = 0
+            }, completion: nil)
         }
         else {
             self.restartButton.alpha = 0
-            UIView.animate(withDuration: 0.4) {
+            UIView.animate(withDuration: 0.5, delay: 0.05, options: .curveEaseOut, animations: {
                 self.gameFinishedView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
                 self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
-
-            }
+            }, completion: nil)
         }
         
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             self.dismiss(animated: true, completion: nil)
         }
 
