@@ -59,7 +59,10 @@ class MainMenuViewController: UIViewController {
             self.menuView.layer.shadowOffset = CGSize.zero
             self.menuView.layer.shadowRadius = CGFloat(12)
             
+            //Make buttons pop-up sequentially
+            
         }) { (success) in
+            
             
             UIView.animate(withDuration: 0.2, delay: 0.3, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
                 
@@ -174,6 +177,7 @@ class MainMenuViewController: UIViewController {
             
             options.set(false, forKey: "Hints")
             options.set(false, forKey: "Timer")
+            options.set(false, forKey: "Progress")
         }
         
         

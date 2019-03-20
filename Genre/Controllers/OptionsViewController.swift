@@ -18,12 +18,14 @@ class OptionsViewController: UIViewController {
     
     @IBOutlet weak var timerSwitch: UISwitch!
     
+    @IBOutlet weak var progressBarSwitch: UISwitch!
+    
     
     let options = UserDefaults.standard
     
     var hintOption : Bool = false
     
-    var timerOption : Bool = false
+//    var timerOption : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +34,13 @@ class OptionsViewController: UIViewController {
         
         hintsSwitch.isOn = hintOption
         
-        timerOption = hintOption
+        guard let timerOption = options.value(forKey: "Timer") as? Bool else {return}
         
         timerSwitch.isOn = timerOption
+        
+        guard let progressOption = options.value(forKey: "Progress") as? Bool else {return}
+        
+        progressBarSwitch.isOn = progressOption
         
         menuView.layer.cornerRadius = CGFloat(7.0)
 
@@ -92,6 +98,18 @@ class OptionsViewController: UIViewController {
         }
         else {
             options.set(false, forKey: "Timer")
+        }
+        
+    }
+    
+    
+    @IBAction func progressPressed(_ sender: UISwitch) {
+        
+        if sender.isOn {
+            options.set(true, forKey: "Progress")
+        }
+        else {
+            options.set(false, forKey: "Progress")
         }
         
     }

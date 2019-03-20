@@ -108,6 +108,12 @@ class GameViewController: UIViewController {
             timerLabel.alpha = 0
         }
         
+        //And whether to display progress bar
+        if options.value(forKey: "Progress") as! Bool == false {
+            
+            progressBar.alpha = 0
+        }
+        
         timerLabel.text = String(counter)
         
     }
@@ -125,8 +131,11 @@ class GameViewController: UIViewController {
         
         updateUI(questionNum : questionNumber)
         
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
+        }
     }
+    
     
     func updateUI(questionNum : Int) {
         
@@ -135,15 +144,21 @@ class GameViewController: UIViewController {
         
         let viewWidth : CGFloat = view.frame.size.width
         
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-            self.progressBar.frame.size.width = (viewWidth / CGFloat(self.numberOfQuestions)) * CGFloat(questionNum)
-        }, completion: nil)
+        if options.value(forKey: "Progress") as! Bool == true {
+            
+            UIView.animate(withDuration: 0.8, delay: 0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+                self.progressBar.frame.size.width = (viewWidth / CGFloat(self.numberOfQuestions)) * CGFloat(questionNum)
+            }, completion: nil)
+        }
     }
+    
     
     @objc func updateTimer() {
         counter += 0.1
         timerLabel.text = String(format: "%.1f" , counter)
     }
+    
+    
     
     @objc func wordCardViewPanned(recognizer : UIPanGestureRecognizer) {
         
@@ -274,17 +289,21 @@ class GameViewController: UIViewController {
             userScore += 1
             print("Correct!")
             
-            UIView.animate(withDuration: 0.4, animations: {
-                
-                self.plusOneLabel.alpha = 1
-                
-            }) { (success) in
             
+            UIView.animate(withDuration: 0.4, animations: {
+
+                self.plusOneLabel.alpha = 1
+                self.scoreLabel.alpha = 0
+
+            }) { (success) in
+
                 UIView.animate(withDuration: 0.2, animations: {
-                    
+
                     self.plusOneLabel.alpha = 0
-                    
+                    self.scoreLabel.alpha = 1
+
                 }, completion: nil)
+
             }
             
         }
@@ -407,6 +426,7 @@ class GameViewController: UIViewController {
         UIView.animate(withDuration: 0.4) {
             
             self.timerLabel.alpha = 0
+            self.scoreLabel.alpha = 0
             self.gameFinishedView.alpha = 1
             self.gameFinishedView.transform = CGAffineTransform.identity
 //            self.scoreLabel.alpha = 0
@@ -431,21 +451,29 @@ class GameViewController: UIViewController {
             let transform = CGAffineTransform(translationX: self.view.frame.width, y: 0)
             //Combine previous transform with rotation
             self.gameFinishedView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+            
             self.restartButton.alpha = 0
             self.scoreLabel.alpha = 1
             self.timerLabel.alpha = 1
+            
             //Lighten background and progress bar to normal
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.4)
             self.progressBar.backgroundColor = self.progressBar.backgroundColor?.lighten(byPercentage: 0.4)
+            
             //Change back button color back to white
             self.backButton.setTitleColor(UIColor.white, for: .normal)
             
         }) { (success) in
+            
             //And remove from SuperView
             self.gameFinishedView.removeFromSuperview()
             self.createNewCard()
             self.updateUI(questionNum: self.questionNumber)
-            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
+            
+            ///////////////////////////////////////////////////////
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
+            }
         }
        
         
