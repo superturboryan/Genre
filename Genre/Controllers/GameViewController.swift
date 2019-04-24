@@ -88,6 +88,10 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let numberOfQuestionsOption: Int = options.value(forKey: "WordCount") as? Int else {fatalError()}
+        
+        numberOfQuestions = numberOfQuestionsOption
+        
         self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
         
         restartButton.layer.cornerRadius = CGFloat(10)
@@ -98,7 +102,7 @@ class GameViewController: UIViewController {
         
         loadCSV()
         
-        loadQuestionBank(numOfQuestions : numberOfQuestions)
+        loadQuestionBank(numOfQuestions : numberOfQuestionsOption)
         
         plusOneLabel.alpha = 0
         

@@ -20,6 +20,9 @@ class OptionsViewController: UIViewController {
     
     @IBOutlet weak var progressBarSwitch: UISwitch!
     
+    @IBOutlet weak var numOfWordsSlider: UISlider!
+    
+    @IBOutlet weak var numOfWordsLabel: UILabel!
     
     let options = UserDefaults.standard
     
@@ -30,7 +33,8 @@ class OptionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        hintOption = options.value(forKey: "Hints") as! Bool
+        //Set values for switches and slider
+        guard let hintOption = options.value(forKey: "Hints") as? Bool else {return}
         
         hintsSwitch.isOn = hintOption
         
@@ -42,6 +46,13 @@ class OptionsViewController: UIViewController {
         
         progressBarSwitch.isOn = progressOption
         
+        guard let wordCountOption = options.value(forKey: "WordCount") as? Int else {return}
+        
+        numOfWordsLabel.text = String(wordCountOption)
+        
+        numOfWordsSlider.value = Float(wordCountOption)
+        
+        //View styling
         menuView.layer.cornerRadius = CGFloat(7.0)
 
         menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
@@ -115,6 +126,12 @@ class OptionsViewController: UIViewController {
     }
     
     
+    @IBAction func numOfWordsSet(_ sender: UISlider) {
+        
+        numOfWordsLabel.text = String(Int(sender.value))
+        
+        options.set(Int(sender.value), forKey: "WordCount")
+    }
     
     func addMenuShadow() {
         

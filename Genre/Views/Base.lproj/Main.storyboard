@@ -132,7 +132,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJX-hg-kqT">
                                         <rect key="frame" x="25" y="20" width="48" height="36"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="48" id="Bcf-v2-nIr"/>
                                             <constraint firstAttribute="height" constant="36" id="opO-br-lsf"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
@@ -164,33 +163,64 @@
                                             <action selector="timerPressed:" destination="2La-X6-BlC" eventType="valueChanged" id="g4l-1r-8Xi"/>
                                         </connections>
                                     </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tC-Kx-mDs">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tC-Kx-mDs">
                                         <rect key="frame" x="25" y="369" width="103" height="60"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <string key="text">Progress
 Bar : </string>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Mnd-SG-d5M">
-                                        <rect key="frame" x="171" y="384" width="49" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Mnd-SG-d5M">
+                                        <rect key="frame" x="171" y="383.5" width="51" height="31"/>
                                         <connections>
                                             <action selector="progressPressed:" destination="2La-X6-BlC" eventType="valueChanged" id="xHD-92-qRb"/>
                                         </connections>
                                     </switch>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="5" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="9Yf-LT-R0D">
+                                        <rect key="frame" x="35" y="155" width="215" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="XYz-T1-zQc"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="numOfWordsSet:" destination="2La-X6-BlC" eventType="valueChanged" id="CgG-dD-DoI"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# of Words:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ly-kz-fvp">
+                                        <rect key="frame" x="25" y="91" width="132.5" height="30"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#####" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1HL-df-RDT">
+                                        <rect key="frame" x="171" y="91" width="70" height="30"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="0th-oW-anG" firstAttribute="top" secondItem="bRI-bn-wsM" secondAttribute="bottom" constant="45" id="3CO-c9-Pdp"/>
+                                    <constraint firstItem="9Yf-LT-R0D" firstAttribute="top" secondItem="9Ly-kz-fvp" secondAttribute="bottom" constant="34" id="4iV-Sz-OKf"/>
+                                    <constraint firstItem="9Yf-LT-R0D" firstAttribute="centerX" secondItem="EAe-7L-K24" secondAttribute="centerX" id="5QQ-QZ-bfy"/>
+                                    <constraint firstItem="bRI-bn-wsM" firstAttribute="top" secondItem="9Yf-LT-R0D" secondAttribute="bottom" constant="40" id="7Dn-vl-VVx"/>
                                     <constraint firstItem="VI6-hI-wWH" firstAttribute="leading" secondItem="0th-oW-anG" secondAttribute="trailing" constant="66" id="82R-KH-X0T"/>
                                     <constraint firstItem="vJX-hg-kqT" firstAttribute="top" secondItem="EAe-7L-K24" secondAttribute="top" constant="20" id="Bec-0Y-Qed"/>
                                     <constraint firstItem="yI1-uG-hnM" firstAttribute="leading" secondItem="bRI-bn-wsM" secondAttribute="trailing" constant="65" id="DNx-jV-H8G"/>
+                                    <constraint firstAttribute="bottom" secondItem="1tC-Kx-mDs" secondAttribute="bottom" constant="61" id="Dxe-FV-erA"/>
                                     <constraint firstItem="vJX-hg-kqT" firstAttribute="leading" secondItem="EAe-7L-K24" secondAttribute="leading" constant="25" id="ICH-8h-UPG"/>
                                     <constraint firstItem="0th-oW-anG" firstAttribute="leading" secondItem="bRI-bn-wsM" secondAttribute="leading" id="MHe-yu-MtJ"/>
+                                    <constraint firstItem="9Ly-kz-fvp" firstAttribute="leading" secondItem="bRI-bn-wsM" secondAttribute="leading" id="OdY-P6-ZJi"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vJX-hg-kqT" secondAttribute="trailing" constant="212" id="OvJ-qJ-MoD"/>
+                                    <constraint firstItem="1tC-Kx-mDs" firstAttribute="leading" secondItem="EAe-7L-K24" secondAttribute="leading" constant="25" id="TbS-Gy-ttp"/>
+                                    <constraint firstItem="1HL-df-RDT" firstAttribute="leading" secondItem="9Ly-kz-fvp" secondAttribute="trailing" constant="13.5" id="aWn-AV-Le1"/>
                                     <constraint firstItem="bRI-bn-wsM" firstAttribute="top" secondItem="vJX-hg-kqT" secondAttribute="bottom" constant="169" id="iuf-54-lA1"/>
+                                    <constraint firstItem="9Yf-LT-R0D" firstAttribute="leading" secondItem="EAe-7L-K24" secondAttribute="leading" constant="37" id="j1l-Pk-cNg"/>
+                                    <constraint firstItem="1HL-df-RDT" firstAttribute="bottom" secondItem="9Ly-kz-fvp" secondAttribute="bottom" id="lFy-st-XQ5"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yI1-uG-hnM" secondAttribute="trailing" constant="20" id="oOM-5o-eKT"/>
+                                    <constraint firstItem="Mnd-SG-d5M" firstAttribute="leading" secondItem="1tC-Kx-mDs" secondAttribute="trailing" constant="43" id="oxg-c8-mEz"/>
+                                    <constraint firstItem="Mnd-SG-d5M" firstAttribute="centerY" secondItem="1tC-Kx-mDs" secondAttribute="centerY" id="rOF-x9-Xai"/>
                                     <constraint firstItem="yI1-uG-hnM" firstAttribute="centerY" secondItem="bRI-bn-wsM" secondAttribute="centerY" id="uGO-mV-qrO"/>
                                     <constraint firstItem="bRI-bn-wsM" firstAttribute="leading" secondItem="EAe-7L-K24" secondAttribute="leading" constant="25" id="umA-eb-4BH"/>
                                     <constraint firstItem="VI6-hI-wWH" firstAttribute="bottom" secondItem="0th-oW-anG" secondAttribute="bottom" id="xQY-jc-PUN"/>
@@ -210,13 +240,15 @@ Bar : </string>
                     <connections>
                         <outlet property="hintsSwitch" destination="yI1-uG-hnM" id="uIY-Ov-55m"/>
                         <outlet property="menuView" destination="EAe-7L-K24" id="eYY-hE-UMb"/>
+                        <outlet property="numOfWordsLabel" destination="1HL-df-RDT" id="a7O-ST-xWv"/>
+                        <outlet property="numOfWordsSlider" destination="9Yf-LT-R0D" id="PA2-RG-boq"/>
                         <outlet property="progressBarSwitch" destination="Mnd-SG-d5M" id="PVO-Pv-XWh"/>
                         <outlet property="timerSwitch" destination="VI6-hI-wWH" id="JYq-kq-I6Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckH-Ag-A8T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-866" y="814"/>
+            <point key="canvasLocation" x="-866.39999999999998" y="813.64317841079469"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">
