@@ -222,7 +222,7 @@ Bar : </string>
                                     <constraint firstItem="vJX-hg-kqT" firstAttribute="leading" secondItem="EAe-7L-K24" secondAttribute="leading" constant="25" id="ICH-8h-UPG"/>
                                     <constraint firstItem="0th-oW-anG" firstAttribute="leading" secondItem="bRI-bn-wsM" secondAttribute="leading" id="MHe-yu-MtJ"/>
                                     <constraint firstItem="9Ly-kz-fvp" firstAttribute="leading" secondItem="bRI-bn-wsM" secondAttribute="leading" id="OdY-P6-ZJi"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vJX-hg-kqT" secondAttribute="trailing" constant="212" id="OvJ-qJ-MoD"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vJX-hg-kqT" secondAttribute="trailing" constant="10" id="OvJ-qJ-MoD"/>
                                     <constraint firstItem="1tC-Kx-mDs" firstAttribute="leading" secondItem="EAe-7L-K24" secondAttribute="leading" constant="25" id="TbS-Gy-ttp"/>
                                     <constraint firstItem="1HL-df-RDT" firstAttribute="leading" secondItem="9Ly-kz-fvp" secondAttribute="trailing" constant="13.5" id="aWn-AV-Le1"/>
                                     <constraint firstItem="bRI-bn-wsM" firstAttribute="top" secondItem="vJX-hg-kqT" secondAttribute="bottom" constant="169" id="iuf-54-lA1"/>
@@ -248,11 +248,15 @@ Bar : </string>
                         <viewLayoutGuide key="safeArea" id="q7w-Ju-8of"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="vJX-hg-kqT" id="2SQ-wi-eTT"/>
+                        <outlet property="hintsLabel" destination="bRI-bn-wsM" id="Edn-Yy-F2o"/>
                         <outlet property="hintsSwitch" destination="yI1-uG-hnM" id="uIY-Ov-55m"/>
                         <outlet property="menuView" destination="EAe-7L-K24" id="eYY-hE-UMb"/>
-                        <outlet property="numOfWordsLabel" destination="1HL-df-RDT" id="a7O-ST-xWv"/>
+                        <outlet property="numOfWordsLabel" destination="9Ly-kz-fvp" id="1aS-MO-FrB"/>
                         <outlet property="numOfWordsSlider" destination="9Yf-LT-R0D" id="PA2-RG-boq"/>
                         <outlet property="progressBarSwitch" destination="Mnd-SG-d5M" id="PVO-Pv-XWh"/>
+                        <outlet property="progressLabel" destination="1tC-Kx-mDs" id="oad-cW-hP2"/>
+                        <outlet property="timerLabel" destination="0th-oW-anG" id="Ty5-uH-fjQ"/>
                         <outlet property="timerSwitch" destination="VI6-hI-wWH" id="JYq-kq-I6Q"/>
                     </connections>
                 </viewController>

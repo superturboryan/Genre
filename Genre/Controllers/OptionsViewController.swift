@@ -22,6 +22,16 @@ class OptionsViewController: UIViewController {
     
     @IBOutlet weak var numOfWordsSlider: UISlider!
     
+    //Labels
+    
+    @IBOutlet weak var backButton: UIButton!
+    
+    @IBOutlet weak var hintsLabel: UILabel!
+    
+    @IBOutlet weak var timerLabel: UILabel!
+    
+    @IBOutlet weak var progressLabel: UILabel!
+    
     @IBOutlet weak var numOfWordsLabel: UILabel!
     
     let options = UserDefaults.standard
@@ -56,7 +66,16 @@ class OptionsViewController: UIViewController {
         menuView.layer.cornerRadius = CGFloat(7.0)
 
         menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height)
-        print("Menu hidden!")
+        
+        //Set label language
+        
+        backButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
+            "Dernier page":"Back", for: .normal)
+        hintsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Conseils :":"Hints :"
+        timerLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Chrono :":"Timer :"
+        progressLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Progrès :":"Progress Bar :"
+        numOfWordsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Numéro de mots :":"Word Count :"
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
