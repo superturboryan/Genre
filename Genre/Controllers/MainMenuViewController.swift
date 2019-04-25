@@ -43,6 +43,15 @@ class MainMenuViewController: UIViewController {
         optionsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
         iconButton.transform = CGAffineTransform(scaleX: 0, y: 0)
 
+        //Set button label language
+        startGameButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
+            "Commencer":"Start", for: .normal)
+        hintsButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
+            "Conseils":"Hints" , for: .normal)
+        wordListButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
+            "Vocabulaire":"Word List" , for: .normal)
+        optionsButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
+            "Réglages":"Settings", for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -122,6 +131,35 @@ class MainMenuViewController: UIViewController {
     }
     
     
+    @IBAction func languageButtonPressed(_ sender: UIButton) {
+        
+        guard let currentLang = options.value(forKey: "FrenchLanguage") as? Bool
+            else {fatalError()}
+        
+        options.set(!currentLang, forKey: "FrenchLanguage")
+        
+        hideMenu()
+        
+        changeLabelLanguage()
+        
+        UIView.animate(withDuration: 0.8, delay: 0.8, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+            
+            self.menuView.transform = CGAffineTransform.identity
+            //Lighten background
+            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
+            //Add shadow to menu
+            self.menuView.layer.shadowColor = UIColor.black.cgColor
+            self.menuView.layer.shadowOpacity = 0.4
+            self.menuView.layer.shadowOffset = CGSize.zero
+            self.menuView.layer.shadowRadius = CGFloat(12)
+            
+        }, completion: nil)
+        
+    }
+    
+    
+    //UI animation functions
+    
     func hideMenu() {
         
         UIView.animate(withDuration: 0.5, delay: 0.05, options: .curveEaseOut, animations: {
@@ -169,15 +207,40 @@ class MainMenuViewController: UIViewController {
         
     }
     
+    func changeLabelLanguage() {
+        
+        guard let currentLanguageIsFrench = options.value(forKey: "FrenchLanguage") as? Bool
+            else {fatalError()}
+        
+        if (currentLanguageIsFrench == true) {
+            
+            startGameButton.setTitle("Commencer", for: .normal)
+            hintsButton.setTitle("Conseils", for: .normal)
+            wordListButton.setTitle("Vocabulaire", for: .normal)
+            optionsButton.setTitle("Réglages", for: .normal)
+        }
+        else{
+            startGameButton.setTitle("Start", for: .normal)
+            hintsButton.setTitle("Hints", for: .normal)
+            wordListButton.setTitle("Word List", for: .normal)
+            optionsButton.setTitle("Settings", for: .normal)
+        }
+    }
     
     func loadOptions() {
         
-        //Set hints to false by default
-        if options.bool(forKey: "Hints") != true && options.bool(forKey: "Hints") != false {
+        //Set hints to false by default after checking if the first is set
+        if options.bool(forKey: "OptionsSet") == false{
+            
+            options.set(true, forKey: "OptionsSet")
             
             options.set(false, forKey: "Hints")
             options.set(false, forKey: "Timer")
-            options.set(false, forKey: "Progress")
+            options.set(true, forKey: "Progress")
+            options.set(10, forKey: "WordCount")
+            options.set(false, forKey: "FrenchLanguage")
+            
+            print("Default options set!" + String(options.bool(forKey: "OptionsSet")))
         }
         
         

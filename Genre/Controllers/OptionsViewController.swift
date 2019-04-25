@@ -55,7 +55,8 @@ class OptionsViewController: UIViewController {
         //View styling
         menuView.layer.cornerRadius = CGFloat(7.0)
 
-        menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
+        menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height)
+        print("Menu hidden!")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,6 +65,7 @@ class OptionsViewController: UIViewController {
         UIView.animate(withDuration: 0.8, delay: 0.4, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
             
             self.menuView.transform = CGAffineTransform.identity
+            print("Menu sliding up!")
             
             //Lighten background
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
