@@ -13,6 +13,8 @@ class GameFinishedView: UIView {
     @IBOutlet weak var correctAnswers: UILabel!
     @IBOutlet weak var percentage: UILabel!
     @IBOutlet weak var chrono: UILabel!
+    @IBOutlet weak var wpm: UILabel!
+    
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()

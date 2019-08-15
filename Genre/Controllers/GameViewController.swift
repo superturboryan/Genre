@@ -419,10 +419,12 @@ class GameViewController: UIViewController {
         
         let percentage = String(format: "%.1f" , (Double(userScore) / Double(questionBank.count)) * 100.0)
         
+        let wpm = ( Double(numberOfQuestions) / counter ) * 60.0
+        
         gameFinishedView.correctAnswers.text = "Score: \(userScore) / \(questionBank.count)"
         gameFinishedView.percentage.text = "Pourcentage: " + percentage + "%"
         gameFinishedView.chrono.text = "Chrono: " + String(format: "%.1f" , counter) + " s"
-        
+        gameFinishedView.wpm.text = "MPM: " + String(format: "%.1f" , wpm)
         
         gameFinishedView.alpha = 0
         gameFinishedView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
@@ -483,12 +485,7 @@ class GameViewController: UIViewController {
         
         
         }
-        
-    
-        
-        
-    
-    
+
     @IBAction func backPressed(_ sender: UIButton) {
         
         //Check if game has finished or not by seeing if a gameFinishedView has loaded
@@ -514,6 +511,8 @@ class GameViewController: UIViewController {
 
     }
     
+    
+ //MARK: - CSV Loading
     
     
 }

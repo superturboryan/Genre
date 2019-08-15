@@ -32,6 +32,8 @@ class OptionsViewController: UIViewController {
     
     @IBOutlet weak var progressLabel: UILabel!
     
+    @IBOutlet weak var numOfWords: UILabel!
+    
     @IBOutlet weak var numOfWordsLabel: UILabel!
     
     let options = UserDefaults.standard
@@ -58,7 +60,7 @@ class OptionsViewController: UIViewController {
         
         guard let wordCountOption = options.value(forKey: "WordCount") as? Int else {return}
         
-        numOfWordsLabel.text = String(wordCountOption)
+        numOfWords.text = String(wordCountOption)
         
         numOfWordsSlider.value = Float(wordCountOption)
         
@@ -70,11 +72,11 @@ class OptionsViewController: UIViewController {
         //Set label language
         
         backButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
-            "Dernier page":"Back", for: .normal)
+            "Retour":"Back", for: .normal)
         hintsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Conseils :":"Hints :"
         timerLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Chrono :":"Timer :"
         progressLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Progrès :":"Progress Bar :"
-        numOfWordsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Numéro de mots :":"Word Count :"
+        numOfWordsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "# de mots :":"Word Count :"
         
     }
     
@@ -149,7 +151,7 @@ class OptionsViewController: UIViewController {
     
     @IBAction func numOfWordsSet(_ sender: UISlider) {
         
-        numOfWordsLabel.text = String(Int(sender.value))
+        numOfWords.text = String(Int(sender.value))
         
         options.set(Int(sender.value), forKey: "WordCount")
     }

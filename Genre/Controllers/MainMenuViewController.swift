@@ -24,6 +24,7 @@ class MainMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Set all state variables
         loadOptions()
   
         //Set soft corners

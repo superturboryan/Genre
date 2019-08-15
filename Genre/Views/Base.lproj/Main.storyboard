@@ -202,8 +202,8 @@ Bar : </string>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#####" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1HL-df-RDT">
-                                        <rect key="frame" x="171" y="91" width="70" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="###" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1HL-df-RDT">
+                                        <rect key="frame" x="171" y="91" width="42" height="30"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -224,7 +224,7 @@ Bar : </string>
                                     <constraint firstItem="9Ly-kz-fvp" firstAttribute="leading" secondItem="bRI-bn-wsM" secondAttribute="leading" id="OdY-P6-ZJi"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vJX-hg-kqT" secondAttribute="trailing" constant="10" id="OvJ-qJ-MoD"/>
                                     <constraint firstItem="1tC-Kx-mDs" firstAttribute="leading" secondItem="EAe-7L-K24" secondAttribute="leading" constant="25" id="TbS-Gy-ttp"/>
-                                    <constraint firstItem="1HL-df-RDT" firstAttribute="leading" secondItem="9Ly-kz-fvp" secondAttribute="trailing" constant="13.5" id="aWn-AV-Le1"/>
+                                    <constraint firstItem="1HL-df-RDT" firstAttribute="leading" secondItem="9Ly-kz-fvp" secondAttribute="trailing" constant="13.5" id="gzT-IB-hRh"/>
                                     <constraint firstItem="bRI-bn-wsM" firstAttribute="top" secondItem="vJX-hg-kqT" secondAttribute="bottom" constant="169" id="iuf-54-lA1"/>
                                     <constraint firstItem="9Yf-LT-R0D" firstAttribute="leading" secondItem="EAe-7L-K24" secondAttribute="leading" constant="37" id="j1l-Pk-cNg"/>
                                     <constraint firstItem="1HL-df-RDT" firstAttribute="bottom" secondItem="9Ly-kz-fvp" secondAttribute="bottom" id="lFy-st-XQ5"/>
@@ -252,7 +252,8 @@ Bar : </string>
                         <outlet property="hintsLabel" destination="bRI-bn-wsM" id="Edn-Yy-F2o"/>
                         <outlet property="hintsSwitch" destination="yI1-uG-hnM" id="uIY-Ov-55m"/>
                         <outlet property="menuView" destination="EAe-7L-K24" id="eYY-hE-UMb"/>
-                        <outlet property="numOfWordsLabel" destination="9Ly-kz-fvp" id="1aS-MO-FrB"/>
+                        <outlet property="numOfWords" destination="1HL-df-RDT" id="ELP-Sf-Vmd"/>
+                        <outlet property="numOfWordsLabel" destination="9Ly-kz-fvp" id="46l-Vs-YBG"/>
                         <outlet property="numOfWordsSlider" destination="9Yf-LT-R0D" id="PA2-RG-boq"/>
                         <outlet property="progressBarSwitch" destination="Mnd-SG-d5M" id="PVO-Pv-XWh"/>
                         <outlet property="progressLabel" destination="1tC-Kx-mDs" id="oad-cW-hP2"/>
@@ -277,13 +278,6 @@ Bar : </string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvg-Gg-EYj">
-                                <rect key="frame" x="25" y="605" width="31" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDg-uK-jJv">
                                 <rect key="frame" x="107" y="532" width="161" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -313,15 +307,25 @@ Bar : </string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0000.0s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lkY-eM-o2V">
-                                <rect key="frame" x="132" y="116" width="111" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0000.0s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lkY-eM-o2V">
+                                <rect key="frame" x="134.5" y="116" width="106.5" height="35.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvg-Gg-EYj">
+                                <rect key="frame" x="279" y="575" width="31" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lkY-eM-o2V" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="96" id="kUF-4B-EMH"/>
+                            <constraint firstItem="lkY-eM-o2V" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qFd-s6-8lL"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>

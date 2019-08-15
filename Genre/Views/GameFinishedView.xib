@@ -43,14 +43,22 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MPM: 50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTi-Kj-tne">
+                    <rect key="frame" x="30" y="251.5" width="85" height="23"/>
+                    <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="7bc-60-Dna" firstAttribute="top" secondItem="UzN-s2-enO" secondAttribute="bottom" constant="5" id="1WF-sO-1W8"/>
                 <constraint firstItem="UzN-s2-enO" firstAttribute="top" secondItem="eRz-OW-EUx" secondAttribute="bottom" constant="5" id="CFF-30-1Od"/>
+                <constraint firstItem="bTi-Kj-tne" firstAttribute="top" secondItem="She-oh-e81" secondAttribute="bottom" constant="5" id="Epd-u7-Mpe"/>
                 <constraint firstItem="She-oh-e81" firstAttribute="top" secondItem="7bc-60-Dna" secondAttribute="bottom" constant="5" id="L6E-ha-uao"/>
                 <constraint firstItem="UzN-s2-enO" firstAttribute="leading" secondItem="eRz-OW-EUx" secondAttribute="leading" constant="15" id="QKz-g9-ODY"/>
                 <constraint firstItem="eRz-OW-EUx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="Skx-FP-x45"/>
+                <constraint firstItem="bTi-Kj-tne" firstAttribute="leading" secondItem="She-oh-e81" secondAttribute="leading" id="XAZ-MG-YyW"/>
                 <constraint firstItem="7bc-60-Dna" firstAttribute="leading" secondItem="UzN-s2-enO" secondAttribute="leading" id="bdY-z7-IZ0"/>
                 <constraint firstItem="She-oh-e81" firstAttribute="leading" secondItem="7bc-60-Dna" secondAttribute="leading" id="kQQ-Gl-huG"/>
                 <constraint firstItem="eRz-OW-EUx" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-10" id="n1g-lE-Xpg"/>
@@ -61,8 +69,9 @@
                 <outlet property="chrono" destination="She-oh-e81" id="x6u-bz-FJb"/>
                 <outlet property="correctAnswers" destination="UzN-s2-enO" id="mBZ-Vg-ucj"/>
                 <outlet property="percentage" destination="7bc-60-Dna" id="MGW-W9-EN4"/>
+                <outlet property="wpm" destination="bTi-Kj-tne" id="sM9-v9-9rj"/>
             </connections>
-            <point key="canvasLocation" x="126" y="291"/>
+            <point key="canvasLocation" x="124.8" y="290.55472263868069"/>
         </view>
     </objects>
 </document>
