@@ -13,9 +13,9 @@ import Foundation
 class Word {
 
     let word : String?,
-        gender : String?
+        gender : Bool?
     
-    init(word : String, gender : String){
+    init(word : String, gender : Bool){
         self.word = word
         self.gender = gender
     }

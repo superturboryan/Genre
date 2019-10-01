@@ -23,6 +23,8 @@ class WordCardView: UIView {
         feminineLabel.alpha = 0
         masculineLabel.alpha = 0
         
+        wordLabel.textColor = UIColor.black
+        
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.4
         layer.shadowOffset = CGSize.zero

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		946D2B44233E922300E26CAF /* WordsWithAccents.csv in Resources */ = {isa = PBXBuildFile; fileRef = 946D2B43233E922300E26CAF /* WordsWithAccents.csv */; };
 		94EF25532239B979003240B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF25522239B979003240B9 /* AppDelegate.swift */; };
 		94EF25552239B979003240B9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF25542239B979003240B9 /* GameViewController.swift */; };
 		94EF25582239B979003240B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94EF25562239B979003240B9 /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		0C44F809E8721941472BA448 /* Pods-Genre.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Genre.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Genre/Pods-Genre.debug.xcconfig"; sourceTree = "<group>"; };
+		946D2B43233E922300E26CAF /* WordsWithAccents.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WordsWithAccents.csv; path = ../../../../Documents/WordsWithAccents.csv; sourceTree = "<group>"; };
 		94EF254F2239B979003240B9 /* Genre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Genre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94EF25522239B979003240B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94EF25542239B979003240B9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				94EF25712239F263003240B9 /* Views */,
 				94EF25722239F286003240B9 /* Controllers */,
 				94EF256A2239C9A9003240B9 /* Words1592Count.csv */,
+				946D2B43233E922300E26CAF /* WordsWithAccents.csv */,
 				94EF255E2239B97B003240B9 /* Info.plist */,
 				94EF25592239B97B003240B9 /* Assets.xcassets */,
 			);
@@ -201,6 +204,7 @@
 				94EF256F2239DDE9003240B9 /* GameFinishedView.xib in Resources */,
 				94EF25672239B9F8003240B9 /* WordCardView.xib in Resources */,
 				94EF25582239B979003240B9 /* Main.storyboard in Resources */,
+				946D2B44233E922300E26CAF /* WordsWithAccents.csv in Resources */,
 				94EF256B2239C9AA003240B9 /* Words1592Count.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

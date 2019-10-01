@@ -34,11 +34,11 @@ class GameViewController: UIViewController {
     
     //Game variables
 
-    private var wordList : [String] = []
+    private var wordList = [String:String]()
     
     internal var wordArray : [Word] = []
     
-    private var pickedAnswer : String = "True"
+    private var pickedAnswer : Bool = true
    
     private var questionNumber : Int = 0
     
@@ -82,8 +82,7 @@ class GameViewController: UIViewController {
     
     var currentSwipeDirection : SwipeDirection!
     
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //MARK: - View load, appear, disappear
+//MARK: View load, appear, disappear
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -227,10 +226,10 @@ class GameViewController: UIViewController {
                 animator.addCompletion { (position) in
                     
                     if velocity.x > 0 {
-                        self.pickedAnswer = "True"
+                        self.pickedAnswer = true
                     }
                     else if velocity.x < 0 {
-                        self.pickedAnswer = "False"
+                        self.pickedAnswer = false
                     }
                     
                     //Check answer here after setting pickedAnswer
@@ -520,23 +519,21 @@ class GameViewController: UIViewController {
 extension GameViewController {
     
     func loadCSV(){
-        let stream = InputStream(fileAtPath: Bundle.main.path(forResource: "Words1592Count", ofType: "csv")!)
+        
+        let stream = InputStream(fileAtPath: Bundle.main.path(forResource: "WordsWithAccents", ofType: "csv")!)
         let csv = try! CSVReader(stream: stream!)
         
         while let row = csv.next() {
-            let csvInput = row.joined(separator: " ")
-            wordList.append(csvInput)
+            wordList[row[0]] = row[1]
         }
         
-        let listString = wordList.joined()
-        let indStrings : [String]
-        indStrings = listString.components(separatedBy: " ")
-        
-        var x = 0
-        while x < indStrings.count-1 {
-            let addWord = Word(word: indStrings[x], gender: indStrings[x+1])
-            x = x+2
-            wordArray.append(addWord)
+        wordList.forEach { (wordTuple) in
+            let (wordString, genderString) = wordTuple
+            
+            let genderBool = genderString == "True" ? true : false
+            
+            let wordToAdd = Word(word: wordString, gender: genderBool)
+            wordArray.append(wordToAdd)
         }
     }
     

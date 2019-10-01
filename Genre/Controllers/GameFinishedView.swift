@@ -24,6 +24,7 @@ class GameFinishedView: UIView {
         layer.shadowOffset = CGSize.zero
         layer.shadowRadius = CGFloat(12)
         
+        self.setupLabels()
     }
     
     override func layoutSubviews() {
@@ -31,6 +32,13 @@ class GameFinishedView: UIView {
         
         layer.cornerRadius = CGFloat(20)
         
+    }
+    
+    func setupLabels() {
+        self.correctAnswers.textColor = UIColor.black
+        self.percentage.textColor = UIColor.black
+        self.chrono.textColor = UIColor.black
+        self.wpm.textColor = UIColor.black
     }
     
 
