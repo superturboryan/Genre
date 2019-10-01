@@ -34,15 +34,12 @@ class MainMenuViewController: UIViewController {
         wordListButton.layer.cornerRadius = CGFloat(5.0)
         optionsButton.layer.cornerRadius = CGFloat(5.0)
 
-        //Hide view upon loading
-        menuView.transform = CGAffineTransform(scaleX: 0, y: 0 )
-        
         //Hide all buttons separately
-        startGameButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-        hintsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-        wordListButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-        optionsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-        iconButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        startGameButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        hintsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        wordListButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        optionsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        iconButton.transform = CGAffineTransform(scaleX: 0, y: 0)
 
         //Set button label language
         startGameButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
@@ -58,62 +55,13 @@ class MainMenuViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-            
-            self.menuView.transform = CGAffineTransform.identity
-            //Lighten background
-            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
-            //Add shadow to menu
-            self.menuView.layer.shadowColor = UIColor.black.cgColor
-            self.menuView.layer.shadowOpacity = 0.4
-            self.menuView.layer.shadowOffset = CGSize.zero
-            self.menuView.layer.shadowRadius = CGFloat(12)
-            
-            //Make buttons pop-up sequentially
-            
-        }) { (success) in
-            
-            
-            UIView.animate(withDuration: 0.2, delay: 0.3, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                
-                self.startGameButton.transform = CGAffineTransform.identity
-                
-            }, completion: { (success) in
-                
-                UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                    
-                    self.hintsButton.transform = CGAffineTransform.identity
-                    
-                }, completion: { (success) in
-                    
-                    UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                        
-                        self.wordListButton.transform = CGAffineTransform.identity
-                        
-                    }, completion: { (success) in
-                        
-                        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                            
-                            self.optionsButton.transform = CGAffineTransform.identity
-                            
-                        }, completion: { (success) in
-                            
-                            UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                                
-                                self.iconButton.transform = CGAffineTransform(scaleX: 1, y: 1)
-                               
-                            }, completion: nil)
-                        })
-                    })
-                })
-            })
-        }
+
     }
     
     
     @IBAction func startPressed(_ sender: UIButton) {
         
-        hideMenu()
+//        hideMenu()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             self.performSegue(withIdentifier: "goToGame", sender: nil)
@@ -123,7 +71,7 @@ class MainMenuViewController: UIViewController {
     
     @IBAction func optionsPressed(_ sender: UIButton) {
         
-        hideMenu()
+//        hideMenu()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             
@@ -157,7 +105,6 @@ class MainMenuViewController: UIViewController {
         }, completion: nil)
         
     }
-    
     
     //UI animation functions
     

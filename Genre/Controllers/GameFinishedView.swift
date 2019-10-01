@@ -31,7 +31,6 @@ class GameFinishedView: UIView {
         super.layoutSubviews()
         
         layer.cornerRadius = CGFloat(20)
-        
     }
     
     func setupLabels() {

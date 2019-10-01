@@ -45,6 +45,8 @@ class OptionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupLabels()
+        
         //Set values for switches and slider
         guard let hintOption = options.value(forKey: "Hints") as? Bool else {return}
         
@@ -66,8 +68,6 @@ class OptionsViewController: UIViewController {
         
         //View styling
         menuView.layer.cornerRadius = CGFloat(7.0)
-
-        menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height)
         
         //Set label language
         
@@ -83,25 +83,25 @@ class OptionsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIView.animate(withDuration: 0.8, delay: 0.4, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-            
-            self.menuView.transform = CGAffineTransform.identity
-            print("Menu sliding up!")
-            
-            //Lighten background
-            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
-            
-            //Add shadow to menu
-            self.addMenuShadow()
-            
-        }, completion: nil)
+    }
+    
+    func setupLabels() {
+
+        hintsLabel.textColor = UIColor.black
+        
+        timerLabel.textColor = UIColor.black
+        
+        progressLabel.textColor = UIColor.black
+        
+        numOfWords.textColor = UIColor.black
+        
+        numOfWordsLabel.textColor = UIColor.black
     }
     
     @IBAction func backPressed(_ sender: UIButton) {
         
         UIView.animate(withDuration: 0.5, delay: 0.05, options: .curveEaseOut, animations: {
             
-            self.menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
             self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
         
         }) { (success) in

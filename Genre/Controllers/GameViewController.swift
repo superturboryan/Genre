@@ -520,7 +520,7 @@ extension GameViewController {
     
     func loadCSV(){
         
-        let stream = InputStream(fileAtPath: Bundle.main.path(forResource: "WordsWithAccents", ofType: "csv")!)
+        let stream = InputStream(fileAtPath: Bundle.main.path(forResource: "Words1592WithAccents", ofType: "csv")!)
         let csv = try! CSVReader(stream: stream!)
         
         while let row = csv.next() {
