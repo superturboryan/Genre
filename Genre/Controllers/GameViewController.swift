@@ -22,7 +22,6 @@ class GameViewController: UIViewController {
     @IBOutlet weak var plusOneLabel: UILabel!
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var progressBar: UIView!
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var timerLabel: UILabel!
     
 
@@ -91,6 +90,11 @@ class GameViewController: UIViewController {
        //And whether to display progress bar
        if options.value(forKey: "Progress") as! Bool == false { progressBar.alpha = 0 }
        timerLabel.text = String(counter)
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
     }
     
     @objc func startTimer() {
@@ -170,7 +174,6 @@ class GameViewController: UIViewController {
                         //Darken background view and back button
                         UIView.animate(withDuration: 0.7, animations: {
                             self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.4)
-                            self.backButton.setTitleColor(UIColor.black, for: .normal)
                             self.scoreLabel.alpha = 0
                             self.progressBar.frame.size.width = self.view.frame.size.width
                             self.progressBar.backgroundColor = self.progressBar.backgroundColor?.darken(byPercentage: 0.4)
@@ -350,9 +353,6 @@ class GameViewController: UIViewController {
             //Lighten background and progress bar to normal
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.4)
             self.progressBar.backgroundColor = self.progressBar.backgroundColor?.lighten(byPercentage: 0.4)
-            
-            //Change back button color back to white
-            self.backButton.setTitleColor(UIColor.white, for: .normal)
             
         }) { (success) in
             
