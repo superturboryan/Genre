@@ -91,6 +91,10 @@ class GameViewController: UIViewController {
        if options.value(forKey: "Progress") as! Bool == false { progressBar.alpha = 0 }
        timerLabel.text = String(counter)
         
+        hideNavBar()
+    }
+    
+    @objc func hideNavBar() {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
@@ -397,6 +401,3 @@ class GameViewController: UIViewController {
     }
     
 }
-
-
-

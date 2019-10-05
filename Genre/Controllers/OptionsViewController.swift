@@ -23,9 +23,7 @@ class OptionsViewController: UIViewController {
     @IBOutlet weak var numOfWordsSlider: UISlider!
     
     //Labels
-    
-    @IBOutlet weak var backButton: UIButton!
-    
+
     @IBOutlet weak var hintsLabel: UILabel!
     
     @IBOutlet weak var timerLabel: UILabel!
@@ -44,9 +42,33 @@ class OptionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        hideNavBar()
         
-        self.setupLabels()
+        setupView()
+    }
+    
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+    }
+    
+    func setupLabels() {
+
+        hintsLabel.textColor = UIColor.black
+        
+        timerLabel.textColor = UIColor.black
+        
+        progressLabel.textColor = UIColor.black
+        
+        numOfWords.textColor = UIColor.black
+        
+        numOfWordsLabel.textColor = UIColor.black
+    }
+    
+    @objc func setupView() {
         //Set values for switches and slider
         guard let hintOption = options.value(forKey: "Hints") as? Bool else {return}
         
@@ -70,46 +92,21 @@ class OptionsViewController: UIViewController {
         menuView.layer.cornerRadius = CGFloat(7.0)
         
         //Set label language
-        
-        backButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
-            "Retour":"Back", for: .normal)
+
         hintsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Conseils :":"Hints :"
         timerLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Chrono :":"Timer :"
         progressLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Progrès :":"Progress Bar :"
         numOfWordsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "# de mots :":"Word Count :"
         
+        setupLabels()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    @objc func hideNavBar() {
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
     }
-    
-    func setupLabels() {
-
-        hintsLabel.textColor = UIColor.black
-        
-        timerLabel.textColor = UIColor.black
-        
-        progressLabel.textColor = UIColor.black
-        
-        numOfWords.textColor = UIColor.black
-        
-        numOfWordsLabel.textColor = UIColor.black
-    }
-    
-    @IBAction func backPressed(_ sender: UIButton) {
-        
-        UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {
-            
-//            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
-        
-        }) { (success) in
-            
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-    
     
     @IBAction func hintsPressed(_ sender: UISwitch) {
         

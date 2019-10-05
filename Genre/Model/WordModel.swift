@@ -8,12 +8,10 @@
 
 import Foundation
 
-
-
 class Word {
 
-    let word : String!,
-        gender : Bool!
+    let word : String,
+        gender : Bool
 
     var hint : String?
     

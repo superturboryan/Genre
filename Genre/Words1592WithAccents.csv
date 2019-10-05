@@ -25,8 +25,7 @@ acier,True
 acne,False 
 acquisition,False 
 acteur,True 
-action,False 
-,
+action,False
 activité,False 
 actrice,False 
 Actualité,False 
@@ -57,8 +56,7 @@ alumette,True
 âme,False 
 amende,False 
 amour,True 
-an,True 
-,
+an,True
 ange,True 
 animal,True 
 année,False 
@@ -96,8 +94,7 @@ balcon,True
 balle,False 
 banc,True 
 bande,False 
-banque,False 
-,
+banque,False
 bar,True 
 baril,True 
 base,False 
@@ -112,8 +109,7 @@ besoin,True
 beurre,True 
 bicyclette,False 
 bien,True 
-bière,False 
-,
+bière,False
 bikini,True 
 billet,True 
 bise,False 
@@ -204,8 +200,7 @@ charcuterie,False
 charge,False 
 charisme,True 
 chasse,False 
-chat,True 
-,
+chat,True
 chatte,False 
 chaussure,False 
 chef,True 
@@ -312,8 +307,7 @@ costume,True
 cote,True 
 cou,True 
 couleur,False 
-coup,True 
-,
+coup,True
 coupe,False 
 couple,True 
 cour,False 
@@ -1137,7 +1131,7 @@ réponse,False
 repos,True 
 reprise,False 
 reptile,True 
-requete,False 
+requête,False 
 requin,True 
 reseau,True 
 réserve,False 

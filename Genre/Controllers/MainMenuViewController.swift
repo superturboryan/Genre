@@ -78,6 +78,14 @@ class MainMenuViewController: UIViewController {
         }
     }
     
+    @IBAction func wordListPressed(_ sender: UIButton) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            self.performSegue(withIdentifier: "goToWordList", sender: nil)
+        }
+    }
+    
+    
     
     @IBAction func languageButtonPressed(_ sender: UIButton) {
         
