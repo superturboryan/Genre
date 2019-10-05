@@ -11,6 +11,7 @@ import CSV
 import ProgressHUD
 import ChameleonFramework
 
+
 class GameViewController: UIViewController {
     
     let options = UserDefaults.standard
@@ -18,47 +19,27 @@ class GameViewController: UIViewController {
     //MARK: - Outlets
     
     @IBOutlet weak var scoreLabel: UILabel!
-    
     @IBOutlet weak var plusOneLabel: UILabel!
-    
     @IBOutlet weak var restartButton: UIButton!
-    
     @IBOutlet weak var progressBar: UIView!
-
     @IBOutlet weak var backButton: UIButton!
-    
     @IBOutlet weak var timerLabel: UILabel!
     
-    
+
     //MARK: - Variables
     
     //Game variables
-
-    private var wordList = [String:String]()
-    
-    internal var wordArray : [Word] = []
-    
-    private var pickedAnswer : Bool = true
-   
-    private var questionNumber : Int = 0
-    
-    private var userScore : Int = 0
-    
-    private var questionBank : [Word] = []
-    
     internal var numberOfQuestions : Int = 10
+    internal var currentQuestionNumber : Int = 1
+    internal var userScore : Int = 0
     
     //Timer variables
-    
     private var counter = 0.0
-    
     private var timer = Timer()
  
     
     //UI Variables
-    
     var wordCardView : WordCardView!
-    
     var gameFinishedView : GameFinishedView!
     
     enum SwipeDirection {
@@ -67,90 +48,66 @@ class GameViewController: UIViewController {
     
     //Pan recognizer for word cards
     lazy var panRecognizer : UIPanGestureRecognizer = {
-        
         let recognizer = UIPanGestureRecognizer()
-        
         recognizer.addTarget(self, action : #selector(wordCardViewPanned(recognizer:)))
-        
         return recognizer
     }()
     
     //Animator used for swiping
     var animator : UIViewPropertyAnimator = UIViewPropertyAnimator()
-    
     var animateProgress : CGFloat = 0
-    
     var currentSwipeDirection : SwipeDirection!
     
 //MARK: View load, appear, disappear
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupView()
         guard let numberOfQuestionsOption: Int = options.value(forKey: "WordCount") as? Int else {fatalError()}
-        
         numberOfQuestions = numberOfQuestionsOption
-        
-        self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
-        
-        restartButton.layer.cornerRadius = CGFloat(10)
-        
-        restartButton.alpha = 0
-        
-        progressBar.frame.size.width = CGFloat(0)
-        
-        loadCSV()
-        
-        loadQuestionBank(numOfQuestions : numberOfQuestionsOption)
-        
-        plusOneLabel.alpha = 0
-        
-        //Check whether to display timer
-        if options.value(forKey: "Timer") as! Bool == false {
-            
-            timerLabel.alpha = 0
-        }
-        
-        //And whether to display progress bar
-        if options.value(forKey: "Progress") as! Bool == false {
-            
-            progressBar.alpha = 0
-        }
-        
-        timerLabel.text = String(counter)
-        
+        WordBank.sharedInstance.loadCSV()
+        WordBank.sharedInstance.loadQuestionBank(numOfQuestions: numberOfQuestions)
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseOut, animations: {
-            
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
         }, completion: nil)
-        
         createNewCard()
+        updateUI(questionNum : currentQuestionNumber)
+        startTimer()
+    }
+    
+    @objc func setupView() {
         
-        updateUI(questionNum : questionNumber)
-        
+        self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
+        restartButton.layer.cornerRadius = CGFloat(10)
+        restartButton.alpha = 0
+        progressBar.frame.size.width = CGFloat(0)
+        plusOneLabel.alpha = 0
+       //Check whether to display timer
+        if options.value(forKey: "Timer") as! Bool == false { timerLabel.alpha = 0 }
+       //And whether to display progress bar
+       if options.value(forKey: "Progress") as! Bool == false { progressBar.alpha = 0 }
+       timerLabel.text = String(counter)
+    }
+    
+    @objc func startTimer() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
         }
     }
     
     
-    func updateUI(questionNum : Int) {
+    @objc func updateUI(questionNum : Int) {
         
-        wordCardView.wordLabel.text = questionBank[questionNumber].word
+        wordCardView.wordLabel.text = WordBank.sharedInstance.questionBank[questionNum].word
         scoreLabel.text = "\(userScore) / \(numberOfQuestions)"
-        
-        let viewWidth : CGFloat = view.frame.size.width
-        
+        wordCardView.hintLabel.text = WordBank.sharedInstance.questionBank[questionNum].hint
         if options.value(forKey: "Progress") as! Bool == true {
-            
             UIView.animate(withDuration: 0.8, delay: 0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                self.progressBar.frame.size.width = (viewWidth / CGFloat(self.numberOfQuestions)) * CGFloat(questionNum)
+                self.progressBar.frame.size.width = (self.view.frame.size.width / CGFloat(self.numberOfQuestions)) * CGFloat(questionNum)
             }, completion: nil)
         }
     }
@@ -162,86 +119,51 @@ class GameViewController: UIViewController {
     }
     
     
-    
     @objc func wordCardViewPanned(recognizer : UIPanGestureRecognizer) {
-        
+
         switch recognizer.state {
-            
-        ////////////
         case .began:
-            
             let translation = recognizer.translation(in: wordCardView)
-            
-            if translation.x > 0 {
-                //animation moving to right
-                animateSwipe(direction: .right)
-                
-            }
-            else {
-                //animate moving to left
-                animateSwipe(direction: .left)
-                
-            }
-            //when animation stops, pause it to make scrubbable
+            if translation.x > 0 {animateSwipe(direction: .right)}
+            else { animateSwipe(direction: .left) }
             animator.pauseAnimation()
-            
             animateProgress = animator.fractionComplete
             
-        //////////////
         case .changed:
             
             let translation = recognizer.translation(in: wordCardView)
-            
             var fraction = translation.x / (view.frame.width)
-            
-            if currentSwipeDirection == .left {
-                
-                fraction *= -1
-            }
-            
+            if currentSwipeDirection == .left { fraction *= -1 }
             animator.fractionComplete = fraction + animateProgress
-            
-            
             if animator.fractionComplete == CGFloat(0) {
-                
                 if currentSwipeDirection == .left && translation.x > 0 {
-                    
                     refreshAnimator(direction: .right)
                 }
                 else if currentSwipeDirection == .right && translation.x < 0 {
-                    
                     refreshAnimator(direction: .left)
                 }
             }
             
-        ////////////
         case .ended:
             
             let velocity = recognizer.velocity(in: wordCardView)
-            
             //If more than 0.4 is complete, do completion block and remove
-            
             if velocity.x > 90 || velocity.x < -90 || animator.fractionComplete > 0.5 {
-                
                 animator.addCompletion { (position) in
-                    
                     if velocity.x > 0 {
-                        self.pickedAnswer = true
+                        self.checkAnswer(pickedAnswer: true)
                     }
                     else if velocity.x < 0 {
-                        self.pickedAnswer = false
+                        self.checkAnswer(pickedAnswer: false)
                     }
-                    
-                    //Check answer here after setting pickedAnswer
-                    self.checkAnswer()
-                    
+
                     //Remove answered card from view
                     self.wordCardView.removeFromSuperview()
                     
-                    self.questionNumber += 1
+                    self.currentQuestionNumber += 1
                    
                     //Check if quiz has finished!
-                    if self.questionNumber == self.questionBank.count {
+                    if self.currentQuestionNumber == WordBank.sharedInstance.questionBank.count {
                         
                         self.timer.invalidate()
                         
@@ -253,7 +175,6 @@ class GameViewController: UIViewController {
                             self.progressBar.frame.size.width = self.view.frame.size.width
                             self.progressBar.backgroundColor = self.progressBar.backgroundColor?.darken(byPercentage: 0.4)
                         })
-                        
                         //Delay finish popup to show +1 label
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                             self.gameFinishedPopup()
@@ -262,53 +183,37 @@ class GameViewController: UIViewController {
                     else{
                         //Add new card to view
                         self.createNewCard()
-                        self.updateUI(questionNum: self.questionNumber)
+                        self.updateUI(questionNum: self.currentQuestionNumber)
                     }
                                     }
-                
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
                 break
-                
             }
-            
             animator.isReversed = true
-            
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-            
-            
-        ////////
         default:
             ()
-    
         }
     }
     
-    func checkAnswer() {
+    func checkAnswer(pickedAnswer: Bool) {
         
-        let correctAnswer = questionBank[questionNumber].gender
+        let correctAnswer = WordBank.sharedInstance.questionBank[currentQuestionNumber].gender
         
         if pickedAnswer == correctAnswer {
             
             userScore += 1
             print("Correct!")
             
-            
             UIView.animate(withDuration: 0.4, animations: {
-
                 self.plusOneLabel.alpha = 1
                 self.scoreLabel.alpha = 0
-
             }) { (success) in
-
                 UIView.animate(withDuration: 0.2, animations: {
-
                     self.plusOneLabel.alpha = 0
                     self.scoreLabel.alpha = 1
-
                 }, completion: nil)
-
             }
-            
         }
         else{
             print("Incorrect!")
@@ -334,43 +239,24 @@ class GameViewController: UIViewController {
             
             //Animate alphas for masculine and feminine labels
             
-            if self.currentSwipeDirection == .right {
-                
-                self.wordCardView.masculineLabel.alpha = 0.8
-            }
-            else if self.currentSwipeDirection == .left {
-                
-                self.wordCardView.feminineLabel.alpha = 0.8
-            }
-            
+            if self.currentSwipeDirection == .right { self.wordCardView.masculineLabel.alpha = 0.8 }
+            else if self.currentSwipeDirection == .left { self.wordCardView.feminineLabel.alpha = 0.8 }
         })
-        
         animator.startAnimation()
     }
     
-    
     func refreshAnimator(direction : SwipeDirection) {
-        
         currentSwipeDirection = direction
-        
         animator.stopAnimation(true)
-        
         animator = UIViewPropertyAnimator(duration: 0.8, curve: .easeIn, animations: {
-            
             //Move left or right along x axis
             let transform = CGAffineTransform(translationX: direction == .right ? self.view.frame.width : -self.view.frame.width , y: 0) // Right Direction : Left Direction
-            
             //Combine previous transform with rotation
             self.wordCardView.transform = CGAffineTransform(rotationAngle: direction == .right ? CGFloat(Double.pi / 8) : -CGFloat(Double.pi / 8)).concatenating(transform)
-            
         })
-        
         animator.startAnimation()
-        
         animator.pauseAnimation()
-        
         animateProgress = animator.fractionComplete
-        
     }
     
     
@@ -416,11 +302,11 @@ class GameViewController: UIViewController {
         
         view.addSubview(gameFinishedView)
         
-        let percentage = String(format: "%.1f" , (Double(userScore) / Double(questionBank.count)) * 100.0)
+        let percentage = String(format: "%.1f" , (Double(userScore) / Double(WordBank.sharedInstance.questionBank.count)) * 100.0)
         
         let wpm = ( Double(numberOfQuestions) / counter ) * 60.0
         
-        gameFinishedView.correctAnswers.text = "Score: \(userScore) / \(questionBank.count)"
+        gameFinishedView.correctAnswers.text = "Score: \(userScore) / \(WordBank.sharedInstance.questionBank.count)"
         gameFinishedView.percentage.text = "Pourcentage: " + percentage + "%"
         gameFinishedView.chrono.text = "Chrono: " + String(format: "%.1f" , counter) + " s"
         gameFinishedView.wpm.text = "MPM: " + String(format: "%.1f" , wpm)
@@ -445,8 +331,8 @@ class GameViewController: UIViewController {
     @IBAction func restartPressed(_ sender: UIButton) {
         
         userScore = 0
-        questionNumber = 0
-        loadQuestionBank(numOfQuestions: numberOfQuestions)
+        currentQuestionNumber = 0
+        WordBank.sharedInstance.loadQuestionBank(numOfQuestions: numberOfQuestions)
         
         counter = 0
         
@@ -473,7 +359,7 @@ class GameViewController: UIViewController {
             //And remove from SuperView
             self.gameFinishedView.removeFromSuperview()
             self.createNewCard()
-            self.updateUI(questionNum: self.questionNumber)
+            self.updateUI(questionNum: self.currentQuestionNumber)
             
             ///////////////////////////////////////////////////////
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -507,48 +393,10 @@ class GameViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             self.dismiss(animated: true, completion: nil)
         }
-
-    }
-    
-    
- //MARK: - CSV Loading
-    
-    
-}
-
-extension GameViewController {
-    
-    func loadCSV(){
-        
-        let stream = InputStream(fileAtPath: Bundle.main.path(forResource: "Words1592WithAccents", ofType: "csv")!)
-        let csv = try! CSVReader(stream: stream!)
-        
-        while let row = csv.next() {
-            wordList[row[0]] = row[1]
-        }
-        
-        wordList.forEach { (wordTuple) in
-            let (wordString, genderString) = wordTuple
-            
-            let genderBool = genderString == "True" ? true : false
-            
-            let wordToAdd = Word(word: wordString, gender: genderBool)
-            wordArray.append(wordToAdd)
-        }
-    }
-    
-    func loadQuestionBank(numOfQuestions : Int) {
-        
-        questionBank = []
-        
-        var x = 0
-        
-        while x < numberOfQuestions {
-            
-            questionBank.append(wordArray.randomElement()!)
-            x += 1
-        }
+ 
     }
     
 }
+
+
 

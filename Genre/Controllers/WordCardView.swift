@@ -24,6 +24,9 @@ class WordCardView: UIView {
         masculineLabel.alpha = 0
         
         wordLabel.textColor = UIColor.black
+        hintLabel.textColor = UIColor.black
+        feminineLabel.textColor = UIColor.black
+        masculineLabel.textColor = UIColor.black
         
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.4

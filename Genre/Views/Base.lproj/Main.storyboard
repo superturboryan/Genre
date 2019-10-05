@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="esT-rM-L1R">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="esT-rM-L1R">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,13 +17,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c8Q-bV-hhm" userLabel="MenuView">
-                                <rect key="frame" x="45" y="84" width="285" height="490"/>
+                                <rect key="frame" x="45" y="64" width="285" height="510"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8Wq-mF-T2H" userLabel="Button Stack View">
-                                        <rect key="frame" x="25" y="180" width="235" height="280"/>
+                                        <rect key="frame" x="25" y="180" width="235" height="300"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeV-s5-8jJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="235" height="55"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="235" height="60"/>
                                                 <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
                                                 <state key="normal" title="Start">
@@ -36,7 +34,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JWF-QQ-dZC">
-                                                <rect key="frame" x="0.0" y="75" width="235" height="55"/>
+                                                <rect key="frame" x="0.0" y="80" width="235" height="60"/>
                                                 <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
                                                 <state key="normal" title="Hints">
@@ -44,7 +42,7 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="caJ-xg-UsP">
-                                                <rect key="frame" x="0.0" y="150" width="235" height="55"/>
+                                                <rect key="frame" x="0.0" y="160" width="235" height="60"/>
                                                 <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
                                                 <state key="normal" title="Word List">
@@ -52,7 +50,7 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69v-TY-g8C">
-                                                <rect key="frame" x="0.0" y="225" width="235" height="55"/>
+                                                <rect key="frame" x="0.0" y="240" width="235" height="60"/>
                                                 <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
                                                 <state key="normal" title="Options">
@@ -111,8 +109,8 @@
                         <outlet property="optionsButton" destination="69v-TY-g8C" id="UQI-6g-NVN"/>
                         <outlet property="startGameButton" destination="LeV-s5-8jJ" id="2uB-Oj-5D0"/>
                         <outlet property="wordListButton" destination="caJ-xg-UsP" id="ylg-qI-PXc"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="goToGame" modalTransitionStyle="flipHorizontal" id="bxE-Oq-SKt"/>
-                        <segue destination="2La-X6-BlC" kind="showDetail" identifier="goToOptions" animates="NO" id="9KW-9A-a4j"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="goToGame" id="bxE-Oq-SKt"/>
+                        <segue destination="2La-X6-BlC" kind="show" identifier="goToOptions" id="9KW-9A-a4j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7EU-RK-SV0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -124,11 +122,11 @@
             <objects>
                 <viewController id="2La-X6-BlC" customClass="OptionsViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3er-XZ-ic6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EAe-7L-K24">
-                                <rect key="frame" x="45" y="84" width="285" height="490"/>
+                                <rect key="frame" x="45" y="64" width="285" height="490"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hints : " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRI-bn-wsM">
                                         <rect key="frame" x="25" y="225" width="81" height="30"/>
@@ -247,6 +245,7 @@ Bar : </string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="q7w-Ju-8of"/>
                     </view>
+                    <navigationItem key="navigationItem" id="sRq-Ok-RpW"/>
                     <connections>
                         <outlet property="backButton" destination="vJX-hg-kqT" id="2SQ-wi-eTT"/>
                         <outlet property="hintsLabel" destination="bRI-bn-wsM" id="Edn-Yy-F2o"/>
@@ -270,7 +269,7 @@ Bar : </string>
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="GameViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view alpha="0.40000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I1V-21-cEa">
@@ -308,7 +307,7 @@ Bar : </string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0000.0s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lkY-eM-o2V">
-                                <rect key="frame" x="134.5" y="116" width="106.5" height="35.5"/>
+                                <rect key="frame" x="134.5" y="96" width="106.5" height="35.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -328,6 +327,7 @@ Bar : </string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="DQx-hW-Kza"/>
                     <connections>
                         <outlet property="backButton" destination="hMg-Lf-WTc" id="aEW-up-A74"/>
                         <outlet property="plusOneLabel" destination="yvg-Gg-EYj" id="1RL-Vt-JTv"/>

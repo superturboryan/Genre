@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		945CA3812343011200F1677E /* Words1592WithAccents.numbers in Resources */ = {isa = PBXBuildFile; fileRef = 945CA3802343011200F1677E /* Words1592WithAccents.numbers */; };
+		945CA3832343055900F1677E /* Words1592WithAccents.csv in Resources */ = {isa = PBXBuildFile; fileRef = 945CA3822343055900F1677E /* Words1592WithAccents.csv */; };
+		94CD98212344223E00AADAE7 /* WordChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD98202344223E00AADAE7 /* WordChecker.swift */; };
+		94CD9848234821EF00AADAE7 /* WordBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD9847234821EF00AADAE7 /* WordBank.swift */; };
 		94EF25532239B979003240B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF25522239B979003240B9 /* AppDelegate.swift */; };
 		94EF25552239B979003240B9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF25542239B979003240B9 /* GameViewController.swift */; };
 		94EF25582239B979003240B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94EF25562239B979003240B9 /* Main.storyboard */; };
@@ -26,7 +28,9 @@
 
 /* Begin PBXFileReference section */
 		0C44F809E8721941472BA448 /* Pods-Genre.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Genre.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Genre/Pods-Genre.debug.xcconfig"; sourceTree = "<group>"; };
-		945CA3802343011200F1677E /* Words1592WithAccents.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = Words1592WithAccents.numbers; sourceTree = "<group>"; };
+		945CA3822343055900F1677E /* Words1592WithAccents.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Words1592WithAccents.csv; sourceTree = "<group>"; };
+		94CD98202344223E00AADAE7 /* WordChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordChecker.swift; sourceTree = "<group>"; };
+		94CD9847234821EF00AADAE7 /* WordBank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordBank.swift; sourceTree = "<group>"; };
 		94EF254F2239B979003240B9 /* Genre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Genre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94EF25522239B979003240B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94EF25542239B979003240B9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +70,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		94CD981F2344220E00AADAE7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				94CD98202344223E00AADAE7 /* WordChecker.swift */,
+				94CD9847234821EF00AADAE7 /* WordBank.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		94EF25462239B979003240B9 = {
 			isa = PBXGroup;
 			children = (
@@ -87,12 +100,13 @@
 		94EF25512239B979003240B9 /* Genre */ = {
 			isa = PBXGroup;
 			children = (
+				94CD981F2344220E00AADAE7 /* Helpers */,
 				94EF25522239B979003240B9 /* AppDelegate.swift */,
 				94EF25702239F250003240B9 /* Model */,
 				94EF25712239F263003240B9 /* Views */,
 				94EF25722239F286003240B9 /* Controllers */,
 				94EF256A2239C9A9003240B9 /* Words1592Count.csv */,
-				945CA3802343011200F1677E /* Words1592WithAccents.numbers */,
+				945CA3822343055900F1677E /* Words1592WithAccents.csv */,
 				94EF255E2239B97B003240B9 /* Info.plist */,
 				94EF25592239B97B003240B9 /* Assets.xcassets */,
 			);
@@ -201,8 +215,8 @@
 			files = (
 				94EF255D2239B97B003240B9 /* LaunchScreen.storyboard in Resources */,
 				94EF255A2239B97B003240B9 /* Assets.xcassets in Resources */,
+				945CA3832343055900F1677E /* Words1592WithAccents.csv in Resources */,
 				94EF256F2239DDE9003240B9 /* GameFinishedView.xib in Resources */,
-				945CA3812343011200F1677E /* Words1592WithAccents.numbers in Resources */,
 				94EF25672239B9F8003240B9 /* WordCardView.xib in Resources */,
 				94EF25582239B979003240B9 /* Main.storyboard in Resources */,
 				94EF256B2239C9AA003240B9 /* Words1592Count.csv in Resources */,
@@ -272,6 +286,8 @@
 				94EF25692239C5F8003240B9 /* WordModel.swift in Sources */,
 				94EF2576223C8772003240B9 /* OptionsViewController.swift in Sources */,
 				94EF25552239B979003240B9 /* GameViewController.swift in Sources */,
+				94CD98212344223E00AADAE7 /* WordChecker.swift in Sources */,
+				94CD9848234821EF00AADAE7 /* WordBank.swift in Sources */,
 				94EF256D2239DDB3003240B9 /* GameFinishedView.swift in Sources */,
 				94EF25532239B979003240B9 /* AppDelegate.swift in Sources */,
 			);

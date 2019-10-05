@@ -100,9 +100,9 @@ class OptionsViewController: UIViewController {
     
     @IBAction func backPressed(_ sender: UIButton) {
         
-        UIView.animate(withDuration: 0.5, delay: 0.05, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {
             
-            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
+//            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
         
         }) { (success) in
             

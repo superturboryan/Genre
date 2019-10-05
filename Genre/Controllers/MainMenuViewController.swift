@@ -72,9 +72,7 @@ class MainMenuViewController: UIViewController {
     @IBAction func optionsPressed(_ sender: UIButton) {
         
 //        hideMenu()
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            
             self.performSegue(withIdentifier: "goToOptions", sender: nil)
         }
     }
@@ -91,11 +89,11 @@ class MainMenuViewController: UIViewController {
         
         changeLabelLanguage()
         
-        UIView.animate(withDuration: 0.8, delay: 0.8, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.8, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
             
             self.menuView.transform = CGAffineTransform.identity
             //Lighten background
-            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
+//            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.1)
             //Add shadow to menu
             self.menuView.layer.shadowColor = UIColor.black.cgColor
             self.menuView.layer.shadowOpacity = 0.4
@@ -110,9 +108,9 @@ class MainMenuViewController: UIViewController {
     
     func hideMenu() {
         
-        UIView.animate(withDuration: 0.5, delay: 0.05, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.55, delay: 0, options: .curveEaseOut, animations: {
             self.menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
-            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
+//            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.1)
         }, completion: nil)
        
     }
