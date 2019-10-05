@@ -11,6 +11,8 @@ import UIKit
 class WordListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    private var alphabeticalWordList: [Word] = []
 
     override func viewDidLoad() {
         
@@ -20,8 +22,19 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        hideNavBar()
+        
+        loadAlphabeticalWordList()
     }
 
+    @objc func hideNavBar() {
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
+    }
+    
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -40,14 +53,22 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.register(UINib.init(nibName: "WordListTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "wordListCell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "wordListCell", for: indexPath) as! WordListTableViewCell
         
-        cell.wordLabel.text = WordBank.sharedInstance.wordArray[indexPath.row].word
+        cell.wordLabel.text = alphabeticalWordList[indexPath.row].word
         
-        cell.genderIndicatorView.backgroundColor = WordBank.sharedInstance.wordArray[indexPath.row].gender ?
-            UIColor.systemTeal : UIColor.systemPink
+        cell.genderIndicatorView.backgroundColor = alphabeticalWordList[indexPath.row].gender ?
+            UIColor.flatRedDark() : UIColor.flatTealDark()
         
         return cell
     }
     
+    
+    @objc func loadAlphabeticalWordList() {
+        
+        alphabeticalWordList = WordBank.sharedInstance.wordArray.sorted(by: { (first, second) -> Bool in
+            if (first.word < second.word) { return true }
+            return false
+        })
+    }
 
     /*
     // Override to support conditional editing of the table view.

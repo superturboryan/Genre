@@ -18,24 +18,24 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1T4-Hq-zMj">
-                        <rect key="frame" x="0.0" y="0.0" width="20" height="112"/>
+                        <rect key="frame" x="0.0" y="10" width="50" height="92"/>
                         <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="20" id="14p-7a-opr"/>
+                            <constraint firstAttribute="width" constant="50" id="14p-7a-opr"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSB-8D-dxP">
-                        <rect key="frame" x="40" y="40" width="96.5" height="32"/>
-                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                        <rect key="frame" x="80" y="40" width="113" height="32"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="rSB-8D-dxP" secondAttribute="bottom" constant="40" id="K60-yc-ooh"/>
-                    <constraint firstItem="1T4-Hq-zMj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SAR-M2-hEG"/>
-                    <constraint firstAttribute="bottom" secondItem="1T4-Hq-zMj" secondAttribute="bottom" id="X0T-OH-Kse"/>
-                    <constraint firstItem="rSB-8D-dxP" firstAttribute="leading" secondItem="1T4-Hq-zMj" secondAttribute="trailing" constant="20" id="e7J-Hq-yJP"/>
+                    <constraint firstItem="1T4-Hq-zMj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="SAR-M2-hEG"/>
+                    <constraint firstAttribute="bottom" secondItem="1T4-Hq-zMj" secondAttribute="bottom" constant="10" id="X0T-OH-Kse"/>
+                    <constraint firstItem="rSB-8D-dxP" firstAttribute="leading" secondItem="1T4-Hq-zMj" secondAttribute="trailing" constant="30" id="e7J-Hq-yJP"/>
                     <constraint firstItem="rSB-8D-dxP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eJT-u5-kPm"/>
                     <constraint firstItem="rSB-8D-dxP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="40" id="fmD-3x-KGE"/>
                     <constraint firstItem="1T4-Hq-zMj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="knm-VV-kU7"/>
