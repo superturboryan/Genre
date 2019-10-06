@@ -15,10 +15,11 @@ class MainMenuViewController: UIViewController {
     
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var startGameButton: UIButton!
-    @IBOutlet weak var hintsButton: UIButton!
     @IBOutlet weak var wordListButton: UIButton!
     @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var iconButton: UIButton!
+    @IBOutlet weak var statsButton: UIButton!
+    
  
     
     override func viewDidLoad() {
@@ -30,13 +31,13 @@ class MainMenuViewController: UIViewController {
         //Set soft corners
         menuView.layer.cornerRadius = CGFloat(7.0)
         startGameButton.layer.cornerRadius = CGFloat(5.0)
-        hintsButton.layer.cornerRadius = CGFloat(5.0)
+        statsButton.layer.cornerRadius = CGFloat(5.0)
         wordListButton.layer.cornerRadius = CGFloat(5.0)
         optionsButton.layer.cornerRadius = CGFloat(5.0)
 
         //Hide all buttons separately
 //        startGameButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-//        hintsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        statsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
 //        wordListButton.transform = CGAffineTransform(scaleX: 0, y: 0)
 //        optionsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
 //        iconButton.transform = CGAffineTransform(scaleX: 0, y: 0)
@@ -44,8 +45,8 @@ class MainMenuViewController: UIViewController {
         //Set button label language
         startGameButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
             "Commencer":"Start", for: .normal)
-        hintsButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
-            "Conseils":"Hints" , for: .normal)
+        statsButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
+            "Statistiques":"Stats" , for: .normal)
         wordListButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
             "Vocabulaire":"Word List" , for: .normal)
         optionsButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
@@ -61,30 +62,26 @@ class MainMenuViewController: UIViewController {
     }
     
     @IBAction func startPressed(_ sender: UIButton) {
-        
-//        hideMenu()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            self.performSegue(withIdentifier: "goToGame", sender: nil)
-        }
+
+        self.performSegue(withIdentifier: "goToGame", sender: nil)
     }
     
     
     @IBAction func optionsPressed(_ sender: UIButton) {
         
-//        hideMenu()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            self.performSegue(withIdentifier: "goToOptions", sender: nil)
-        }
+        self.performSegue(withIdentifier: "goToOptions", sender: nil)
     }
     
     @IBAction func wordListPressed(_ sender: UIButton) {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            self.performSegue(withIdentifier: "goToWordList", sender: nil)
-        }
+        self.performSegue(withIdentifier: "goToWordList", sender: nil)
     }
     
+    
+    @IBAction func statsPressed(_ sender: UIButton) {
+        
+        self.performSegue(withIdentifier: "goToStats", sender: nil)
+    }
     
     
     @IBAction func languageButtonPressed(_ sender: UIButton) {
@@ -134,7 +131,7 @@ class MainMenuViewController: UIViewController {
             
             UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
                 
-                self.hintsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+                self.statsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
                 
             }, completion: { (success) in
                 
@@ -170,13 +167,13 @@ class MainMenuViewController: UIViewController {
         if (currentLanguageIsFrench == true) {
             
             startGameButton.setTitle("Commencer", for: .normal)
-            hintsButton.setTitle("Conseils", for: .normal)
+            statsButton.setTitle("Statistiques", for: .normal)
             wordListButton.setTitle("Vocabulaire", for: .normal)
             optionsButton.setTitle("Réglages", for: .normal)
         }
         else{
             startGameButton.setTitle("Start", for: .normal)
-            hintsButton.setTitle("Hints", for: .normal)
+            statsButton.setTitle("Stats", for: .normal)
             wordListButton.setTitle("Word List", for: .normal)
             optionsButton.setTitle("Settings", for: .normal)
         }
@@ -185,7 +182,7 @@ class MainMenuViewController: UIViewController {
     func loadOptions() {
         
         //Set hints to false by default after checking if the first is set
-        if options.bool(forKey: "OptionsSet") == false{
+        if options.bool(forKey: "OptionsSet") == false {
             
             options.set(true, forKey: "OptionsSet")
             
@@ -194,6 +191,8 @@ class MainMenuViewController: UIViewController {
             options.set(true, forKey: "Progress")
             options.set(10, forKey: "WordCount")
             options.set(false, forKey: "FrenchLanguage")
+            options.set(0, forKey: "correctCount")
+            options.set(0, forKey: "incorrectCount")
             
             print("Default options set!" + String(options.bool(forKey: "OptionsSet")))
         }

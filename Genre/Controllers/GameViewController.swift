@@ -24,7 +24,6 @@ class GameViewController: UIViewController {
     @IBOutlet weak var progressBar: UIView!
     @IBOutlet weak var timerLabel: UILabel!
     
-
     //MARK: - Variables
     
     //Game variables
@@ -130,6 +129,7 @@ class GameViewController: UIViewController {
     @objc func wordCardViewPanned(recognizer : UIPanGestureRecognizer) {
 
         switch recognizer.state {
+            
         case .began:
             let translation = recognizer.translation(in: wordCardView)
             if translation.x > 0 {animateSwipe(direction: .right)}
@@ -302,17 +302,30 @@ class GameViewController: UIViewController {
     
     func gameFinishedPopup() {
         
+        addGameFinishedView()
         
+        updateUserStats()
+        
+        setupGameFinishedView()
+    }
+    
+    func updateUserStats() {
+        let incorrectCount: Int = (numberOfQuestions - userScore)
+        let newIncorrectCount: Int = options.integer(forKey: "incorrectCount") + incorrectCount
+        let newCorrectCount: Int = options.integer(forKey: "correctCount") + userScore
+        options.set(newIncorrectCount, forKey: "incorrectCount")
+        options.set(newCorrectCount, forKey: "correctCount")
+    }
+    
+    func addGameFinishedView() {
         gameFinishedView = UINib(nibName: "GameFinishedView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? GameFinishedView
-        
         gameFinishedView.frame = CGRect(x: 30, y: (view.frame.height - CGFloat(290)) / 2 , width: view.frame.width - CGFloat(60), height: 290)
-        
         view.addSubview(gameFinishedView)
-        
-        let percentage = String(format: "%.1f" , (Double(userScore) / Double(WordBank.sharedInstance.questionBank.count)) * 100.0)
-        
+    }
+    
+    func setupGameFinishedView() {
         let wpm = ( Double(numberOfQuestions) / counter ) * 60.0
-        
+        let percentage = String(format: "%.1f" , (Double(userScore) / Double(WordBank.sharedInstance.questionBank.count)) * 100.0)
         gameFinishedView.correctAnswers.text = "Score: \(userScore) / \(WordBank.sharedInstance.questionBank.count)"
         gameFinishedView.percentage.text = "Pourcentage: " + percentage + "%"
         gameFinishedView.chrono.text = "Chrono: " + String(format: "%.1f" , counter) + " s"
@@ -322,7 +335,6 @@ class GameViewController: UIViewController {
         gameFinishedView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
         
         UIView.animate(withDuration: 0.4) {
-            
             self.timerLabel.alpha = 0
             self.scoreLabel.alpha = 0
             self.gameFinishedView.alpha = 1
@@ -330,9 +342,8 @@ class GameViewController: UIViewController {
 //            self.scoreLabel.alpha = 0
 //            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.7)
             self.restartButton.alpha = 1
-            
         }
-        
+                
     }
     
     @IBAction func restartPressed(_ sender: UIButton) {
@@ -370,34 +381,7 @@ class GameViewController: UIViewController {
                 self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
             }
         }
-       
-        
-        
-        }
-
-    @IBAction func backPressed(_ sender: UIButton) {
-        
-        //Check if game has finished or not by seeing if a gameFinishedView has loaded
-        if gameFinishedView == nil {
-            self.scoreLabel.alpha = 0
-            UIView.animate(withDuration: 0.5, delay: 0.05, options: .curveEaseOut, animations: {
-                self.wordCardView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
-                self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
-                self.timerLabel.alpha = 0
-            }, completion: nil)
-        }
-        else {
-            self.restartButton.alpha = 0
-            UIView.animate(withDuration: 0.5, delay: 0.05, options: .curveEaseOut, animations: {
-                self.gameFinishedView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
-                self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
-            }, completion: nil)
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            self.dismiss(animated: true, completion: nil)
-        }
- 
     }
+
     
 }

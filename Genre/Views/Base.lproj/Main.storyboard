@@ -37,9 +37,12 @@
                                                 <rect key="frame" x="0.0" y="69" width="235" height="49"/>
                                                 <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
-                                                <state key="normal" title="Hints">
+                                                <state key="normal" title="Stats">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="statsPressed:" destination="esT-rM-L1R" eventType="touchUpInside" id="cP9-Sy-Otk"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="caJ-xg-UsP">
                                                 <rect key="frame" x="0.0" y="138" width="235" height="49"/>
@@ -107,15 +110,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="hBF-1y-Qzf"/>
                     <connections>
-                        <outlet property="hintsButton" destination="JWF-QQ-dZC" id="9x7-5c-IqC"/>
                         <outlet property="iconButton" destination="MpY-Az-l0K" id="9FS-6T-Bih"/>
                         <outlet property="menuView" destination="c8Q-bV-hhm" id="fqq-dz-e9o"/>
                         <outlet property="optionsButton" destination="69v-TY-g8C" id="UQI-6g-NVN"/>
                         <outlet property="startGameButton" destination="LeV-s5-8jJ" id="2uB-Oj-5D0"/>
+                        <outlet property="statsButton" destination="JWF-QQ-dZC" id="EtN-6h-z8K"/>
                         <outlet property="wordListButton" destination="caJ-xg-UsP" id="ylg-qI-PXc"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="goToGame" id="bxE-Oq-SKt"/>
                         <segue destination="2La-X6-BlC" kind="show" identifier="goToOptions" id="9KW-9A-a4j"/>
                         <segue destination="if2-xk-aO5" kind="show" identifier="goToWordList" id="knN-tn-l3b"/>
+                        <segue destination="M1s-DJ-Kbu" kind="show" identifier="goToStats" id="puO-j7-ZSj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7EU-RK-SV0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -302,6 +306,45 @@ Bar : </string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d8C-oc-byt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="73" y="804"/>
+        </scene>
+        <!--Stats-->
+        <scene sceneID="5pn-HD-qp6">
+            <objects>
+                <viewController id="M1s-DJ-Kbu" customClass="StatsViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vti-Qr-K4N">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lifetime % Correct" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAM-G7-GRh">
+                                <rect key="frame" x="86.5" y="74" width="202" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqj-W0-g60">
+                                <rect key="frame" x="141" y="307" width="93.5" height="53"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="44"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="zqj-W0-g60" firstAttribute="centerX" secondItem="vti-Qr-K4N" secondAttribute="centerX" id="6rw-LP-7Wd"/>
+                            <constraint firstItem="zqj-W0-g60" firstAttribute="centerY" secondItem="vti-Qr-K4N" secondAttribute="centerY" id="SgB-n7-fbM"/>
+                            <constraint firstItem="xAM-G7-GRh" firstAttribute="centerX" secondItem="vti-Qr-K4N" secondAttribute="centerX" id="cPK-0b-gln"/>
+                            <constraint firstItem="xAM-G7-GRh" firstAttribute="top" secondItem="R7F-xK-oQ2" secondAttribute="top" constant="30" id="kjv-ZS-abi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="R7F-xK-oQ2"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Stats" id="fM4-gO-gzq"/>
+                    <connections>
+                        <outlet property="percentCorrectLabel" destination="zqj-W0-g60" id="EZ6-qp-1Qb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M7g-Rs-y2C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1028" y="814"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">

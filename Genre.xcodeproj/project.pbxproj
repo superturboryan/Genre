@@ -11,6 +11,7 @@
 		947ADD0B23483C5800F8FCFD /* WordListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */; };
 		947ADD0E2348435400F8FCFD /* WordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */; };
 		947ADD0F2348435400F8FCFD /* WordListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947ADD0D2348435400F8FCFD /* WordListTableViewCell.xib */; };
+		947ADD112348F4A600F8FCFD /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD102348F4A600F8FCFD /* StatsViewController.swift */; };
 		94CD98212344223E00AADAE7 /* WordChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD98202344223E00AADAE7 /* WordChecker.swift */; };
 		94CD9848234821EF00AADAE7 /* WordBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD9847234821EF00AADAE7 /* WordBank.swift */; };
 		94EF25532239B979003240B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF25522239B979003240B9 /* AppDelegate.swift */; };
@@ -35,6 +36,7 @@
 		947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListTableViewController.swift; sourceTree = "<group>"; };
 		947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListTableViewCell.swift; sourceTree = "<group>"; };
 		947ADD0D2348435400F8FCFD /* WordListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WordListTableViewCell.xib; sourceTree = "<group>"; };
+		947ADD102348F4A600F8FCFD /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		94CD98202344223E00AADAE7 /* WordChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordChecker.swift; sourceTree = "<group>"; };
 		94CD9847234821EF00AADAE7 /* WordBank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordBank.swift; sourceTree = "<group>"; };
 		94EF254F2239B979003240B9 /* Genre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Genre.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +151,7 @@
 				94EF256C2239DDB3003240B9 /* GameFinishedView.swift */,
 				947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */,
 				947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */,
+				947ADD102348F4A600F8FCFD /* StatsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				94CD9848234821EF00AADAE7 /* WordBank.swift in Sources */,
 				94EF256D2239DDB3003240B9 /* GameFinishedView.swift in Sources */,
 				947ADD0E2348435400F8FCFD /* WordListTableViewCell.swift in Sources */,
+				947ADD112348F4A600F8FCFD /* StatsViewController.swift in Sources */,
 				94EF25532239B979003240B9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
