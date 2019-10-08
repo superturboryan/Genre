@@ -339,7 +339,7 @@ Bar : </string>
                     </view>
                     <navigationItem key="navigationItem" title="Stats" id="fM4-gO-gzq"/>
                     <connections>
-                        <outlet property="percentCorrectLabel" destination="zqj-W0-g60" id="EZ6-qp-1Qb"/>
+                        <outlet property="statsLabel" destination="zqj-W0-g60" id="z17-aw-WIX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M7g-Rs-y2C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -419,6 +419,7 @@ Bar : </string>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yeq-vG-9Uz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

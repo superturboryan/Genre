@@ -9,36 +9,47 @@
 import UIKit
 
 class StatsViewController: UIViewController {
-    
-    @IBOutlet weak var percentCorrectLabel: UILabel!
-    
+
     let options = UserDefaults.standard
     
     let shapeLayer = CAShapeLayer()
+    
+    @IBOutlet weak var statsLabel: UILabel!
+    
+    var displayLink: CADisplayLink?
+    
+    var overallCorrectPercentage: Double = 0
+    
+    var animationDuration: Double = 1.5
+    
+    var animationStart: Date = Date()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addCircularProgressBar()
+        calculateStats()
+        
+        setupCircularProgressBar()
         
         setupView()
         
-        let percentCorrect = (Double(options.integer(forKey: "correctCount")) / (Double(options.integer(forKey: "correctCount")) + Double(options.integer(forKey: "incorrectCount")))) * 100
+        setProgressToPercent(value: overallCorrectPercentage)
         
-        setProgressToPercent(value: percentCorrect)
-
-        // Do any additional setup after loading the view.
+        setupOverallPercentLabelAnimation()
     }
     
     func setupView() {
         
-        let percentCorrect: Double = round((Double(options.integer(forKey: "correctCount")) / (Double(options.integer(forKey: "correctCount")) + Double(options.integer(forKey: "incorrectCount")))) * 100)
         
-        percentCorrectLabel.text = "\(percentCorrect) %"
+    }
+    
+    func calculateStats() {
+        
+        overallCorrectPercentage = round((Double(options.integer(forKey: "correctCount")) / (Double(options.integer(forKey: "correctCount")) + Double(options.integer(forKey: "incorrectCount")))) * 100)
         
     }
  
-    func addCircularProgressBar(){
+    func setupCircularProgressBar(){
         
         // Progress Layer
         
@@ -51,7 +62,7 @@ class StatsViewController: UIViewController {
         } else {
             shapeLayer.strokeColor = UIColor.red.cgColor
         }
-        shapeLayer.lineWidth = 10
+        shapeLayer.lineWidth = 20
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         
@@ -66,7 +77,7 @@ class StatsViewController: UIViewController {
         
         trackLayer.strokeColor = UIColor.lightGray.cgColor
         
-        trackLayer.lineWidth = 10
+        trackLayer.lineWidth = 18
         trackLayer.fillColor = UIColor.clear.cgColor
         
         view.layer.addSublayer(trackLayer)
@@ -83,7 +94,7 @@ class StatsViewController: UIViewController {
         
         basicAnimation.toValue =  (value / 100) * 0.795
 
-        basicAnimation.duration = 3
+        basicAnimation.duration = animationDuration
         
         basicAnimation.fillMode = .forwards
         
@@ -94,31 +105,32 @@ class StatsViewController: UIViewController {
         shapeLayer.add(basicAnimation,forKey: "basicStroke")
     }
     
-    @objc func handleTap() {
+    func setupOverallPercentLabelAnimation() {
+    
+        displayLink = CADisplayLink(target: self, selector: #selector(animateDisplayLink))
+        displayLink?.add(to: .main, forMode: RunLoop.Mode.default)
+    }
+    
+    @objc func animateDisplayLink() {
         
-        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        let start: Double = 0
+        let end = overallCorrectPercentage
+        let now = Date()
+        let elapsedTime = now.timeIntervalSince(animationStart)
+       
+       if elapsedTime > animationDuration {
+        self.statsLabel.text = "\(end) %"
+            displayLink!.invalidate()
+            displayLink = nil
         
-        basicAnimation.toValue = 1
+       }
+       else {`
+        let percentage = elapsedTime / animationDuration
+           let value = round(start + percentage * (end - start))
+            statsLabel.text = "\(value) %"
+       }
         
-        basicAnimation.duration = 3
-        
-        basicAnimation.fillMode = .forwards
-        
-        basicAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        
-        basicAnimation.isRemovedOnCompletion = false
-        
-        shapeLayer.add(basicAnimation,forKey: "basicStroke")
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
