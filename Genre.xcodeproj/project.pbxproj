@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9454B411234D8BED00025274 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9454B410234D8BED00025274 /* GameEngine.swift */; };
 		945CA3832343055900F1677E /* Words1592WithAccents.csv in Resources */ = {isa = PBXBuildFile; fileRef = 945CA3822343055900F1677E /* Words1592WithAccents.csv */; };
 		947ADD0B23483C5800F8FCFD /* WordListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */; };
 		947ADD0E2348435400F8FCFD /* WordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		0C44F809E8721941472BA448 /* Pods-Genre.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Genre.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Genre/Pods-Genre.debug.xcconfig"; sourceTree = "<group>"; };
+		9454B410234D8BED00025274 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
 		945CA3822343055900F1677E /* Words1592WithAccents.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Words1592WithAccents.csv; sourceTree = "<group>"; };
 		947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListTableViewController.swift; sourceTree = "<group>"; };
 		947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListTableViewCell.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				94CD98202344223E00AADAE7 /* WordChecker.swift */,
 				94CD9847234821EF00AADAE7 /* WordBank.swift */,
+				9454B410234D8BED00025274 /* GameEngine.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94EF2574223AA26A003240B9 /* MainMenuViewController.swift in Sources */,
+				9454B411234D8BED00025274 /* GameEngine.swift in Sources */,
 				94EF25652239B9E1003240B9 /* WordCardView.swift in Sources */,
 				94EF25692239C5F8003240B9 /* WordModel.swift in Sources */,
 				94EF2576223C8772003240B9 /* OptionsViewController.swift in Sources */,

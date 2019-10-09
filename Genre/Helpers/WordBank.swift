@@ -13,14 +13,14 @@ class WordBank: NSObject {
     
     static let sharedInstance = WordBank()
     
-    var wordList = [String:String]()
     var wordArray: [Word] = Array()
-    var questionBank: [Word] = Array()
     
     func loadCSV(){
         
         let stream = InputStream(fileAtPath: Bundle.main.path(forResource: "Words1592WithAccents", ofType: "csv")!)
         let csv = try! CSVReader(stream: stream!)
+        
+        var wordList = [String:String]()
         
         while let row = csv.next() {
             wordList[row[0]] = row[1]
@@ -44,17 +44,6 @@ class WordBank: NSObject {
         }
     }
     
-    func loadQuestionBank(numOfQuestions : Int) {
-        
-        questionBank = []
-        
-        var x = 0
-        
-        while x < numOfQuestions {
-            
-            questionBank.append(wordArray.randomElement()!)
-            x += 1
-        }
-    }
+    
 
 }

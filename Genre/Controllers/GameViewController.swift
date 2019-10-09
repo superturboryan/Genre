@@ -56,7 +56,7 @@ class GameViewController: UIViewController {
     var animateProgress : CGFloat = 0
     var currentSwipeDirection : SwipeDirection!
     
-//MARK: View load, appear, disappear
+//MARK: - View load, appear, disappear
     
     override func viewDidLoad() {
         super.viewDidLoad()

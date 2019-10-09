@@ -33,7 +33,7 @@ class StatsViewController: UIViewController {
         
         setupView()
         
-        setProgressToPercent(value: overallCorrectPercentage)
+        animateProgressCircleToPercent(value: overallCorrectPercentage)
         
         setupOverallPercentLabelAnimation()
     }
@@ -86,7 +86,7 @@ class StatsViewController: UIViewController {
         
     }
     
-    func setProgressToPercent(value: Double) {
+    func animateProgressCircleToPercent(value: Double) {
         
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         
@@ -124,7 +124,7 @@ class StatsViewController: UIViewController {
             displayLink = nil
         
        }
-       else {`
+       else {
         let percentage = elapsedTime / animationDuration
            let value = round(start + percentage * (end - start))
             statsLabel.text = "\(value) %"
