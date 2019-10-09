@@ -26,11 +26,6 @@ class GameViewController: UIViewController {
     
     //MARK: - Variables
     
-    //Game variables
-    internal var numberOfQuestions : Int = 10
-    internal var currentQuestionNumber : Int = 1
-    internal var userScore : Int = 0
-    
     //Timer variables
     private var counter = 0.0
     private var timer = Timer()
@@ -61,10 +56,8 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        guard let numberOfQuestionsOption: Int = options.value(forKey: "WordCount") as? Int else {fatalError()}
-        numberOfQuestions = numberOfQuestionsOption
-        WordBank.sharedInstance.loadCSV()
-        WordBank.sharedInstance.loadQuestionBank(numOfQuestions: numberOfQuestions)
+        
+        GameEngine.sharedInstance.loadNewGameWords()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -72,8 +65,8 @@ class GameViewController: UIViewController {
         UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseOut, animations: {
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
         }, completion: nil)
-        createNewCard()
-        updateUI(questionNum : currentQuestionNumber)
+
+        updateUI()
         startTimer()
     }
     
@@ -107,16 +100,17 @@ class GameViewController: UIViewController {
     }
     
     
-    @objc func updateUI(questionNum : Int) {
+    @objc func updateUI() {
         
-        wordCardView.wordLabel.text = WordBank.sharedInstance.questionBank[questionNum].word
-        scoreLabel.text = "\(userScore) / \(numberOfQuestions)"
-        wordCardView.hintLabel.text = WordBank.sharedInstance.questionBank[questionNum].hint
+        scoreLabel.text = "\(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.numberOfQuestionsForGame)"
+
         if options.value(forKey: "Progress") as! Bool == true {
             UIView.animate(withDuration: 0.8, delay: 0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                self.progressBar.frame.size.width = (self.view.frame.size.width / CGFloat(self.numberOfQuestions)) * CGFloat(questionNum)
+                self.progressBar.frame.size.width = (self.view.frame.size.width / CGFloat(GameEngine.sharedInstance.numberOfQuestionsForGame)) * CGFloat(GameEngine.sharedInstance.currentQuestionNumber)
             }, completion: nil)
         }
+        
+        addNextCard()
     }
     
     
@@ -153,25 +147,33 @@ class GameViewController: UIViewController {
             }
             
         case .ended:
-            
             let velocity = recognizer.velocity(in: wordCardView)
             //If more than 0.4 is complete, do completion block and remove
             if velocity.x > 90 || velocity.x < -90 || animator.fractionComplete > 0.5 {
-                animator.addCompletion { (position) in
-                    if velocity.x > 0 {
-                        self.checkAnswer(pickedAnswer: true)
-                    }
-                    else if velocity.x < 0 {
-                        self.checkAnswer(pickedAnswer: false)
+                animator.addCompletion {(position) in
+                    var pickedAnswer: Bool = true
+
+                    if velocity.x < 0 { pickedAnswer = false }
+                    
+                    if (GameEngine.sharedInstance.checkAnswer(pickedAnswer: pickedAnswer)) {
+                        UIView.animate(withDuration: 0.4, animations: {
+                                       self.plusOneLabel.alpha = 1
+                                       self.scoreLabel.alpha = 0
+                                   }) { (success) in
+                                       UIView.animate(withDuration: 0.2, animations: {
+                                           self.plusOneLabel.alpha = 0
+                                           self.scoreLabel.alpha = 1
+                                       }, completion: nil)
+                                   }
                     }
 
                     //Remove answered card from view
                     self.wordCardView.removeFromSuperview()
                     
-                    self.currentQuestionNumber += 1
+                    GameEngine.sharedInstance.goToNextQuestion()
                    
                     //Check if quiz has finished!
-                    if self.currentQuestionNumber == WordBank.sharedInstance.questionBank.count {
+                    if GameEngine.sharedInstance.isGameFinished() {
                         
                         self.timer.invalidate()
                         
@@ -188,9 +190,8 @@ class GameViewController: UIViewController {
                         })
                     }
                     else{
-                        //Add new card to view
-                        self.createNewCard()
-                        self.updateUI(questionNum: self.currentQuestionNumber)
+
+                        self.updateUI()
                     }
                                     }
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
@@ -203,33 +204,7 @@ class GameViewController: UIViewController {
         }
     }
     
-    func checkAnswer(pickedAnswer: Bool) {
-        
-        let correctAnswer = WordBank.sharedInstance.questionBank[currentQuestionNumber].gender
-        
-        if pickedAnswer == correctAnswer {
-            
-            userScore += 1
-            print("Correct!")
-            
-            UIView.animate(withDuration: 0.4, animations: {
-                self.plusOneLabel.alpha = 1
-                self.scoreLabel.alpha = 0
-            }) { (success) in
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.plusOneLabel.alpha = 0
-                    self.scoreLabel.alpha = 1
-                }, completion: nil)
-            }
-        }
-        else{
-            print("Incorrect!")
-        }
-        
-    }
-    
-    
-    
+
     func animateSwipe(direction : SwipeDirection) {
         
         if animator.isRunning { return }
@@ -266,7 +241,39 @@ class GameViewController: UIViewController {
         animateProgress = animator.fractionComplete
     }
     
-    
+    func addNextCard() {
+        
+        wordCardView = UINib(nibName: "WordCardView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? WordCardView
+        
+        wordCardView.frame = CGRect(x: 30, y: (view.frame.height - CGFloat(290)) / 2 , width: view.frame.width - CGFloat(60), height: 290)
+        
+        if !GameEngine.sharedInstance.showHints {
+            wordCardView.hintLabel.alpha = 0
+        }
+        
+        let i = GameEngine.sharedInstance.currentQuestionNumber
+        
+        wordCardView.wordLabel.text = GameEngine.sharedInstance.gameWords[i].word
+        
+        wordCardView.hintLabel.text = GameEngine.sharedInstance.gameWords[i].hint
+        
+        wordCardView.addGestureRecognizer(panRecognizer)
+        
+        wordCardView.isUserInteractionEnabled = true
+        
+        //Hide and shrink card before showing with animation
+        wordCardView.alpha = 0
+        wordCardView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+        
+        view.addSubview(wordCardView)
+        
+        UIView.animate(withDuration: 0.2) {
+            self.wordCardView.alpha = 1
+            self.wordCardView.transform = CGAffineTransform.identity
+        }
+        
+    }
+        
     
     func createNewCard() {
         
@@ -310,9 +317,9 @@ class GameViewController: UIViewController {
     }
     
     func updateUserStats() {
-        let incorrectCount: Int = (numberOfQuestions - userScore)
+        let incorrectCount: Int = (GameEngine.sharedInstance.numberOfQuestionsForGame - GameEngine.sharedInstance.userScore)
         let newIncorrectCount: Int = options.integer(forKey: "incorrectCount") + incorrectCount
-        let newCorrectCount: Int = options.integer(forKey: "correctCount") + userScore
+        let newCorrectCount: Int = options.integer(forKey: "correctCount") + GameEngine.sharedInstance.userScore
         options.set(newIncorrectCount, forKey: "incorrectCount")
         options.set(newCorrectCount, forKey: "correctCount")
     }
@@ -324,9 +331,9 @@ class GameViewController: UIViewController {
     }
     
     func setupGameFinishedView() {
-        let wpm = ( Double(numberOfQuestions) / counter ) * 60.0
-        let percentage = String(format: "%.1f" , (Double(userScore) / Double(WordBank.sharedInstance.questionBank.count)) * 100.0)
-        gameFinishedView.correctAnswers.text = "Score: \(userScore) / \(WordBank.sharedInstance.questionBank.count)"
+        let wpm = ( Double(GameEngine.sharedInstance.numberOfQuestionsForGame) / counter ) * 60.0
+        let percentage = String(format: "%.1f" , (Double(GameEngine.sharedInstance.userScore) / Double(GameEngine.sharedInstance.gameWords.count)) * 100.0)
+        gameFinishedView.correctAnswers.text = "Score: \(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.gameWords.count)"
         gameFinishedView.percentage.text = "Pourcentage: " + percentage + "%"
         gameFinishedView.chrono.text = "Chrono: " + String(format: "%.1f" , counter) + " s"
         gameFinishedView.wpm.text = "MPM: " + String(format: "%.1f" , wpm)
@@ -348,9 +355,9 @@ class GameViewController: UIViewController {
     
     @IBAction func restartPressed(_ sender: UIButton) {
         
-        userScore = 0
-        currentQuestionNumber = 0
-        WordBank.sharedInstance.loadQuestionBank(numOfQuestions: numberOfQuestions)
+        GameEngine.sharedInstance.resetCurrentQuestionNumber()
+        
+        GameEngine.sharedInstance.loadNewGameWords()
         
         counter = 0
         
@@ -373,8 +380,8 @@ class GameViewController: UIViewController {
             
             //And remove from SuperView
             self.gameFinishedView.removeFromSuperview()
-            self.createNewCard()
-            self.updateUI(questionNum: self.currentQuestionNumber)
+
+            self.updateUI()
             
             ///////////////////////////////////////////////////////
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
