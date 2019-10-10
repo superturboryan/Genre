@@ -38,6 +38,12 @@ class GameEngine: NSObject {
         loadNewGameWords()
     }
     
+    func restartGame() {
+        loadNewGameWords()
+        resetCurrentQuestionNumber()
+        resetUserScore()
+    }
+    
     //MARK:- Loading
 
     func loadSettings() {
@@ -74,6 +80,10 @@ class GameEngine: NSObject {
 
     func incrementUserScore() {
         userScore += 1
+    }
+    
+    func resetUserScore() {
+        userScore = 0
     }
     
     //MARK:- Current word properties

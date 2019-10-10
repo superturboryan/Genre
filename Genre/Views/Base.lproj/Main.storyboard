@@ -338,6 +338,8 @@ Bar : </string>
                         <viewLayoutGuide key="safeArea" id="R7F-xK-oQ2"/>
                     </view>
                     <navigationItem key="navigationItem" title="Stats" id="fM4-gO-gzq"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="statsLabel" destination="zqj-W0-g60" id="z17-aw-WIX"/>
                     </connections>

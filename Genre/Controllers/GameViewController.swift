@@ -190,17 +190,16 @@ class GameViewController: UIViewController {
                         })
                     }
                     else{
-
                         self.updateUI()
                     }
-                                    }
+                }
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
                 break
             }
             animator.isReversed = true
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
         default:
-            ()
+            break
         }
     }
     
@@ -355,9 +354,7 @@ class GameViewController: UIViewController {
     
     @IBAction func restartPressed(_ sender: UIButton) {
         
-        GameEngine.sharedInstance.resetCurrentQuestionNumber()
-        
-        GameEngine.sharedInstance.loadNewGameWords()
+        GameEngine.sharedInstance.restartGame()
         
         counter = 0
         
