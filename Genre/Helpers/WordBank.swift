@@ -65,13 +65,7 @@ class WordBank: NSObject {
             wordToInsert.incorrectCount = 0
             wordToInsert.hint = "No hint"
             
-            do{
-               try self.delegateContext.save()
-                print("Added word \(wordString) into Core Data")
-            }
-            catch {
-                print("Error saving word \(wordString) into Core Data")
-            }
+            saveChangesToCoreData()
             
 //            if let hint: String = WordChecker.checkLastTwoLettersForHint(word: wordString) {
 //                wordToAdd.setHint(hint: hint)
@@ -79,6 +73,16 @@ class WordBank: NSObject {
         }
     }
     
+    func saveChangesToCoreData() {
+        
+        do{
+           try self.delegateContext.save()
+            print("Changes saved to Core Data")
+        }
+        catch {
+            print("Error updating Core Data")
+        }
+    }
     
     func getAllWordsUnordered() -> [Word] {
         
@@ -119,6 +123,25 @@ class WordBank: NSObject {
         return []
     }
     
+    func getWordFor(string: String) -> Word? {
+        
+        let request : NSFetchRequest<Word> = Word.fetchRequest()
+//        let entity = NSEntityDescription.entity(forEntityName: "Word", in: delegateContext)
+        
+        request.predicate = NSPredicate(format:"word = %@", string)
+        request.fetchLimit = 1
+        
+        do{
+            let fetchResult = try delegateContext.fetch(request)[0]
+
+            if (fetchResult.word != "") { return fetchResult }
+        }
+        catch {
+            print("Error loading word from Core Data")
+        }
+        
+        return nil
+    }
     
     func getRandomWordsFor(count: Int) -> [Word] {
         

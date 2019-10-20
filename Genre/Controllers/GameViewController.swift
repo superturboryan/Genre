@@ -151,6 +151,7 @@ class GameViewController: UIViewController {
             //If more than 0.4 is complete, do completion block and remove
             if velocity.x > 90 || velocity.x < -90 || animator.fractionComplete > 0.5 {
                 animator.addCompletion {(position) in
+                    
                     var pickedAnswer: Bool = true
 
                     if velocity.x < 0 { pickedAnswer = false }

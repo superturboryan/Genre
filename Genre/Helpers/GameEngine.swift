@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class GameEngine: NSObject {
     
@@ -39,6 +40,8 @@ class GameEngine: NSObject {
     }
     
     func restartGame() {
+        
+        resetCurrentQuestionNumber()
         loadNewGameWords()
         resetCurrentQuestionNumber()
         resetUserScore()
@@ -55,8 +58,6 @@ class GameEngine: NSObject {
     }
 
     func loadNewGameWords() {
-        
-        resetCurrentQuestionNumber()
         
         gameWords = WordBank.sharedInstance.getRandomWordsFor(count: numberOfQuestionsForGame)
     }
@@ -84,6 +85,11 @@ class GameEngine: NSObject {
     }
     
     //MARK:- Current word properties
+    
+    func getCurredWord() -> Word {
+        return gameWords[currentQuestionNumber]
+    }
+    
     func getCurrentWordString() -> String {
         return gameWords[currentQuestionNumber].word!
     }
@@ -99,17 +105,40 @@ class GameEngine: NSObject {
     //MARK:- Check Answer
     func checkAnswer(pickedAnswer: Bool?) -> Bool {
         
-        let correctAnswer = GameEngine.sharedInstance.getCurrentWordGender()
+        let currentWord = gameWords[currentQuestionNumber]
+        
+        let correctAnswer = currentWord.gender
         
         if pickedAnswer == correctAnswer {
             
-            GameEngine.sharedInstance.incrementUserScore()
+            incrementUserScore()
+            
+            incrementCountFor(word: currentWord, correct: true)
+            
             print("Correct!")
             return true
         }
         else{
+            
+            incrementCountFor(word: currentWord, correct: false)
+            
             print("Incorrect!")
             return false
         }
+    }
+    
+    func incrementCountFor(word: Word, correct: Bool) {
+        
+        let wordToIncrement = WordBank.sharedInstance.getWordFor(string: word.word!)!
+        
+        if (correct) {
+            wordToIncrement.correctCount += 1
+        }
+        else {
+            wordToIncrement.incorrectCount += 1
+        }
+        
+        WordBank.sharedInstance.saveChangesToCoreData()
+        
     }
 }
