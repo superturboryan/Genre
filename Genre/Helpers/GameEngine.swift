@@ -58,11 +58,7 @@ class GameEngine: NSObject {
         
         resetCurrentQuestionNumber()
         
-        gameWords = []
-        
-        for _ in (1...numberOfQuestionsForGame) {
-            gameWords.append(WordBank.sharedInstance.wordArray.randomElement()!)
-        }
+        gameWords = WordBank.sharedInstance.getRandomWordsFor(count: numberOfQuestionsForGame)
     }
     
     //MARK:- Game State

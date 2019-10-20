@@ -16,8 +16,6 @@ class WordBank: NSObject {
     
     static let sharedInstance = WordBank()
     
-    var wordArray: [Word] = Array()
-    
     let delegateContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
@@ -37,7 +35,8 @@ class WordBank: NSObject {
         return false
     }
     
-    func loadCSV(){
+    
+    func loadCsvIntoCoreData(){
         
         let stream = InputStream(fileAtPath: Bundle.main.path(forResource: "Words1592WithAccents", ofType: "csv")!)
         
@@ -66,8 +65,6 @@ class WordBank: NSObject {
             wordToInsert.incorrectCount = 0
             wordToInsert.hint = "No hint"
             
-            wordArray.append(wordToInsert)
-            
             do{
                try self.delegateContext.save()
                 print("Added word \(wordString) into Core Data")
@@ -76,12 +73,67 @@ class WordBank: NSObject {
                 print("Error saving word \(wordString) into Core Data")
             }
             
-//            let wordToAdd = Word(word: wordString, gender: genderBool)
 //            if let hint: String = WordChecker.checkLastTwoLettersForHint(word: wordString) {
 //                wordToAdd.setHint(hint: hint)
 //            }
-//            wordArray.append(wordToAdd)
         }
+    }
+    
+    
+    func getAllWordsUnordered() -> [Word] {
+        
+        let request : NSFetchRequest<Word> = Word.fetchRequest()
+        
+        do{
+            let fetchResult = try delegateContext.fetch(request)
+
+            if (fetchResult.count != 0) { return fetchResult }
+        }
+        catch {
+            print("Error loading word from Core Data")
+        }
+        return []
+    }
+    
+    
+    func getAllWordAlphabetical() -> [Word] {
+        
+        let request : NSFetchRequest<Word> = Word.fetchRequest()
+        
+        do{
+            let fetchResult = try delegateContext.fetch(request)
+
+            if (fetchResult.count != 0) {
+                
+                let alphabeticalWordList = fetchResult.sorted(by: { (first, second) -> Bool in
+                    if (first.word! < second.word!) { return true }
+                    return false
+                })
+                
+                return alphabeticalWordList
+            }
+        }
+        catch {
+            print("Error loading word from Core Data")
+        }
+        return []
+    }
+    
+    
+    func getRandomWordsFor(count: Int) -> [Word] {
+        
+        let request : NSFetchRequest<Word> = Word.fetchRequest()
+        request.fetchLimit = count
+        
+        do{
+            let fetchResult = try delegateContext.fetch(request)
+
+            if (fetchResult.count != 0) { return fetchResult }
+        }
+        catch {
+            print("Error loading word from Core Data")
+        }
+        return []
     }
     
 }
