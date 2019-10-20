@@ -8,20 +8,20 @@
 
 import Foundation
 
-class Word {
-
-    let word : String,
-        gender : Bool
-
-    var hint : String?
-    
-    init(word : String, gender : Bool){
-        self.word = word
-        self.gender = gender
-    }
-    
-    func setHint(hint: String) {
-        self.hint = hint
-    }
-    
-}
+//class Word {
+//
+//    let word : String,
+//        gender : Bool
+//
+//    var hint : String?
+//    
+//    init(word : String, gender : Bool){
+//        self.word = word
+//        self.gender = gender
+//    }
+//    
+//    func setHint(hint: String) {
+//        self.hint = hint
+//    }
+//    
+//}

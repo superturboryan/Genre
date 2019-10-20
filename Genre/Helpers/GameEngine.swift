@@ -48,6 +48,7 @@ class GameEngine: NSObject {
 
     func loadSettings() {
         
+        numberOfQuestionsForGame = AppOptions.integer(forKey: "WordCount")
         showHints = AppOptions.bool(forKey: "Hints")
         showTimer = AppOptions.bool(forKey: "Timer")
         showProgressBar = AppOptions.bool(forKey: "Progress")
@@ -59,7 +60,7 @@ class GameEngine: NSObject {
         
         gameWords = []
         
-        for _ in (0...numberOfQuestionsForGame) {
+        for _ in (1...numberOfQuestionsForGame) {
             gameWords.append(WordBank.sharedInstance.wordArray.randomElement()!)
         }
     }
@@ -88,7 +89,7 @@ class GameEngine: NSObject {
     
     //MARK:- Current word properties
     func getCurrentWordString() -> String {
-        return gameWords[currentQuestionNumber].word
+        return gameWords[currentQuestionNumber].word!
     }
     
     func getCurrentWordGender() -> Bool {

@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		9454B411234D8BED00025274 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9454B410234D8BED00025274 /* GameEngine.swift */; };
 		945CA3832343055900F1677E /* Words1592WithAccents.csv in Resources */ = {isa = PBXBuildFile; fileRef = 945CA3822343055900F1677E /* Words1592WithAccents.csv */; };
+		94621EE8235373CB00D3DBC0 /* WordModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94621EE6235373CB00D3DBC0 /* WordModel.xcdatamodeld */; };
+		94621EFD23551E5800D3DBC0 /* Session+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94621EF923551E5800D3DBC0 /* Session+CoreDataClass.swift */; };
+		94621EFE23551E5800D3DBC0 /* Session+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94621EFA23551E5800D3DBC0 /* Session+CoreDataProperties.swift */; };
+		946D283A235CF0B100CD506B /* Word+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2838235CF0B100CD506B /* Word+CoreDataClass.swift */; };
+		946D283B235CF0B100CD506B /* Word+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2839235CF0B100CD506B /* Word+CoreDataProperties.swift */; };
 		947ADD0B23483C5800F8FCFD /* WordListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */; };
 		947ADD0E2348435400F8FCFD /* WordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */; };
 		947ADD0F2348435400F8FCFD /* WordListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947ADD0D2348435400F8FCFD /* WordListTableViewCell.xib */; };
@@ -35,6 +40,11 @@
 		0C44F809E8721941472BA448 /* Pods-Genre.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Genre.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Genre/Pods-Genre.debug.xcconfig"; sourceTree = "<group>"; };
 		9454B410234D8BED00025274 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
 		945CA3822343055900F1677E /* Words1592WithAccents.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Words1592WithAccents.csv; sourceTree = "<group>"; };
+		94621EE7235373CB00D3DBC0 /* WordModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WordModel.xcdatamodel; sourceTree = "<group>"; };
+		94621EF923551E5800D3DBC0 /* Session+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataClass.swift"; sourceTree = "<group>"; };
+		94621EFA23551E5800D3DBC0 /* Session+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		946D2838235CF0B100CD506B /* Word+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Word+CoreDataClass.swift"; sourceTree = "<group>"; };
+		946D2839235CF0B100CD506B /* Word+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Word+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListTableViewController.swift; sourceTree = "<group>"; };
 		947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListTableViewCell.swift; sourceTree = "<group>"; };
 		947ADD0D2348435400F8FCFD /* WordListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WordListTableViewCell.xib; sourceTree = "<group>"; };
@@ -111,8 +121,8 @@
 		94EF25512239B979003240B9 /* Genre */ = {
 			isa = PBXGroup;
 			children = (
-				94CD981F2344220E00AADAE7 /* Helpers */,
 				94EF25522239B979003240B9 /* AppDelegate.swift */,
+				94CD981F2344220E00AADAE7 /* Helpers */,
 				94EF25702239F250003240B9 /* Model */,
 				94EF25712239F263003240B9 /* Views */,
 				94EF25722239F286003240B9 /* Controllers */,
@@ -127,7 +137,12 @@
 		94EF25702239F250003240B9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				946D2838235CF0B100CD506B /* Word+CoreDataClass.swift */,
+				946D2839235CF0B100CD506B /* Word+CoreDataProperties.swift */,
+				94621EF923551E5800D3DBC0 /* Session+CoreDataClass.swift */,
+				94621EFA23551E5800D3DBC0 /* Session+CoreDataProperties.swift */,
 				94EF25682239C5F8003240B9 /* WordModel.swift */,
+				94621EE6235373CB00D3DBC0 /* WordModel.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -301,9 +316,14 @@
 				9454B411234D8BED00025274 /* GameEngine.swift in Sources */,
 				94EF25652239B9E1003240B9 /* WordCardView.swift in Sources */,
 				94EF25692239C5F8003240B9 /* WordModel.swift in Sources */,
+				94621EFE23551E5800D3DBC0 /* Session+CoreDataProperties.swift in Sources */,
+				946D283A235CF0B100CD506B /* Word+CoreDataClass.swift in Sources */,
 				94EF2576223C8772003240B9 /* OptionsViewController.swift in Sources */,
+				94621EE8235373CB00D3DBC0 /* WordModel.xcdatamodeld in Sources */,
 				94EF25552239B979003240B9 /* GameViewController.swift in Sources */,
 				947ADD0B23483C5800F8FCFD /* WordListTableViewController.swift in Sources */,
+				94621EFD23551E5800D3DBC0 /* Session+CoreDataClass.swift in Sources */,
+				946D283B235CF0B100CD506B /* Word+CoreDataProperties.swift in Sources */,
 				94CD98212344223E00AADAE7 /* WordChecker.swift in Sources */,
 				94CD9848234821EF00AADAE7 /* WordBank.swift in Sources */,
 				94EF256D2239DDB3003240B9 /* GameFinishedView.swift in Sources */,
@@ -511,6 +531,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		94621EE6235373CB00D3DBC0 /* WordModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				94621EE7235373CB00D3DBC0 /* WordModel.xcdatamodel */,
+			);
+			currentVersion = 94621EE7235373CB00D3DBC0 /* WordModel.xcdatamodel */;
+			path = WordModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 94EF25472239B979003240B9 /* Project object */;
 }

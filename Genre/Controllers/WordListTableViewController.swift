@@ -62,10 +62,10 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc func loadAlphabeticalWordList() {
         
-        alphabeticalWordList = WordBank.sharedInstance.wordArray.sorted(by: { (first, second) -> Bool in
-            if (first.word < second.word) { return true }
-            return false
-        })
+//        alphabeticalWordList = WordBank.sharedInstance.wordArray.sorted(by: { (first, second) -> Bool in
+//            if (first.word < second.word) { return true }
+//            return false
+//        })
     }
 
     /*
