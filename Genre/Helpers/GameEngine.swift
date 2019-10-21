@@ -58,8 +58,7 @@ class GameEngine: NSObject {
     }
 
     func loadNewGameWords() {
-        
-        gameWords = WordBank.sharedInstance.getRandomWordsFor(count: numberOfQuestionsForGame)
+        gameWords = WordManager.sharedInstance.getRandomWordsFor(count: numberOfQuestionsForGame)
     }
     
     //MARK:- Game State
@@ -129,7 +128,7 @@ class GameEngine: NSObject {
     
     func incrementCountFor(word: Word, correct: Bool) {
         
-        let wordToIncrement = WordBank.sharedInstance.getWordFor(string: word.word!)!
+        let wordToIncrement = WordManager.sharedInstance.getWordFor(string: word.word!)!
         
         if (correct) {
             wordToIncrement.correctCount += 1
@@ -138,7 +137,7 @@ class GameEngine: NSObject {
             wordToIncrement.incorrectCount += 1
         }
         
-        WordBank.sharedInstance.saveChangesToCoreData()
+        WordManager.sharedInstance.saveChangesToCoreData()
         
     }
 }

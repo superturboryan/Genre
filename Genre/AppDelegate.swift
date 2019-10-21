@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
        
-        if (!WordBank.sharedInstance.checkIfCSVHasBeenLoaded()) {
-            WordBank.sharedInstance.loadCsvIntoCoreData()
+        if (!WordManager.sharedInstance.checkIfCSVHasBeenLoaded()) {
+            WordManager.sharedInstance.loadCsvIntoCoreData()
         }
         
         return true

@@ -53,6 +53,10 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         cell.wordLabel.text = alphabeticalWordList[indexPath.row].word
         
+        cell.correctLabel.text = "\(alphabeticalWordList[indexPath.row].correctCount)"
+        
+        cell.incorrectLabel.text = "\(alphabeticalWordList[indexPath.row].incorrectCount)"
+        
         cell.genderIndicatorView.backgroundColor = alphabeticalWordList[indexPath.row].gender ?
             UIColor.flatRedDark() : UIColor.flatTealDark()
         
@@ -62,7 +66,7 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc func loadAlphabeticalWordList() {
         
-        alphabeticalWordList = WordBank.sharedInstance.getAllWordAlphabetical()
+        alphabeticalWordList = WordManager.sharedInstance.getAllWordAlphabetical()
     }
 
     /*

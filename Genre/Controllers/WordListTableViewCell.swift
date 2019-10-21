@@ -10,9 +10,14 @@ import UIKit
 
 class WordListTableViewCell: UITableViewCell {
     
+    
     @IBOutlet weak var genderIndicatorView: UIView!
     
     @IBOutlet weak var wordLabel: UILabel!
+    
+    @IBOutlet weak var correctLabel: UILabel!
+    
+    @IBOutlet weak var incorrectLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -11,13 +11,19 @@ import CSV
 import CoreData
 
 
-class WordBank: NSObject {
+class WordManager: NSObject {
     
     
-    static let sharedInstance = WordBank()
+    //MARK: Variables
+    
+    static let sharedInstance = WordManager()
     
     let delegateContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    
+    
+    
+    //MARK: Check if CSV been loaded
     
     func checkIfCSVHasBeenLoaded() -> Bool {
         
@@ -35,6 +41,7 @@ class WordBank: NSObject {
         return false
     }
     
+    //MARK: Load CSV -> Core Data
     
     func loadCsvIntoCoreData(){
         
@@ -73,6 +80,8 @@ class WordBank: NSObject {
         }
     }
     
+    //MARK: Save changes to Core Data
+    
     func saveChangesToCoreData() {
         
         do{
@@ -84,21 +93,7 @@ class WordBank: NSObject {
         }
     }
     
-    func getAllWordsUnordered() -> [Word] {
-        
-        let request : NSFetchRequest<Word> = Word.fetchRequest()
-        
-        do{
-            let fetchResult = try delegateContext.fetch(request)
-
-            if (fetchResult.count != 0) { return fetchResult }
-        }
-        catch {
-            print("Error loading word from Core Data")
-        }
-        return []
-    }
-    
+    //MARK: Get all words
     
     func getAllWordAlphabetical() -> [Word] {
         
@@ -123,6 +118,8 @@ class WordBank: NSObject {
         return []
     }
     
+    //MARK: Get single word
+    
     func getWordFor(string: String) -> Word? {
         
         let request : NSFetchRequest<Word> = Word.fetchRequest()
@@ -143,20 +140,19 @@ class WordBank: NSObject {
         return nil
     }
     
+    //MARK: Get words for count
+    
     func getRandomWordsFor(count: Int) -> [Word] {
+                
+        let allWords: [Word] = getAllWordAlphabetical()
         
-        let request : NSFetchRequest<Word> = Word.fetchRequest()
-        request.fetchLimit = count
+        var randomWords: [Word] = [Word]()
         
-        do{
-            let fetchResult = try delegateContext.fetch(request)
-
-            if (fetchResult.count != 0) { return fetchResult }
+        for n in 0...count {
+            randomWords.append(allWords.randomElement()!)
         }
-        catch {
-            print("Error loading word from Core Data")
-        }
-        return []
+        return randomWords
+        
     }
     
 }

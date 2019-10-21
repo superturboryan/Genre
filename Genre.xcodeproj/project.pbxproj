@@ -14,12 +14,13 @@
 		94621EFE23551E5800D3DBC0 /* Session+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94621EFA23551E5800D3DBC0 /* Session+CoreDataProperties.swift */; };
 		946D283A235CF0B100CD506B /* Word+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2838235CF0B100CD506B /* Word+CoreDataClass.swift */; };
 		946D283B235CF0B100CD506B /* Word+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2839235CF0B100CD506B /* Word+CoreDataProperties.swift */; };
+		946D283D235D15A000CD506B /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D283C235D15A000CD506B /* SessionManager.swift */; };
 		947ADD0B23483C5800F8FCFD /* WordListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */; };
 		947ADD0E2348435400F8FCFD /* WordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */; };
 		947ADD0F2348435400F8FCFD /* WordListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947ADD0D2348435400F8FCFD /* WordListTableViewCell.xib */; };
 		947ADD112348F4A600F8FCFD /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD102348F4A600F8FCFD /* StatsViewController.swift */; };
 		94CD98212344223E00AADAE7 /* WordChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD98202344223E00AADAE7 /* WordChecker.swift */; };
-		94CD9848234821EF00AADAE7 /* WordBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD9847234821EF00AADAE7 /* WordBank.swift */; };
+		94CD9848234821EF00AADAE7 /* WordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD9847234821EF00AADAE7 /* WordManager.swift */; };
 		94EF25532239B979003240B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF25522239B979003240B9 /* AppDelegate.swift */; };
 		94EF25552239B979003240B9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF25542239B979003240B9 /* GameViewController.swift */; };
 		94EF25582239B979003240B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94EF25562239B979003240B9 /* Main.storyboard */; };
@@ -45,12 +46,13 @@
 		94621EFA23551E5800D3DBC0 /* Session+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		946D2838235CF0B100CD506B /* Word+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Word+CoreDataClass.swift"; sourceTree = "<group>"; };
 		946D2839235CF0B100CD506B /* Word+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Word+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		946D283C235D15A000CD506B /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListTableViewController.swift; sourceTree = "<group>"; };
 		947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListTableViewCell.swift; sourceTree = "<group>"; };
 		947ADD0D2348435400F8FCFD /* WordListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WordListTableViewCell.xib; sourceTree = "<group>"; };
 		947ADD102348F4A600F8FCFD /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		94CD98202344223E00AADAE7 /* WordChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordChecker.swift; sourceTree = "<group>"; };
-		94CD9847234821EF00AADAE7 /* WordBank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordBank.swift; sourceTree = "<group>"; };
+		94CD9847234821EF00AADAE7 /* WordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordManager.swift; sourceTree = "<group>"; };
 		94EF254F2239B979003240B9 /* Genre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Genre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94EF25522239B979003240B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94EF25542239B979003240B9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -94,8 +96,9 @@
 			isa = PBXGroup;
 			children = (
 				94CD98202344223E00AADAE7 /* WordChecker.swift */,
-				94CD9847234821EF00AADAE7 /* WordBank.swift */,
+				94CD9847234821EF00AADAE7 /* WordManager.swift */,
 				9454B410234D8BED00025274 /* GameEngine.swift */,
+				946D283C235D15A000CD506B /* SessionManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				94EF2574223AA26A003240B9 /* MainMenuViewController.swift in Sources */,
 				9454B411234D8BED00025274 /* GameEngine.swift in Sources */,
 				94EF25652239B9E1003240B9 /* WordCardView.swift in Sources */,
+				946D283D235D15A000CD506B /* SessionManager.swift in Sources */,
 				94EF25692239C5F8003240B9 /* WordModel.swift in Sources */,
 				94621EFE23551E5800D3DBC0 /* Session+CoreDataProperties.swift in Sources */,
 				946D283A235CF0B100CD506B /* Word+CoreDataClass.swift in Sources */,
@@ -325,7 +329,7 @@
 				94621EFD23551E5800D3DBC0 /* Session+CoreDataClass.swift in Sources */,
 				946D283B235CF0B100CD506B /* Word+CoreDataProperties.swift in Sources */,
 				94CD98212344223E00AADAE7 /* WordChecker.swift in Sources */,
-				94CD9848234821EF00AADAE7 /* WordBank.swift in Sources */,
+				94CD9848234821EF00AADAE7 /* WordManager.swift in Sources */,
 				94EF256D2239DDB3003240B9 /* GameFinishedView.swift in Sources */,
 				947ADD0E2348435400F8FCFD /* WordListTableViewCell.swift in Sources */,
 				947ADD112348F4A600F8FCFD /* StatsViewController.swift in Sources */,

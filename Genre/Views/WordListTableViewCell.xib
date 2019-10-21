@@ -30,11 +30,48 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="2Gz-hB-gaA">
+                        <rect key="frame" x="285" y="32" width="42" height="48"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="mTl-BL-UPh">
+                                <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sqZ-mt-cni">
+                                        <rect key="frame" x="0.0" y="2" width="21" height="17.5"/>
+                                        <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="33" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qp6-dC-QsS">
+                                        <rect key="frame" x="21" y="0.0" width="21" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xRP-wX-Vww">
+                                <rect key="frame" x="0.0" y="27.5" width="42" height="20.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ood-X2-zZs">
+                                        <rect key="frame" x="0.0" y="2" width="21" height="16.5"/>
+                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="33" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8j-yt-SsW">
+                                        <rect key="frame" x="21" y="0.0" width="21" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="2Gz-hB-gaA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9Yx-9k-oYc"/>
                     <constraint firstAttribute="bottom" secondItem="rSB-8D-dxP" secondAttribute="bottom" constant="40" id="K60-yc-ooh"/>
                     <constraint firstItem="1T4-Hq-zMj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="SAR-M2-hEG"/>
                     <constraint firstAttribute="bottom" secondItem="1T4-Hq-zMj" secondAttribute="bottom" constant="10" id="X0T-OH-Kse"/>
+                    <constraint firstAttribute="trailing" secondItem="2Gz-hB-gaA" secondAttribute="trailing" constant="20" id="YmO-Zh-b7Y"/>
                     <constraint firstItem="rSB-8D-dxP" firstAttribute="leading" secondItem="1T4-Hq-zMj" secondAttribute="trailing" constant="30" id="e7J-Hq-yJP"/>
                     <constraint firstItem="rSB-8D-dxP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eJT-u5-kPm"/>
                     <constraint firstItem="rSB-8D-dxP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="40" id="fmD-3x-KGE"/>
@@ -43,10 +80,16 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="correctLabel" destination="qp6-dC-QsS" id="dUC-0h-TBt"/>
                 <outlet property="genderIndicatorView" destination="1T4-Hq-zMj" id="wbt-74-XQK"/>
+                <outlet property="incorrectLabel" destination="v8j-yt-SsW" id="AEl-Bm-h6e"/>
                 <outlet property="wordLabel" destination="rSB-8D-dxP" id="8MP-4F-TBd"/>
             </connections>
             <point key="canvasLocation" x="151.44927536231884" y="153.34821428571428"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="checkmark" catalog="system" width="64" height="56"/>
+        <image name="xmark" catalog="system" width="64" height="56"/>
+    </resources>
 </document>
