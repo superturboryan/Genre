@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class SessionManager: NSObject {
 
@@ -14,17 +15,47 @@ class SessionManager: NSObject {
     
     let delegateContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    func registerNewSessionWith(words: [Word], andSessionResults results: [Bool]) {
+    func registerNewSessionWith(withScore score: Int32, outOf total: Int32) {
         
         let newSession = Session(context: delegateContext)
         
-        for result in results {
-            
-            if (result) {newSession.correctCount += 1}
-            else {newSession.incorrectCount += 1}
-        }
+        newSession.correctCount = score
         
+        newSession.incorrectCount = total - score
+        
+        newSession.timeStamp = Date()
+        
+        saveChangesToCoreData()
     }
     
+    //MARK: Save changes to Core Data
+       
+    func saveChangesToCoreData() {
+       
+       do{
+          try self.delegateContext.save()
+           print("Session saved to Core Data")
+       }
+       catch {
+           print("Error saving sesion to Core Data")
+       }
+    }
     
+    //MARK: Get all sessions
+    
+    func getAllSessions() -> [Session] {
+        
+        let request : NSFetchRequest<Session> = Session.fetchRequest()
+        
+        do{
+            let fetchResult = try delegateContext.fetch(request)
+
+            if (fetchResult.count != 0) { return fetchResult }
+        }
+        catch {
+            print("Error loading sessions from Core Data")
+        }
+        return []
+        
+    }
 }

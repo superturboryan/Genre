@@ -45,6 +45,8 @@ class StatsViewController: UIViewController {
     
     func calculateStats() {
         
+        let sessions = SessionManager.sharedInstance.getAllSessions()
+        
         overallCorrectPercentage = round((Double(options.integer(forKey: "correctCount")) / (Double(options.integer(forKey: "correctCount")) + Double(options.integer(forKey: "incorrectCount")))) * 100)
         
     }

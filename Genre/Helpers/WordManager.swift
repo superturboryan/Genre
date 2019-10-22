@@ -113,7 +113,7 @@ class WordManager: NSObject {
             }
         }
         catch {
-            print("Error loading word from Core Data")
+            print("Error loading words from Core Data")
         }
         return []
     }

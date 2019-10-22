@@ -2,7 +2,7 @@
 //  Session+CoreDataProperties.swift
 //  Genre
 //
-//  Created by Ryan David Forsyth on 2019-10-14.
+//  Created by Ryan David Forsyth on 2019-10-20.
 //  Copyright © 2019 Ryan F. All rights reserved.
 //
 //
@@ -19,6 +19,6 @@ extension Session {
 
     @NSManaged public var correctCount: Int32
     @NSManaged public var incorrectCount: Int32
-    @NSManaged public var gameId: Int32
+    @NSManaged public var timeStamp: Date?
 
 }

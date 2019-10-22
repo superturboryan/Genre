@@ -322,11 +322,14 @@ class GameViewController: UIViewController {
     }
     
     func updateUserStats() {
+        
         let incorrectCount: Int = (GameEngine.sharedInstance.numberOfQuestionsForGame - GameEngine.sharedInstance.userScore)
         let newIncorrectCount: Int = options.integer(forKey: "incorrectCount") + incorrectCount
         let newCorrectCount: Int = options.integer(forKey: "correctCount") + GameEngine.sharedInstance.userScore
         options.set(newIncorrectCount, forKey: "incorrectCount")
         options.set(newCorrectCount, forKey: "correctCount")
+        
+        SessionManager.sharedInstance.registerNewSessionWith(withScore: Int32(GameEngine.sharedInstance.userScore), outOf: Int32(GameEngine.sharedInstance.numberOfQuestionsForGame))
     }
     
     func addGameFinishedView() {

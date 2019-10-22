@@ -51,10 +51,16 @@ class MainMenuViewController: UIViewController {
             "Vocabulaire":"Word List" , for: .normal)
         optionsButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
             "Réglages":"Settings", for: .normal)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        let sessions: [Session] = SessionManager.sharedInstance.getAllSessions()
+        sessions.forEach { (session) in
+            print("Session correct count: \(session.correctCount)")
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

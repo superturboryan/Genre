@@ -2,8 +2,8 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Session" representedClassName=".Session" syncable="YES">
         <attribute name="correctCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="gameId" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="incorrectCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timeStamp" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Word" representedClassName=".Word" syncable="YES">
         <attribute name="correctCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
