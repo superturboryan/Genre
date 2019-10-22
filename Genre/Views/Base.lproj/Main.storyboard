@@ -321,28 +321,36 @@ Bar : </string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqj-W0-g60">
-                                <rect key="frame" x="141" y="307" width="93.5" height="53"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqj-W0-g60">
+                                <rect key="frame" x="141" y="203" width="93.5" height="53"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="44"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aPs-st-jSz" userLabel="Previous Sessions Chart View" customClass="MacawChartView" customModule="Genre" customModuleProvider="target">
-                                <rect key="frame" x="10" y="457.5" width="355" height="189.5"/>
+                                <rect key="frame" x="10" y="401" width="355" height="266"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="aPs-st-jSz" secondAttribute="height" multiplier="15:8" id="pFT-gz-eLv"/>
+                                    <constraint firstAttribute="width" secondItem="aPs-st-jSz" secondAttribute="height" multiplier="4:3" id="pFT-gz-eLv"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last 5 Sessions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ysv-wK-eAh">
+                                <rect key="frame" x="102" y="402" width="171" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="aPs-st-jSz" firstAttribute="centerX" secondItem="vti-Qr-K4N" secondAttribute="centerX" id="0ck-ak-kul"/>
+                            <constraint firstItem="zqj-W0-g60" firstAttribute="top" secondItem="xAM-G7-GRh" secondAttribute="bottom" constant="100" id="1sj-mr-faS"/>
+                            <constraint firstItem="aPs-st-jSz" firstAttribute="top" secondItem="ysv-wK-eAh" secondAttribute="bottom" constant="-30" id="6mO-bK-86C"/>
                             <constraint firstItem="zqj-W0-g60" firstAttribute="centerX" secondItem="vti-Qr-K4N" secondAttribute="centerX" id="6rw-LP-7Wd"/>
                             <constraint firstItem="R7F-xK-oQ2" firstAttribute="trailing" secondItem="aPs-st-jSz" secondAttribute="trailing" constant="10" id="Cf1-D2-N0h"/>
-                            <constraint firstItem="R7F-xK-oQ2" firstAttribute="bottom" secondItem="aPs-st-jSz" secondAttribute="bottom" constant="20" id="PP2-1P-1ra"/>
-                            <constraint firstItem="zqj-W0-g60" firstAttribute="centerY" secondItem="vti-Qr-K4N" secondAttribute="centerY" id="SgB-n7-fbM"/>
+                            <constraint firstItem="ysv-wK-eAh" firstAttribute="centerX" secondItem="vti-Qr-K4N" secondAttribute="centerX" id="NrT-4c-SzU"/>
                             <constraint firstItem="aPs-st-jSz" firstAttribute="leading" secondItem="R7F-xK-oQ2" secondAttribute="leading" constant="10" id="Zfj-7d-bOC"/>
+                            <constraint firstItem="R7F-xK-oQ2" firstAttribute="bottom" secondItem="aPs-st-jSz" secondAttribute="bottom" id="bM6-wD-HvQ"/>
                             <constraint firstItem="xAM-G7-GRh" firstAttribute="centerX" secondItem="vti-Qr-K4N" secondAttribute="centerX" id="cPK-0b-gln"/>
                             <constraint firstItem="xAM-G7-GRh" firstAttribute="top" secondItem="R7F-xK-oQ2" secondAttribute="top" constant="30" id="kjv-ZS-abi"/>
                         </constraints>

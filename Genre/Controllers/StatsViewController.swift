@@ -60,8 +60,11 @@ class StatsViewController: UIViewController {
         
         // Progress Layer
         
-        let center = view.center
-        let circularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+        var labelCenter = statsLabel.center
+        
+        labelCenter = CGPoint.init(x: labelCenter.x, y: labelCenter.y+20)
+        
+        let circularPath = UIBezierPath(arcCenter: labelCenter, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
         shapeLayer.path = circularPath.cgPath
         
         if #available(iOS 13.0, *) {
