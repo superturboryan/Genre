@@ -21,8 +21,6 @@ class WordManager: NSObject {
     let delegateContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
-    
-    
     //MARK: Check if CSV been loaded
     
     func checkIfCSVHasBeenLoaded() -> Bool {
@@ -78,6 +76,7 @@ class WordManager: NSObject {
 //                wordToAdd.setHint(hint: hint)
 //            }
         }
+        print("CSV loaded into Core Data")
     }
     
     //MARK: Save changes to Core Data

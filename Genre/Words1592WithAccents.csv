@@ -99,8 +99,8 @@ bar,True
 baril,True 
 base,False 
 basilic,True 
-bateau,True 
-batisse,False 
+bateau,True
+bâtisse,False
 bâton,True 
 beauté,False 
 bébé,True 
@@ -164,7 +164,7 @@ capitaine,True
 caravane,False 
 cari,True 
 carrefour,True 
-carriere,False 
+carrière,False
 carte,False 
 carton,True 
 cas,True 
@@ -220,7 +220,7 @@ ciel,True
 cigare,True 
 cigarette,False 
 ciment,True 
-cinema,True 
+cinéma,True
 circuit,True 
 circulaire,False 
 cirque,True 
@@ -929,7 +929,7 @@ pellicule,False
 peluche,False 
 pension,False 
 pere,True 
-periode,False 
+période,False
 perle,False 
 permanence,False 
 permission,False 
@@ -1022,7 +1022,7 @@ pourcentage,True
 pourquoi,True 
 poursuite,False 
 poussette,False 
-poussiere,False 
+poussière,False
 pratique,False 
 preference,False 
 présent,True 
@@ -1369,7 +1369,7 @@ taux,True
 taxe,False 
 taxi,True 
 teinture,False 
-tele,False 
+télé,False
 téléphone,True 
 téléviseur,True 
 témoin,True 
@@ -1430,7 +1430,7 @@ transaction,False
 transfert,True 
 travail,True 
 travers,True 
-tresor,True 
+trésor,True
 tresse,False 
 triage,True 
 triangle,True 
@@ -1485,7 +1485,7 @@ végétation,False
 véhicule,True 
 veille,False 
 veine,False 
-velo,True 
+vélo,True
 vélocité,False 
 vélodrome,True 
 velours,True 
@@ -1534,7 +1534,7 @@ virage,True
 virement,True 
 virgule,False 
 virus,True 
-vis-a-vis,True 
+vis-à-vis,True
 visa,True 
 visage,True 
 visière,False 
@@ -1559,7 +1559,7 @@ volaille,False
 volant,True 
 volcan,True 
 voleur,True 
-volonte,False 
+volonté,False
 volume,True 
 vomi,True 
 vote,True 
@@ -1574,7 +1574,7 @@ whisky,True
 yacht,True 
 yoga,True 
 yogourt,True 
-zebre,True 
+zèbre,True
 zeste,True 
 zodiaque,True 
 zone,False 
