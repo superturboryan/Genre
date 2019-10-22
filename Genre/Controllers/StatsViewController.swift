@@ -44,6 +44,8 @@ class StatsViewController: UIViewController {
     func setupView() {
         
         chartView.contentMode = .scaleAspectFit
+        
+        MacawChartView.playAnimation()
     }
     
     func calculateStats() {

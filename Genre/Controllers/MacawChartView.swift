@@ -18,15 +18,16 @@ class MacawChartView: MacawView {
     
     static let lastFiveSessions = createDummyData()
     
-    static let maxValue = 100;
+    static let maxLineHeight:Int = 180
     
-    static let maxValueLineHeight = 180
+    static let maxValue = 100
+    
     static let lineWidth: Double = 275
     
-    static let dataDivisor = Double(maxValue / maxValueLineHeight)
+    static let dataDivisor = Double(maxValue) / Double(maxLineHeight)
     
     static let adjustedData: [Double] = lastFiveSessions.map({
-        Double($0.correctCount / ($0.correctCount + $0.incorrectCount)) / dataDivisor
+        (((Double($0.correctCount) / Double($0.correctCount + $0.incorrectCount))) / dataDivisor) * 100
     })
     
     static var animations: [Animation] = []
@@ -115,7 +116,7 @@ class MacawChartView: MacawView {
     
     static func createBars() -> Group {
         
-        let fill = LinearGradient(degree: 90, from: Color.blue.with(a: 0.3), to: Color.blue)
+        let fill = LinearGradient(degree: 90, from: Color.white.with(a: 0.3), to: Color.white)
         
         let items = adjustedData.map { _ in Group() }
         
@@ -125,13 +126,18 @@ class MacawChartView: MacawView {
                 
                 let height = adjustedData[i]*t
                 
-                let rect = Rect(x: Double(i)*50+25, y: 200-height, w: 30, h: height)
+                let rect = Rect(x: Double(i) * 50 + 25, y: 200 - height, w: 30, h: height)
                 
                 return [rect.fill(with: fill)]
             }
         }
         
-        return Group()
+        return items.group()
+    }
+    
+    static func playAnimation() {
+        
+        animations.combine().play()
     }
     
     

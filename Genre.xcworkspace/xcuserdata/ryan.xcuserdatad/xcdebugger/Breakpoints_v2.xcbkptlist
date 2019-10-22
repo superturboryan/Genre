@@ -3,4 +3,54 @@
    uuid = "75D49B47-7F49-4891-91BE-78B3E00F32D5"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "73DDC360-FB5B-4A3E-8617-BA5AA685AD86"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Genre/Controllers/MacawChartView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "createBars()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "73DDC360-FB5B-4A3E-8617-BA5AA685AD86 - c45a5a292914a47b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Genre.MacawChartView.createBars() -&gt; Macaw.Group"
+                  moduleName = "Genre"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ryan/Xcode%20workspace/Swift/Genre/Genre/Controllers/MacawChartView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "216">
+               </Location>
+               <Location
+                  uuid = "73DDC360-FB5B-4A3E-8617-BA5AA685AD86 - cb10f74cf8279ecc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Double) -&gt; Macaw.Group in static Genre.MacawChartView.createBars() -&gt; Macaw.Group"
+                  moduleName = "Genre"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ryan/Xcode%20workspace/Swift/Genre/Genre/Controllers/MacawChartView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
