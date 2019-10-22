@@ -36,7 +36,7 @@ class GameEngine: NSObject {
         super.init()
         
         loadSettings()
-        loadNewGameWords()
+        restartGame()
     }
     
     func restartGame() {
