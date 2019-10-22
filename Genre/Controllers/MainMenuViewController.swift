@@ -58,6 +58,7 @@ class MainMenuViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         
         let sessions: [Session] = SessionManager.sharedInstance.getAllSessions()
+        print("Stored sessions:")
         sessions.forEach { (session) in
             print("Session correct count: \(session.correctCount)")
         }

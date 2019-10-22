@@ -148,7 +148,8 @@ class WordManager: NSObject {
         
         var randomWords: [Word] = [Word]()
         
-        for n in 0...count {
+        //count-1 to offset zero index!
+        for _ in 0...count-1 {
             randomWords.append(allWords.randomElement()!)
         }
         return randomWords

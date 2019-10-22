@@ -67,11 +67,14 @@ class GameViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.1,
+                       options: .curveEaseOut,
+                       animations: {
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
         }, completion: nil)
 
-        updateUI()
+        updateUI(withNewCard: true)
         startTimer()
     }
     
@@ -105,17 +108,17 @@ class GameViewController: UIViewController {
     }
     
     
-    @objc func updateUI() {
+    @objc func updateUI(withNewCard addCard:Bool) {
         
         scoreLabel.text = "\(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.numberOfQuestionsForGame)"
 
         if options.value(forKey: "Progress") as! Bool == true {
             UIView.animate(withDuration: 0.8, delay: 0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                self.progressBar.frame.size.width = (self.view.frame.size.width / CGFloat(GameEngine.sharedInstance.numberOfQuestionsForGame)) * CGFloat(GameEngine.sharedInstance.currentQuestionNumber)
+                self.progressBar.frame.size.width = (self.view.frame.size.width / CGFloat(GameEngine.sharedInstance.numberOfQuestionsForGame)) * CGFloat(GameEngine.sharedInstance.currentQuestionIndex)
             }, completion: nil)
         }
         
-        addNextCard()
+        if (addCard) { addNextCard() }
     }
     
     
@@ -190,13 +193,14 @@ class GameViewController: UIViewController {
                             self.progressBar.frame.size.width = self.view.frame.size.width
                             self.progressBar.backgroundColor = self.progressBar.backgroundColor?.darken(byPercentage: 0.4)
                         })
+                        self.updateUI(withNewCard: false)
                         //Delay finish popup to show +1 label
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                             self.gameFinishedPopup()
                         })
                     }
                     else{
-                        self.updateUI()
+                        self.updateUI(withNewCard: true)
                     }
                 }
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
@@ -256,11 +260,11 @@ class GameViewController: UIViewController {
             wordCardView.hintLabel.alpha = 0
         }
         
-        let i = GameEngine.sharedInstance.currentQuestionNumber
+        let currentQuestionNumber = GameEngine.sharedInstance.currentQuestionIndex
         
-        wordCardView.wordLabel.text = GameEngine.sharedInstance.gameWords[i].word
+        wordCardView.wordLabel.text = GameEngine.sharedInstance.gameWords[currentQuestionNumber].word
         
-        wordCardView.hintLabel.text = GameEngine.sharedInstance.gameWords[i].hint
+        wordCardView.hintLabel.text = GameEngine.sharedInstance.gameWords[currentQuestionNumber].hint
         
         wordCardView.addGestureRecognizer(panRecognizer)
         
@@ -334,7 +338,9 @@ class GameViewController: UIViewController {
     
     func addGameFinishedView() {
         gameFinishedView = UINib(nibName: "GameFinishedView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? GameFinishedView
+        
         gameFinishedView.frame = CGRect(x: 30, y: (view.frame.height - CGFloat(290)) / 2 , width: view.frame.width - CGFloat(60), height: 290)
+        
         view.addSubview(gameFinishedView)
     }
     
@@ -353,7 +359,7 @@ class GameViewController: UIViewController {
             self.timerLabel.alpha = 0
             self.scoreLabel.alpha = 0
             self.gameFinishedView.alpha = 1
-            self.gameFinishedView.transform = CGAffineTransform.identity
+            self.gameFinishedView.transform = .identity
 //            self.scoreLabel.alpha = 0
 //            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.7)
             self.restartButton.alpha = 1
@@ -387,7 +393,7 @@ class GameViewController: UIViewController {
             //And remove from SuperView
             self.gameFinishedView.removeFromSuperview()
 
-            self.updateUI()
+            self.updateUI(withNewCard: true)
             
             ///////////////////////////////////////////////////////
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

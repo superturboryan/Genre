@@ -19,7 +19,7 @@ class GameEngine: NSObject {
     
     var numberOfQuestionsForGame : Int = 10
     
-    var currentQuestionNumber : Int = 1
+    var currentQuestionIndex : Int = 0
     
     var userScore : Int = 0
     var timeLimitPerWord:Int = 0
@@ -50,7 +50,6 @@ class GameEngine: NSObject {
     //MARK:- Loading
 
     func loadSettings() {
-        
         numberOfQuestionsForGame = AppOptions.integer(forKey: "WordCount")
         showHints = AppOptions.bool(forKey: "Hints")
         showTimer = AppOptions.bool(forKey: "Timer")
@@ -63,16 +62,16 @@ class GameEngine: NSObject {
     
     //MARK:- Game State
     func isGameFinished() -> Bool {
-        if currentQuestionNumber == numberOfQuestionsForGame { return true };
+        if currentQuestionIndex == numberOfQuestionsForGame { return true };
         return false;
     }
 
     func goToNextQuestion() {
-        currentQuestionNumber += 1
+        currentQuestionIndex += 1
     }
 
     func resetCurrentQuestionNumber() {
-        currentQuestionNumber = 0
+        currentQuestionIndex = 0
     }
 
     func incrementUserScore() {
@@ -86,25 +85,25 @@ class GameEngine: NSObject {
     //MARK:- Current word properties
     
     func getCurredWord() -> Word {
-        return gameWords[currentQuestionNumber]
+        return gameWords[currentQuestionIndex]
     }
     
     func getCurrentWordString() -> String {
-        return gameWords[currentQuestionNumber].word!
+        return gameWords[currentQuestionIndex].word!
     }
     
     func getCurrentWordGender() -> Bool {
-        return gameWords[currentQuestionNumber].gender
+        return gameWords[currentQuestionIndex].gender
     }
     
     func getCurrentWordHint() -> String? {
-        return gameWords[currentQuestionNumber].hint
+        return gameWords[currentQuestionIndex].hint
     }
     
     //MARK:- Check Answer
     func checkAnswer(pickedAnswer: Bool?) -> Bool {
         
-        let currentWord = gameWords[currentQuestionNumber]
+        let currentWord = gameWords[currentQuestionIndex]
         
         let correctAnswer = currentWord.gender
         
