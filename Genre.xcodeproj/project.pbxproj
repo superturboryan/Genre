@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		943DFDC1235EA1D400F66AA2 /* MacawChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943DFDC0235EA1D400F66AA2 /* MacawChartView.swift */; };
 		9454B411234D8BED00025274 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9454B410234D8BED00025274 /* GameEngine.swift */; };
 		945CA3832343055900F1677E /* Words1592WithAccents.csv in Resources */ = {isa = PBXBuildFile; fileRef = 945CA3822343055900F1677E /* Words1592WithAccents.csv */; };
 		94621EE8235373CB00D3DBC0 /* WordModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94621EE6235373CB00D3DBC0 /* WordModel.xcdatamodeld */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		0C44F809E8721941472BA448 /* Pods-Genre.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Genre.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Genre/Pods-Genre.debug.xcconfig"; sourceTree = "<group>"; };
+		943DFDC0235EA1D400F66AA2 /* MacawChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawChartView.swift; sourceTree = "<group>"; };
 		9454B410234D8BED00025274 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
 		945CA3822343055900F1677E /* Words1592WithAccents.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Words1592WithAccents.csv; sourceTree = "<group>"; };
 		94621EE7235373CB00D3DBC0 /* WordModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WordModel.xcdatamodel; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */,
 				947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */,
 				947ADD102348F4A600F8FCFD /* StatsViewController.swift */,
+				943DFDC0235EA1D400F66AA2 /* MacawChartView.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -293,7 +296,9 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Genre/Pods-Genre-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CSV.swift/CSV.framework",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/Macaw/Macaw.framework",
 				"${BUILT_PRODUCTS_DIR}/ProgressHUD/ProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -301,7 +306,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSV.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Macaw.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -316,6 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94EF2574223AA26A003240B9 /* MainMenuViewController.swift in Sources */,
+				943DFDC1235EA1D400F66AA2 /* MacawChartView.swift in Sources */,
 				946D2841235D2EFC00CD506B /* Session+CoreDataProperties.swift in Sources */,
 				9454B411234D8BED00025274 /* GameEngine.swift in Sources */,
 				946D2840235D2EFC00CD506B /* Session+CoreDataClass.swift in Sources */,

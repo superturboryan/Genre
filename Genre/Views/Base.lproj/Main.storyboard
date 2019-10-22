@@ -327,11 +327,22 @@ Bar : </string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aPs-st-jSz" userLabel="Previous Sessions Chart View" customClass="MacawChartView" customModule="Genre" customModuleProvider="target">
+                                <rect key="frame" x="10" y="457.5" width="355" height="189.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="aPs-st-jSz" secondAttribute="height" multiplier="15:8" id="pFT-gz-eLv"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="aPs-st-jSz" firstAttribute="centerX" secondItem="vti-Qr-K4N" secondAttribute="centerX" id="0ck-ak-kul"/>
                             <constraint firstItem="zqj-W0-g60" firstAttribute="centerX" secondItem="vti-Qr-K4N" secondAttribute="centerX" id="6rw-LP-7Wd"/>
+                            <constraint firstItem="R7F-xK-oQ2" firstAttribute="trailing" secondItem="aPs-st-jSz" secondAttribute="trailing" constant="10" id="Cf1-D2-N0h"/>
+                            <constraint firstItem="R7F-xK-oQ2" firstAttribute="bottom" secondItem="aPs-st-jSz" secondAttribute="bottom" constant="20" id="PP2-1P-1ra"/>
                             <constraint firstItem="zqj-W0-g60" firstAttribute="centerY" secondItem="vti-Qr-K4N" secondAttribute="centerY" id="SgB-n7-fbM"/>
+                            <constraint firstItem="aPs-st-jSz" firstAttribute="leading" secondItem="R7F-xK-oQ2" secondAttribute="leading" constant="10" id="Zfj-7d-bOC"/>
                             <constraint firstItem="xAM-G7-GRh" firstAttribute="centerX" secondItem="vti-Qr-K4N" secondAttribute="centerX" id="cPK-0b-gln"/>
                             <constraint firstItem="xAM-G7-GRh" firstAttribute="top" secondItem="R7F-xK-oQ2" secondAttribute="top" constant="30" id="kjv-ZS-abi"/>
                         </constraints>
@@ -339,8 +350,8 @@ Bar : </string>
                     </view>
                     <navigationItem key="navigationItem" title="Stats" id="fM4-gO-gzq"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
+                        <outlet property="chartView" destination="aPs-st-jSz" id="pex-6S-t3G"/>
                         <outlet property="statsLabel" destination="zqj-W0-g60" id="z17-aw-WIX"/>
                     </connections>
                 </viewController>

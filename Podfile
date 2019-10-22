@@ -10,6 +10,7 @@ target 'Genre' do
 pod 'ChameleonFramework/Swift' , :git => 'https://github.com/ViccAlexander/Chameleon.git'
 pod 'CSV.swift'
 pod 'ProgressHUD'
+pod 'Macaw'
 
 
 

@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class StatsViewController: UIViewController {
 
     let options = UserDefaults.standard
@@ -23,7 +24,9 @@ class StatsViewController: UIViewController {
     var animationDuration: Double = 1.5
     
     var animationStart: Date = Date()
-
+    
+    @IBOutlet var chartView: MacawChartView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,7 +43,7 @@ class StatsViewController: UIViewController {
     
     func setupView() {
         
-        
+        chartView.contentMode = .scaleAspectFit
     }
     
     func calculateStats() {

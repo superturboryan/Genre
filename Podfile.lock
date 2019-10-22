@@ -3,20 +3,23 @@ PODS:
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
   - CSV.swift (2.3.1)
-  - Plist (1.0.0)
+  - Macaw (0.9.4):
+    - SWXMLHash
   - ProgressHUD (2.60)
+  - SWXMLHash (4.7.6)
 
 DEPENDENCIES:
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - CSV.swift
-  - Plist
+  - Macaw
   - ProgressHUD
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CSV.swift
-    - Plist
+    - Macaw
     - ProgressHUD
+    - SWXMLHash
 
 EXTERNAL SOURCES:
   ChameleonFramework:
@@ -30,9 +33,10 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   CSV.swift: d16f671b3090a2c0525d5f2165b18319074aae2b
-  Plist: b103e58c19f0bc39e217b31046e9e0503e17a7ff
+  Macaw: f3c3051fb580484c221159f4cf340736bb2b166f
   ProgressHUD: 4e4efbaf4f5de8bd32e0c4c3b6644a90ea1a8c3e
+  SWXMLHash: f6e0933ce74f2626669dc544851bc9fc1941670d
 
-PODFILE CHECKSUM: 4034a2bb40e4107f665e96386e66668d42fbc66d
+PODFILE CHECKSUM: bede9c774103d20c2f3f18b0028301996913987a
 
 COCOAPODS: 1.5.3

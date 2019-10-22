@@ -72,6 +72,7 @@ class WordManager: NSObject {
             
             saveChangesToCoreData()
             
+            //MARK: TODO: Check for hints while adding words to Core Data
 //            if let hint: String = WordChecker.checkLastTwoLettersForHint(word: wordString) {
 //                wordToAdd.setHint(hint: hint)
 //            }
@@ -85,10 +86,10 @@ class WordManager: NSObject {
         
         do{
            try self.delegateContext.save()
-            print("Changes saved to Core Data")
+//            print("Changes saved to Core Data")
         }
         catch {
-            print("Error updating Core Data")
+            print("ERROR: failed to save changes Core Data")
         }
     }
     
