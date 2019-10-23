@@ -16,7 +16,7 @@ struct testSession {
 
 class MacawChartView: MacawView {
     
-    static let lastFiveSessions = createDummyData()
+    static let lastFiveSessions = SessionManager.sharedInstance.getLastFiveSessions()
     
     static let maxLineHeight:Int = 180
     

@@ -310,6 +310,7 @@ Bar : </string>
         <!--Stats-->
         <scene sceneID="5pn-HD-qp6">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M7g-Rs-y2C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="M1s-DJ-Kbu" customClass="StatsViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vti-Qr-K4N">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -363,7 +364,6 @@ Bar : </string>
                         <outlet property="statsLabel" destination="zqj-W0-g60" id="z17-aw-WIX"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="M7g-Rs-y2C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1028" y="814"/>
         </scene>
@@ -375,10 +375,12 @@ Bar : </string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.40000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I1V-21-cEa">
+                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I1V-21-cEa">
                                 <rect key="frame" x="0.0" y="580" width="375" height="87"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="87" id="zFl-HI-Str"/>
+                                </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDg-uK-jJv">
                                 <rect key="frame" x="107" y="532" width="161" height="40"/>
@@ -404,16 +406,32 @@ Bar : </string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvg-Gg-EYj">
-                                <rect key="frame" x="279" y="575" width="31" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="48s-oi-xOy">
+                                <rect key="frame" x="143.5" y="481" width="88" height="68"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="dfo-aR-Iga"/>
+                                    <constraint firstAttribute="width" constant="88" id="yPG-M2-kvq"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PI8-Zt-Sju">
+                                <rect key="frame" x="143.5" y="481" width="88" height="68"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="48s-oi-xOy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2jr-WV-eWX"/>
+                            <constraint firstItem="PI8-Zt-Sju" firstAttribute="width" secondItem="48s-oi-xOy" secondAttribute="width" id="4yc-ml-y7g"/>
+                            <constraint firstItem="PI8-Zt-Sju" firstAttribute="centerY" secondItem="48s-oi-xOy" secondAttribute="centerY" id="FI8-pk-6It"/>
+                            <constraint firstItem="PI8-Zt-Sju" firstAttribute="centerX" secondItem="48s-oi-xOy" secondAttribute="centerX" id="G3n-Mc-9mb"/>
+                            <constraint firstItem="I1V-21-cEa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XRO-j6-B4K"/>
+                            <constraint firstItem="I1V-21-cEa" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="aiA-jj-DIV"/>
+                            <constraint firstItem="PI8-Zt-Sju" firstAttribute="height" secondItem="48s-oi-xOy" secondAttribute="height" id="d3w-bW-OTF"/>
+                            <constraint firstItem="I1V-21-cEa" firstAttribute="top" secondItem="48s-oi-xOy" secondAttribute="bottom" constant="30" id="h4F-kX-cQv"/>
+                            <constraint firstItem="I1V-21-cEa" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="hMh-Xs-cVn"/>
                             <constraint firstItem="lkY-eM-o2V" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="kUF-4B-EMH"/>
                             <constraint firstItem="lkY-eM-o2V" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qFd-s6-8lL"/>
                         </constraints>
@@ -421,7 +439,8 @@ Bar : </string>
                     </view>
                     <navigationItem key="navigationItem" id="DQx-hW-Kza"/>
                     <connections>
-                        <outlet property="plusOneLabel" destination="yvg-Gg-EYj" id="1RL-Vt-JTv"/>
+                        <outlet property="correctPopup" destination="48s-oi-xOy" id="brW-cr-WeE"/>
+                        <outlet property="incorrectPopup" destination="PI8-Zt-Sju" id="6E1-eO-GgO"/>
                         <outlet property="progressBar" destination="I1V-21-cEa" id="heV-zY-8uj"/>
                         <outlet property="restartButton" destination="ZDg-uK-jJv" id="eAb-qW-W9q"/>
                         <outlet property="scoreLabel" destination="xqA-od-WJD" id="W6b-LS-bdY"/>
@@ -453,6 +472,8 @@ Bar : </string>
         </scene>
     </scenes>
     <resources>
+        <image name="checkmark.rectangle.fill" catalog="system" width="64" height="48"/>
         <image name="g-icon" width="150" height="150"/>
+        <image name="xmark.rectangle.fill" catalog="system" width="64" height="48"/>
     </resources>
 </document>

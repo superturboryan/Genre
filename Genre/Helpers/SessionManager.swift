@@ -58,4 +58,12 @@ class SessionManager: NSObject {
         return []
         
     }
+    
+    func getLastFiveSessions() -> [Session] {
+        
+        let allSessions = getAllSessions()
+        
+        let lastFiveSessions = allSessions.suffix(5)
+        return Array(lastFiveSessions)
+    }
 }

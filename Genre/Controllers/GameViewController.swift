@@ -19,10 +19,12 @@ class GameViewController: UIViewController {
     //MARK: - Outlets
     
     @IBOutlet weak var scoreLabel: UILabel!
-    @IBOutlet weak var plusOneLabel: UILabel!
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var progressBar: UIView!
     @IBOutlet weak var timerLabel: UILabel!
+    
+    @IBOutlet var correctPopup: UIImageView!
+    @IBOutlet var incorrectPopup: UIImageView!
     
     //MARK: - Variables
     
@@ -84,7 +86,13 @@ class GameViewController: UIViewController {
         restartButton.layer.cornerRadius = CGFloat(10)
         restartButton.alpha = 0
         progressBar.frame.size.width = CGFloat(0)
-        plusOneLabel.alpha = 0
+        
+        correctPopup.alpha = 0
+        incorrectPopup.alpha = 0
+        
+        correctPopup.layer.cornerRadius = 10
+        incorrectPopup.layer.cornerRadius = 10
+        
        //Check whether to display timer
         if options.value(forKey: "Timer") as! Bool == false { timerLabel.alpha = 0 }
        //And whether to display progress bar
@@ -165,15 +173,12 @@ class GameViewController: UIViewController {
                     if velocity.x < 0 { pickedAnswer = false }
                     
                     if (GameEngine.sharedInstance.checkAnswer(pickedAnswer: pickedAnswer)) {
-                        UIView.animate(withDuration: 0.4, animations: {
-                                       self.plusOneLabel.alpha = 1
-                                       self.scoreLabel.alpha = 0
-                                   }) { (success) in
-                                       UIView.animate(withDuration: 0.2, animations: {
-                                           self.plusOneLabel.alpha = 0
-                                           self.scoreLabel.alpha = 1
-                                       }, completion: nil)
-                                   }
+                        
+                        self.revealAndHidePopup(forCorrect: true)
+                        
+                    }
+                    else {
+                        self.revealAndHidePopup(forCorrect: false)
                     }
 
                     //Remove answered card from view
@@ -210,6 +215,31 @@ class GameViewController: UIViewController {
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
         default:
             break
+        }
+    }
+    
+    func revealAndHidePopup(forCorrect correct:Bool) {
+
+        if (correct) {
+            
+            UIView.animate(withDuration: 0.4, animations: {
+                self.correctPopup.alpha = 1
+               self.scoreLabel.alpha = 0
+            }) { (success) in
+                UIView.animate(withDuration: 0.2, animations: {
+                self.correctPopup.alpha = 0
+                self.scoreLabel.alpha = 1
+                }, completion: nil)
+            }
+        }
+        else {
+            UIView.animate(withDuration: 0.4, animations: {
+                self.incorrectPopup.alpha = 1
+            }) { (success) in
+                UIView.animate(withDuration: 0.2, animations: {
+                self.incorrectPopup.alpha = 0
+                }, completion: nil)
+            }
         }
     }
     
