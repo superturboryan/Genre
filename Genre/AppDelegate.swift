@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (!WordManager.sharedInstance.checkIfCSVHasBeenLoaded()) {
             WordManager.sharedInstance.loadCsvIntoCoreData()
         }
-        else { print("CSV already loaded into Core Data") }
+        else { print("CSV already loaded into Core Data") }
     }
     
     

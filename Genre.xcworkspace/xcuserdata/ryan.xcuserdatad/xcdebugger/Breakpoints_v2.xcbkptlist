@@ -13,5 +13,69 @@
             continueAfterRunningActions = "No">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "10D644B8-E260-42D2-A297-EA868BE8C848"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Genre/Helpers/WordManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "loadCsvIntoCoreData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "10D644B8-E260-42D2-A297-EA868BE8C848 - 457e230976a43fb8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Genre.WordManager.loadCsvIntoCoreData() -&gt; ()"
+                  moduleName = "Genre"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ryan/Xcode%20workspace/Swift/Genre/Genre/Helpers/WordManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "1684">
+               </Location>
+               <Location
+                  uuid = "10D644B8-E260-42D2-A297-EA868BE8C848 - 28e4305912731621"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 ((key: Swift.String, value: Swift.String)) -&gt; () in Genre.WordManager.loadCsvIntoCoreData() -&gt; ()"
+                  moduleName = "Genre"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ryan/Xcode%20workspace/Swift/Genre/Genre/Helpers/WordManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "168">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8FEF80F1-7DD7-4988-A129-253C63C2A2AF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Genre/Helpers/WordManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "loadCsvIntoCoreData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

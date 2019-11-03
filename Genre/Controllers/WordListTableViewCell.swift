@@ -24,8 +24,6 @@ class WordListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        updateStar()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -43,7 +41,11 @@ class WordListTableViewCell: UITableViewCell {
     }
     
     func updateStar() {
-        self.favouriteButton.setBackgroundImage(UIImage(named: self.word.favourite ? "star.fill" : "star"), for: .normal)
+        if #available(iOS 13.0, *) {
+            self.favouriteButton.setBackgroundImage(UIImage(systemName: self.word.favourite ? "star.fill" : "star"), for: .normal)
+        } else {
+            return
+        }
     }
     
 }

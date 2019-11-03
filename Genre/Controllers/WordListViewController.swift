@@ -26,11 +26,11 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         super.viewDidLoad()
         
-        navigationController?.navigationBar.tintColor = UIColor.black
+//        navigationController?.navigationBar.tintColor = UIColor.black
         
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor]
+//
+//        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         
         navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -89,6 +89,8 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.incorrectLabel.text = searching ? "\(searchedWordList[indexPath.row].incorrectCount)" : "\(alphabeticalWordList[indexPath.row].incorrectCount)"
         
         cell.genderIndicatorView.backgroundColor = searching ? {searchedWordList[indexPath.row].gender ? UIColor.flatRedDark() : UIColor.flatTealDark()}() : {alphabeticalWordList[indexPath.row].gender ? UIColor.flatRedDark() : UIColor.flatTealDark()}()
+        
+        cell.updateStar()
         
         return cell
     }
