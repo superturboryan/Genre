@@ -30,7 +30,6 @@
 		94EF255D2239B97B003240B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94EF255B2239B97B003240B9 /* LaunchScreen.storyboard */; };
 		94EF25652239B9E1003240B9 /* WordCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF25642239B9E1003240B9 /* WordCardView.swift */; };
 		94EF25672239B9F8003240B9 /* WordCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94EF25662239B9F8003240B9 /* WordCardView.xib */; };
-		94EF25692239C5F8003240B9 /* WordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF25682239C5F8003240B9 /* WordModel.swift */; };
 		94EF256B2239C9AA003240B9 /* Words1592Count.csv in Resources */ = {isa = PBXBuildFile; fileRef = 94EF256A2239C9A9003240B9 /* Words1592Count.csv */; };
 		94EF256D2239DDB3003240B9 /* GameFinishedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF256C2239DDB3003240B9 /* GameFinishedView.swift */; };
 		94EF256F2239DDE9003240B9 /* GameFinishedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94EF256E2239DDE9003240B9 /* GameFinishedView.xib */; };
@@ -66,7 +65,6 @@
 		94EF255E2239B97B003240B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94EF25642239B9E1003240B9 /* WordCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCardView.swift; sourceTree = "<group>"; };
 		94EF25662239B9F8003240B9 /* WordCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WordCardView.xib; sourceTree = "<group>"; };
-		94EF25682239C5F8003240B9 /* WordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordModel.swift; sourceTree = "<group>"; };
 		94EF256A2239C9A9003240B9 /* Words1592Count.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Words1592Count.csv; sourceTree = "<group>"; };
 		94EF256C2239DDB3003240B9 /* GameFinishedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFinishedView.swift; sourceTree = "<group>"; };
 		94EF256E2239DDE9003240B9 /* GameFinishedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameFinishedView.xib; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 				946D283F235D2EFC00CD506B /* Session+CoreDataProperties.swift */,
 				946D2838235CF0B100CD506B /* Word+CoreDataClass.swift */,
 				946D2839235CF0B100CD506B /* Word+CoreDataProperties.swift */,
-				94EF25682239C5F8003240B9 /* WordModel.swift */,
 				94621EE6235373CB00D3DBC0 /* WordModel.xcdatamodeld */,
 			);
 			path = Model;
@@ -333,7 +330,6 @@
 				946D2840235D2EFC00CD506B /* Session+CoreDataClass.swift in Sources */,
 				94EF25652239B9E1003240B9 /* WordCardView.swift in Sources */,
 				946D283D235D15A000CD506B /* SessionManager.swift in Sources */,
-				94EF25692239C5F8003240B9 /* WordModel.swift in Sources */,
 				946D283A235CF0B100CD506B /* Word+CoreDataClass.swift in Sources */,
 				94EF2576223C8772003240B9 /* OptionsViewController.swift in Sources */,
 				94621EE8235373CB00D3DBC0 /* WordModel.xcdatamodeld in Sources */,

@@ -87,10 +87,10 @@
                                     <constraint firstAttribute="trailing" secondItem="8Wq-mF-T2H" secondAttribute="trailing" constant="25" id="dvi-nD-hYv"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7l-UB-yrP">
-                                <rect key="frame" x="286" y="30" width="43" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="EN/FR">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7l-UB-yrP">
+                                <rect key="frame" x="286" y="10" width="79" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="🇬🇧/🇫🇷">
                                     <color key="titleColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 </state>
                                 <connections>
@@ -100,10 +100,12 @@
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="U7l-UB-yrP" firstAttribute="top" secondItem="d8d-1s-axY" secondAttribute="top" constant="10" id="GVe-dD-Mm7"/>
                             <constraint firstItem="c8Q-bV-hhm" firstAttribute="leading" secondItem="SIK-Gb-oyp" secondAttribute="leading" constant="45" id="HHZ-kG-gUo"/>
                             <constraint firstItem="c8Q-bV-hhm" firstAttribute="centerX" secondItem="d8d-1s-axY" secondAttribute="centerX" id="K6C-PB-hWT"/>
                             <constraint firstItem="SIK-Gb-oyp" firstAttribute="bottom" secondItem="c8Q-bV-hhm" secondAttribute="bottom" constant="93" id="Vcr-C4-R8s"/>
                             <constraint firstItem="c8Q-bV-hhm" firstAttribute="top" secondItem="SIK-Gb-oyp" secondAttribute="top" constant="64" id="ahb-DL-eVm"/>
+                            <constraint firstItem="SIK-Gb-oyp" firstAttribute="trailing" secondItem="U7l-UB-yrP" secondAttribute="trailing" constant="10" id="dgf-9g-yF0"/>
                             <constraint firstItem="SIK-Gb-oyp" firstAttribute="trailing" secondItem="c8Q-bV-hhm" secondAttribute="trailing" constant="45" id="og0-fK-QHV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SIK-Gb-oyp"/>

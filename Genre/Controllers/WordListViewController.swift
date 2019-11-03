@@ -25,8 +25,6 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         
         super.viewDidLoad()
-
-        if #available(iOS 13.0, *) { overrideUserInterfaceStyle = .light }
         
         navigationController?.navigationBar.tintColor = UIColor.black
         
@@ -65,14 +63,24 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searching ? searchedWordList.count : alphabeticalWordList.count
+        return searching ?
+                searchedWordList.count == 0 ? 1 : searchedWordList.count
+                :
+                alphabeticalWordList.count
     }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         tableView.register(UINib.init(nibName: "WordListTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "wordListCell")
+        
+        if (searching && searchedWordList.count == 0) {
+            return emptyCell(forIndexPath: indexPath)
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "wordListCell", for: indexPath) as! WordListTableViewCell
+        
+        cell.word = searching ? searchedWordList[indexPath.row] : alphabeticalWordList[indexPath.row]
         
         cell.wordLabel.text = searching ? searchedWordList[indexPath.row].word : alphabeticalWordList[indexPath.row].word
         
@@ -83,6 +91,17 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.genderIndicatorView.backgroundColor = searching ? {searchedWordList[indexPath.row].gender ? UIColor.flatRedDark() : UIColor.flatTealDark()}() : {alphabeticalWordList[indexPath.row].gender ? UIColor.flatRedDark() : UIColor.flatTealDark()}()
         
         return cell
+    }
+    
+    func emptyCell(forIndexPath index : IndexPath) -> WordListTableViewCell {
+        
+        let emptyCell = tableView.dequeueReusableCell(withIdentifier: "wordListCell", for: index) as! WordListTableViewCell
+        
+        emptyCell.wordLabel.text = "No results found 😢"
+        emptyCell.correctLabel.text = "NA"
+        emptyCell.incorrectLabel.text = "NA"
+        
+        return emptyCell
     }
     
     var selectedWord: Word = Word()

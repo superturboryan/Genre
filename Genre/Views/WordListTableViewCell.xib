@@ -19,7 +19,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1T4-Hq-zMj">
                         <rect key="frame" x="0.0" y="10" width="50" height="92"/>
-                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="14p-7a-opr"/>
                         </constraints>
@@ -38,7 +38,7 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sqZ-mt-cni">
                                         <rect key="frame" x="0.0" y="2" width="19" height="17.5"/>
-                                        <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="33" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qp6-dC-QsS">
                                         <rect key="frame" x="19" y="0.0" width="21" height="20.5"/>
@@ -53,7 +53,7 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" image="xmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ood-X2-zZs">
                                         <rect key="frame" x="0.0" y="2" width="19" height="16.5"/>
-                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="33" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8j-yt-SsW">
                                         <rect key="frame" x="19" y="0.0" width="21" height="20.5"/>
@@ -65,22 +65,33 @@
                             </stackView>
                         </subviews>
                     </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6A-QT-aOc">
+                        <rect key="frame" x="80" y="72" width="22.5" height="22"/>
+                        <color key="tintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" image="star" catalog="system"/>
+                        <connections>
+                            <action selector="favouritePressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="M3s-3R-Xpw"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="2Gz-hB-gaA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9Yx-9k-oYc"/>
                     <constraint firstAttribute="bottom" secondItem="rSB-8D-dxP" secondAttribute="bottom" constant="40" id="K60-yc-ooh"/>
                     <constraint firstItem="1T4-Hq-zMj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="SAR-M2-hEG"/>
+                    <constraint firstItem="N6A-QT-aOc" firstAttribute="leading" secondItem="rSB-8D-dxP" secondAttribute="leading" id="SKe-ls-PRS"/>
                     <constraint firstAttribute="bottom" secondItem="1T4-Hq-zMj" secondAttribute="bottom" constant="10" id="X0T-OH-Kse"/>
                     <constraint firstAttribute="trailing" secondItem="2Gz-hB-gaA" secondAttribute="trailing" constant="20" id="YmO-Zh-b7Y"/>
                     <constraint firstItem="rSB-8D-dxP" firstAttribute="leading" secondItem="1T4-Hq-zMj" secondAttribute="trailing" constant="30" id="e7J-Hq-yJP"/>
                     <constraint firstItem="rSB-8D-dxP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eJT-u5-kPm"/>
                     <constraint firstItem="rSB-8D-dxP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="40" id="fmD-3x-KGE"/>
                     <constraint firstItem="1T4-Hq-zMj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="knm-VV-kU7"/>
+                    <constraint firstItem="N6A-QT-aOc" firstAttribute="top" secondItem="rSB-8D-dxP" secondAttribute="bottom" id="wTA-mk-ttF"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="correctLabel" destination="qp6-dC-QsS" id="dUC-0h-TBt"/>
+                <outlet property="favouriteButton" destination="N6A-QT-aOc" id="YHc-q5-Cwe"/>
                 <outlet property="genderIndicatorView" destination="1T4-Hq-zMj" id="wbt-74-XQK"/>
                 <outlet property="incorrectLabel" destination="v8j-yt-SsW" id="AEl-Bm-h6e"/>
                 <outlet property="wordLabel" destination="rSB-8D-dxP" id="8MP-4F-TBd"/>
@@ -90,6 +101,7 @@
     </objects>
     <resources>
         <image name="checkmark" catalog="system" width="64" height="56"/>
+        <image name="star" catalog="system" width="64" height="58"/>
         <image name="xmark" catalog="system" width="64" height="56"/>
     </resources>
 </document>
