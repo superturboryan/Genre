@@ -16,7 +16,7 @@
 		946D283D235D15A000CD506B /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D283C235D15A000CD506B /* SessionManager.swift */; };
 		946D2840235D2EFC00CD506B /* Session+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D283E235D2EFC00CD506B /* Session+CoreDataClass.swift */; };
 		946D2841235D2EFC00CD506B /* Session+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D283F235D2EFC00CD506B /* Session+CoreDataProperties.swift */; };
-		947ADD0B23483C5800F8FCFD /* WordListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */; };
+		947ADD0B23483C5800F8FCFD /* WordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD0A23483C5800F8FCFD /* WordListViewController.swift */; };
 		947ADD0E2348435400F8FCFD /* WordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */; };
 		947ADD0F2348435400F8FCFD /* WordListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947ADD0D2348435400F8FCFD /* WordListTableViewCell.xib */; };
 		947ADD112348F4A600F8FCFD /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947ADD102348F4A600F8FCFD /* StatsViewController.swift */; };
@@ -49,7 +49,7 @@
 		946D283C235D15A000CD506B /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		946D283E235D2EFC00CD506B /* Session+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataClass.swift"; sourceTree = "<group>"; };
 		946D283F235D2EFC00CD506B /* Session+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListTableViewController.swift; sourceTree = "<group>"; };
+		947ADD0A23483C5800F8FCFD /* WordListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListViewController.swift; sourceTree = "<group>"; };
 		947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListTableViewCell.swift; sourceTree = "<group>"; };
 		947ADD0D2348435400F8FCFD /* WordListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WordListTableViewCell.xib; sourceTree = "<group>"; };
 		947ADD102348F4A600F8FCFD /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
@@ -172,7 +172,7 @@
 				94EF2575223C8772003240B9 /* OptionsViewController.swift */,
 				94EF25642239B9E1003240B9 /* WordCardView.swift */,
 				94EF256C2239DDB3003240B9 /* GameFinishedView.swift */,
-				947ADD0A23483C5800F8FCFD /* WordListTableViewController.swift */,
+				947ADD0A23483C5800F8FCFD /* WordListViewController.swift */,
 				947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */,
 				947ADD102348F4A600F8FCFD /* StatsViewController.swift */,
 				943DFDC0235EA1D400F66AA2 /* MacawChartView.swift */,
@@ -334,7 +334,7 @@
 				94EF2576223C8772003240B9 /* OptionsViewController.swift in Sources */,
 				94621EE8235373CB00D3DBC0 /* WordModel.xcdatamodeld in Sources */,
 				94EF25552239B979003240B9 /* GameViewController.swift in Sources */,
-				947ADD0B23483C5800F8FCFD /* WordListTableViewController.swift in Sources */,
+				947ADD0B23483C5800F8FCFD /* WordListViewController.swift in Sources */,
 				946D283B235CF0B100CD506B /* Word+CoreDataProperties.swift in Sources */,
 				94CD98212344223E00AADAE7 /* WordChecker.swift in Sources */,
 				94CD9848234821EF00AADAE7 /* WordManager.swift in Sources */,

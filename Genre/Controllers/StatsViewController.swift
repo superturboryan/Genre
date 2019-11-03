@@ -41,6 +41,13 @@ class StatsViewController: UIViewController {
         setupOverallPercentLabelAnimation()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        MacawChartView.reloadSessions()
+        MacawChartView.playAnimation()
+    }
+    
     func setupView() {
         
         chartView.contentMode = .scaleAspectFit
@@ -50,10 +57,7 @@ class StatsViewController: UIViewController {
     
     func calculateStats() {
         
-        let sessions = SessionManager.sharedInstance.getAllSessions()
-        
         overallCorrectPercentage = round((Double(options.integer(forKey: "correctCount")) / (Double(options.integer(forKey: "correctCount")) + Double(options.integer(forKey: "incorrectCount")))) * 100)
-        
     }
  
     func setupCircularProgressBar(){

@@ -16,7 +16,7 @@ struct testSession {
 
 class MacawChartView: MacawView {
     
-    static let lastFiveSessions = SessionManager.sharedInstance.getLastFiveSessions()
+    static var lastFiveSessions = SessionManager.sharedInstance.getLastFiveSessions()
     
     static let maxLineHeight:Int = 180
     
@@ -27,7 +27,7 @@ class MacawChartView: MacawView {
     static let dataDivisor = Double(maxValue) / Double(maxLineHeight)
     
     static let adjustedData: [Double] = lastFiveSessions.map({
-        (((Double($0.correctCount) / Double($0.correctCount + $0.incorrectCount))) / dataDivisor) * 100
+        ((((Double($0.correctCount) / Double($0.correctCount + $0.incorrectCount)))  * 100) / dataDivisor)
     })
     
     static var animations: [Animation] = []
@@ -37,6 +37,7 @@ class MacawChartView: MacawView {
         
         backgroundColor = .clear
     }
+    
     
     static func createChart() -> Group {
         
@@ -65,7 +66,7 @@ class MacawChartView: MacawView {
         let lineInterval = Int(maxValue/maxLines)
         
         let yAxisHeight: Double = 200
-        let lineSpacing: Double = 30.0
+        let lineSpacing: Double = 50.0
         
         var newNodes: [Node] = []
         
@@ -140,5 +141,7 @@ class MacawChartView: MacawView {
         animations.combine().play()
     }
     
-    
+    static func reloadSessions() {
+        lastFiveSessions = SessionManager.sharedInstance.getLastFiveSessions()
+    }
 }

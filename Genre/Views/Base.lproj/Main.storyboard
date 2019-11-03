@@ -265,52 +265,43 @@ Bar : </string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nvu-5e-Dx5">
-                                <rect key="frame" x="0.0" y="144" width="375" height="523"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="567"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sUQ-Xa-NF8">
-                                <rect key="frame" x="0.0" y="44" width="375" height="100"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Official Genre Word List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGp-71-iqI">
-                                        <rect key="frame" x="33" y="33" width="309" height="34"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstItem="dGp-71-iqI" firstAttribute="centerY" secondItem="sUQ-Xa-NF8" secondAttribute="centerY" id="GIg-5N-bZt"/>
-                                    <constraint firstItem="dGp-71-iqI" firstAttribute="centerX" secondItem="sUQ-Xa-NF8" secondAttribute="centerX" id="biU-Sb-2nf"/>
-                                    <constraint firstAttribute="height" constant="100" id="hSP-Bc-sp0"/>
-                                </constraints>
-                            </view>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="x8K-PR-ryH">
+                                <rect key="frame" x="0.0" y="44" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="x8K-PR-ryH" firstAttribute="top" secondItem="29u-r5-Lb5" secondAttribute="top" id="4MK-I9-Wvu"/>
                             <constraint firstItem="29u-r5-Lb5" firstAttribute="bottom" secondItem="Nvu-5e-Dx5" secondAttribute="bottom" id="4Vl-df-0iP"/>
                             <constraint firstItem="Nvu-5e-Dx5" firstAttribute="leading" secondItem="29u-r5-Lb5" secondAttribute="leading" id="EJH-CY-o8m"/>
-                            <constraint firstItem="sUQ-Xa-NF8" firstAttribute="leading" secondItem="29u-r5-Lb5" secondAttribute="leading" id="R7N-CS-y86"/>
-                            <constraint firstItem="sUQ-Xa-NF8" firstAttribute="top" secondItem="29u-r5-Lb5" secondAttribute="top" id="Vfg-AP-1fp"/>
-                            <constraint firstItem="29u-r5-Lb5" firstAttribute="trailing" secondItem="sUQ-Xa-NF8" secondAttribute="trailing" id="W4u-dH-rwW"/>
+                            <constraint firstItem="x8K-PR-ryH" firstAttribute="trailing" secondItem="29u-r5-Lb5" secondAttribute="trailing" id="Uhk-ta-yT5"/>
+                            <constraint firstItem="Nvu-5e-Dx5" firstAttribute="top" secondItem="x8K-PR-ryH" secondAttribute="bottom" id="kSU-Wb-onC"/>
                             <constraint firstItem="29u-r5-Lb5" firstAttribute="trailing" secondItem="Nvu-5e-Dx5" secondAttribute="trailing" id="o5c-Kz-rcP"/>
-                            <constraint firstItem="Nvu-5e-Dx5" firstAttribute="top" secondItem="sUQ-Xa-NF8" secondAttribute="bottom" id="wzt-3q-km3"/>
+                            <constraint firstItem="x8K-PR-ryH" firstAttribute="leading" secondItem="29u-r5-Lb5" secondAttribute="leading" id="wgo-cu-TZP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="29u-r5-Lb5"/>
                     </view>
                     <navigationItem key="navigationItem" id="MH8-3H-loD"/>
                     <connections>
+                        <outlet property="searchBar" destination="x8K-PR-ryH" id="SpG-bz-FFK"/>
                         <outlet property="tableView" destination="Nvu-5e-Dx5" id="BlC-qo-cJY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d8C-oc-byt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="73" y="804"/>
+            <point key="canvasLocation" x="72.799999999999997" y="803.74812593703155"/>
         </scene>
         <!--Stats-->
         <scene sceneID="5pn-HD-qp6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="M7g-Rs-y2C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="M1s-DJ-Kbu" customClass="StatsViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vti-Qr-K4N">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -364,6 +355,7 @@ Bar : </string>
                         <outlet property="statsLabel" destination="zqj-W0-g60" id="z17-aw-WIX"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M7g-Rs-y2C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1028" y="814"/>
         </scene>
@@ -409,7 +401,7 @@ Bar : </string>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="48s-oi-xOy">
                                 <rect key="frame" x="143.5" y="481" width="88" height="68"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="dfo-aR-Iga"/>
                                     <constraint firstAttribute="width" constant="88" id="yPG-M2-kvq"/>
@@ -418,7 +410,7 @@ Bar : </string>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PI8-Zt-Sju">
                                 <rect key="frame" x="143.5" y="481" width="88" height="68"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
