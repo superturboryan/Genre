@@ -24,20 +24,26 @@ class WordListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
 
+        updateStar()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        
     }
     
     
     @IBAction func favouritePressed(_ sender: Any) {
+        WordManager.sharedInstance.set(word: self.word, favourite: !self.word.favourite)
+        self.word = WordManager.sharedInstance.getWordFor(string: self.word.word!)!
         
-        
+        updateStar()
+    }
+    
+    func updateStar() {
+        self.favouriteButton.setBackgroundImage(UIImage(named: self.word.favourite ? "star.fill" : "star"), for: .normal)
     }
     
 }

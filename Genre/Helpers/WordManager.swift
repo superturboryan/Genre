@@ -20,7 +20,6 @@ class WordManager: NSObject {
     
     let delegateContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    
     //MARK: Check if CSV been loaded
     
     func checkIfCSVHasBeenLoaded() -> Bool {
@@ -45,7 +44,9 @@ class WordManager: NSObject {
         
         let stream = InputStream(fileAtPath: Bundle.main.path(forResource: "Words1592WithAccents", ofType: "csv")!)
         
-        let csv = try! CSVReader(stream: stream!)
+        let stream2 = InputStream(fileAtPath: Bundle.main.path(forResource: "Words1592WithAccents", ofType: "csv")!)
+        
+        let csv = try! CSVReader(stream: stream2!)
         
         var wordList = [String:String]()
         
@@ -69,6 +70,7 @@ class WordManager: NSObject {
             wordToInsert.correctCount = 0
             wordToInsert.incorrectCount = 0
             wordToInsert.hint = "No hint"
+            wordToInsert.favourite = false
             
             saveChangesToCoreData()
             
@@ -154,6 +156,15 @@ class WordManager: NSObject {
         }
         return randomWords
         
+    }
+    
+    func set(word:Word, favourite:Bool) {
+        
+        let wordToSet = WordManager.sharedInstance.getWordFor(string: word.word!)!
+        
+        wordToSet.favourite = favourite
+        
+        WordManager.sharedInstance.saveChangesToCoreData()
     }
     
 }
