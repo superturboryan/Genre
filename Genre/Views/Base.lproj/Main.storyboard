@@ -300,19 +300,32 @@ Bar : </string>
             </objects>
             <point key="canvasLocation" x="72.799999999999997" y="803.74812593703155"/>
         </scene>
-        <!--Word Detail-->
+        <!--Word Detail View Controller-->
         <scene sceneID="5mq-wW-Lun">
             <objects>
                 <viewController id="k2I-PA-3Jf" customClass="WordDetailViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sjb-85-lGX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9TZ-mZ-VPw">
+                                <rect key="frame" x="138" y="75" width="99" height="48"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="9TZ-mZ-VPw" firstAttribute="top" secondItem="61L-mL-tFt" secondAttribute="top" constant="75" id="0d2-BT-jRj"/>
+                            <constraint firstItem="9TZ-mZ-VPw" firstAttribute="centerX" secondItem="sjb-85-lGX" secondAttribute="centerX" id="CbH-aa-dRt"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="61L-mL-tFt"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Word Detail" id="Yfm-fP-gJQ">
-                        <barButtonItem key="backBarButtonItem" title="Close" id="98w-KQ-Swq"/>
-                    </navigationItem>
+                    <connections>
+                        <outlet property="titleLabel" destination="9TZ-mZ-VPw" id="Los-is-gbj"/>
+                        <outlet property="view" destination="9TZ-mZ-VPw" id="2lR-LV-5Fa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l4Q-Lh-dDf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

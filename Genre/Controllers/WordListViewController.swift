@@ -96,6 +96,16 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         self.performSegue(withIdentifier: "goToDetail", sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "goToDetail") {
+            if let detailVC = segue.destination as? WordDetailViewController {
+                
+                detailVC.word = selectedWord
+            }
+        }
+    }
+    
     var previousScrollY: CGFloat = 0.0
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

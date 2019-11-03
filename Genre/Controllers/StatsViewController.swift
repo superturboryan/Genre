@@ -50,6 +50,8 @@ class StatsViewController: UIViewController {
     
     func setupView() {
         
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        
         chartView.contentMode = .scaleAspectFit
         
         MacawChartView.playAnimation()

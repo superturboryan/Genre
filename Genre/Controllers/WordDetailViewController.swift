@@ -10,6 +10,8 @@ import UIKit
 
 class WordDetailViewController: UIViewController {
 
+    @IBOutlet var titleLabel: UILabel!
+    
     var word: Word = Word()
     
     convenience init(word: Word) {
@@ -22,11 +24,7 @@ class WordDetailViewController: UIViewController {
         
         if #available(iOS 13.0, *) { overrideUserInterfaceStyle = .light }
         
-//        let presentingView = self.navigationController?.viewControllers[1] as! WordListViewController
-//
-//        self.word = presentingView.selectedWord
-//        
-//        self.navigationItem.title = self.word.word
+        self.titleLabel.text = self.word.word
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,11 +32,7 @@ class WordDetailViewController: UIViewController {
         
     }
     
-    @IBAction func pressedClose(_ sender: Any) {
-        
-        self.dismiss(animated: true, completion: nil)
-        
-    }
+    
     
     
     
