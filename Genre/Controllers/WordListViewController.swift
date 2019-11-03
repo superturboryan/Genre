@@ -19,12 +19,22 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
     private var searchedWordList : [Word] = []
     
     private var searching : Bool = false
+    
+    private var searchbarHidden : Bool = false
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
 
         if #available(iOS 13.0, *) { overrideUserInterfaceStyle = .light }
+        
+        navigationController?.navigationBar.tintColor = UIColor.black
+        
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -34,6 +44,11 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         hideNavBar()
         
         loadAlphabeticalWordList()
+    }
+    
+    @objc func loadAlphabeticalWordList() {
+        
+        alphabeticalWordList = WordManager.sharedInstance.getAllWordAlphabetical()
     }
 
     @objc func hideNavBar() {
@@ -70,12 +85,51 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
+    var selectedWord: Word = Word()
     
-    @objc func loadAlphabeticalWordList() {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        alphabeticalWordList = WordManager.sharedInstance.getAllWordAlphabetical()
+        tableView.deselectRow(at: indexPath, animated: true)
+         
+        self.selectedWord = searching ? searchedWordList[indexPath.row] : alphabeticalWordList[indexPath.row]
+        
+        self.performSegue(withIdentifier: "goToDetail", sender: self)
+    }
+    
+    var previousScrollY: CGFloat = 0.0
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let currentScrollY = scrollView.contentOffset.y
+        
+        print(currentScrollY)
+        
+        if (currentScrollY > previousScrollY &&
+            !searchbarHidden &&
+            currentScrollY > 0) {
+            
+        }
+        else {
+            showSearchBar()
+        }
+        
+        previousScrollY = currentScrollY
+    }
+    
+    func hideSearchBar() {
+        searchbarHidden = true
+        UIView.animate(withDuration: 0.3) {
+            self.searchBar.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 0)
+        }
     }
 
+    func showSearchBar() {
+        if #available(iOS 13.0, *) {
+            navigationController?.navigationBar.showsLargeContentViewer = true
+        } else {
+            // Fallback on earlier versions
+        }
+    }
    
 
 }
@@ -86,15 +140,19 @@ extension WordListViewController: UISearchBarDelegate {
         
         let textfieldNotEmpty = searchText.count != 0
         searching = textfieldNotEmpty
-        searchBar.showsCancelButton = textfieldNotEmpty
         
         searchedWordList = alphabeticalWordList.filter({ (word) -> Bool in
-            
             word.word!.lowercased().contains(searchText.lowercased())
         })
         
         tableView.reloadData()
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        searchBar.resignFirstResponder()
+        tableView.resignFirstResponder()
+        
+    }
     
 }

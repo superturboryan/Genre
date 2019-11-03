@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		943DFDC1235EA1D400F66AA2 /* MacawChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943DFDC0235EA1D400F66AA2 /* MacawChartView.swift */; };
+		9452938B236E93B200190F38 /* WordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9452938A236E93B200190F38 /* WordDetailViewController.swift */; };
 		9454B411234D8BED00025274 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9454B410234D8BED00025274 /* GameEngine.swift */; };
 		945CA3832343055900F1677E /* Words1592WithAccents.csv in Resources */ = {isa = PBXBuildFile; fileRef = 945CA3822343055900F1677E /* Words1592WithAccents.csv */; };
 		94621EE8235373CB00D3DBC0 /* WordModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94621EE6235373CB00D3DBC0 /* WordModel.xcdatamodeld */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		0C44F809E8721941472BA448 /* Pods-Genre.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Genre.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Genre/Pods-Genre.debug.xcconfig"; sourceTree = "<group>"; };
 		943DFDC0235EA1D400F66AA2 /* MacawChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawChartView.swift; sourceTree = "<group>"; };
+		9452938A236E93B200190F38 /* WordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDetailViewController.swift; sourceTree = "<group>"; };
 		9454B410234D8BED00025274 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
 		945CA3822343055900F1677E /* Words1592WithAccents.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Words1592WithAccents.csv; sourceTree = "<group>"; };
 		94621EE7235373CB00D3DBC0 /* WordModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WordModel.xcdatamodel; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				94EF256C2239DDB3003240B9 /* GameFinishedView.swift */,
 				947ADD0A23483C5800F8FCFD /* WordListViewController.swift */,
 				947ADD0C2348435400F8FCFD /* WordListTableViewCell.swift */,
+				9452938A236E93B200190F38 /* WordDetailViewController.swift */,
 				947ADD102348F4A600F8FCFD /* StatsViewController.swift */,
 				943DFDC0235EA1D400F66AA2 /* MacawChartView.swift */,
 			);
@@ -324,6 +327,7 @@
 			files = (
 				94EF2574223AA26A003240B9 /* MainMenuViewController.swift in Sources */,
 				943DFDC1235EA1D400F66AA2 /* MacawChartView.swift in Sources */,
+				9452938B236E93B200190F38 /* WordDetailViewController.swift in Sources */,
 				946D2841235D2EFC00CD506B /* Session+CoreDataProperties.swift in Sources */,
 				9454B411234D8BED00025274 /* GameEngine.swift in Sources */,
 				946D2840235D2EFC00CD506B /* Session+CoreDataClass.swift in Sources */,

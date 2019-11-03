@@ -256,7 +256,7 @@ Bar : </string>
             </objects>
             <point key="canvasLocation" x="-866" y="814"/>
         </scene>
-        <!--Word List View Controller-->
+        <!--Word List-->
         <scene sceneID="2BE-7O-Y7w">
             <objects>
                 <viewController id="if2-xk-aO5" customClass="WordListViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
@@ -265,39 +265,58 @@ Bar : </string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nvu-5e-Dx5">
-                                <rect key="frame" x="0.0" y="100" width="375" height="567"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="x8K-PR-ryH">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
+                                    <scopeButtonTitles>
+                                        <string>Title</string>
+                                        <string>Title</string>
+                                    </scopeButtonTitles>
+                                </searchBar>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="x8K-PR-ryH">
-                                <rect key="frame" x="0.0" y="44" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
-                                <scopeButtonTitles>
-                                    <string>Title</string>
-                                    <string>Title</string>
-                                </scopeButtonTitles>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="x8K-PR-ryH" firstAttribute="top" secondItem="29u-r5-Lb5" secondAttribute="top" id="4MK-I9-Wvu"/>
                             <constraint firstItem="29u-r5-Lb5" firstAttribute="bottom" secondItem="Nvu-5e-Dx5" secondAttribute="bottom" id="4Vl-df-0iP"/>
+                            <constraint firstItem="Nvu-5e-Dx5" firstAttribute="top" secondItem="29u-r5-Lb5" secondAttribute="top" id="5gP-5b-nBo"/>
                             <constraint firstItem="Nvu-5e-Dx5" firstAttribute="leading" secondItem="29u-r5-Lb5" secondAttribute="leading" id="EJH-CY-o8m"/>
-                            <constraint firstItem="x8K-PR-ryH" firstAttribute="trailing" secondItem="29u-r5-Lb5" secondAttribute="trailing" id="Uhk-ta-yT5"/>
-                            <constraint firstItem="Nvu-5e-Dx5" firstAttribute="top" secondItem="x8K-PR-ryH" secondAttribute="bottom" id="kSU-Wb-onC"/>
                             <constraint firstItem="29u-r5-Lb5" firstAttribute="trailing" secondItem="Nvu-5e-Dx5" secondAttribute="trailing" id="o5c-Kz-rcP"/>
-                            <constraint firstItem="x8K-PR-ryH" firstAttribute="leading" secondItem="29u-r5-Lb5" secondAttribute="leading" id="wgo-cu-TZP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="29u-r5-Lb5"/>
                     </view>
-                    <navigationItem key="navigationItem" id="MH8-3H-loD"/>
+                    <navigationItem key="navigationItem" title="Word List" id="MH8-3H-loD"/>
                     <connections>
                         <outlet property="searchBar" destination="x8K-PR-ryH" id="SpG-bz-FFK"/>
                         <outlet property="tableView" destination="Nvu-5e-Dx5" id="BlC-qo-cJY"/>
+                        <segue destination="k2I-PA-3Jf" kind="popoverPresentation" identifier="goToDetail" popoverAnchorView="hqT-Fa-bQM" id="GLN-gu-i9G">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d8C-oc-byt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="72.799999999999997" y="803.74812593703155"/>
+        </scene>
+        <!--Word Detail-->
+        <scene sceneID="5mq-wW-Lun">
+            <objects>
+                <viewController id="k2I-PA-3Jf" customClass="WordDetailViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sjb-85-lGX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="61L-mL-tFt"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Word Detail" id="Yfm-fP-gJQ">
+                        <barButtonItem key="backBarButtonItem" title="Close" id="98w-KQ-Swq"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l4Q-Lh-dDf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="73" y="1531"/>
         </scene>
         <!--Stats-->
         <scene sceneID="5pn-HD-qp6">
