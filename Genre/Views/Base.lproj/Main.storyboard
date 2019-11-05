@@ -256,7 +256,7 @@ Bar : </string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckH-Ag-A8T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-866" y="814"/>
+            <point key="canvasLocation" x="1937" y="236"/>
         </scene>
         <!--Word List-->
         <scene sceneID="2BE-7O-Y7w">
@@ -300,7 +300,7 @@ Bar : </string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d8C-oc-byt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="72.799999999999997" y="803.74812593703155"/>
+            <point key="canvasLocation" x="-866" y="838"/>
         </scene>
         <!--Word Detail View Controller-->
         <scene sceneID="5mq-wW-Lun">
@@ -331,7 +331,7 @@ Bar : </string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l4Q-Lh-dDf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="73" y="1531"/>
+            <point key="canvasLocation" x="-866" y="1653"/>
         </scene>
         <!--Stats-->
         <scene sceneID="5pn-HD-qp6">
@@ -391,7 +391,7 @@ Bar : </string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M7g-Rs-y2C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1028" y="814"/>
+            <point key="canvasLocation" x="735" y="967"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -475,7 +475,7 @@ Bar : </string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1028" y="19.340329835082461"/>
+            <point key="canvasLocation" x="2886" y="-294"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KJh-0I-SWo">
