@@ -16,6 +16,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7l-UB-yrP">
+                                <rect key="frame" x="141.5" y="599" width="92" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="🇬🇧 / 🇫🇷">
+                                    <color key="titleColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="languageButtonPressed:" destination="esT-rM-L1R" eventType="touchUpInside" id="b9k-Cu-xGI"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c8Q-bV-hhm" userLabel="MenuView">
                                 <rect key="frame" x="45" y="108" width="285" height="466"/>
                                 <subviews>
@@ -87,25 +97,15 @@
                                     <constraint firstAttribute="trailing" secondItem="8Wq-mF-T2H" secondAttribute="trailing" constant="25" id="dvi-nD-hYv"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7l-UB-yrP">
-                                <rect key="frame" x="286" y="10" width="79" height="48"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="🇬🇧/🇫🇷">
-                                    <color key="titleColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="languageButtonPressed:" destination="esT-rM-L1R" eventType="touchUpInside" id="b9k-Cu-xGI"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="U7l-UB-yrP" firstAttribute="top" secondItem="d8d-1s-axY" secondAttribute="top" constant="10" id="GVe-dD-Mm7"/>
                             <constraint firstItem="c8Q-bV-hhm" firstAttribute="leading" secondItem="SIK-Gb-oyp" secondAttribute="leading" constant="45" id="HHZ-kG-gUo"/>
                             <constraint firstItem="c8Q-bV-hhm" firstAttribute="centerX" secondItem="d8d-1s-axY" secondAttribute="centerX" id="K6C-PB-hWT"/>
                             <constraint firstItem="SIK-Gb-oyp" firstAttribute="bottom" secondItem="c8Q-bV-hhm" secondAttribute="bottom" constant="93" id="Vcr-C4-R8s"/>
                             <constraint firstItem="c8Q-bV-hhm" firstAttribute="top" secondItem="SIK-Gb-oyp" secondAttribute="top" constant="64" id="ahb-DL-eVm"/>
-                            <constraint firstItem="SIK-Gb-oyp" firstAttribute="trailing" secondItem="U7l-UB-yrP" secondAttribute="trailing" constant="10" id="dgf-9g-yF0"/>
+                            <constraint firstItem="SIK-Gb-oyp" firstAttribute="bottom" secondItem="U7l-UB-yrP" secondAttribute="bottom" constant="20" id="jmT-x9-xlb"/>
+                            <constraint firstItem="U7l-UB-yrP" firstAttribute="centerX" secondItem="d8d-1s-axY" secondAttribute="centerX" id="kmR-Jd-wGb"/>
                             <constraint firstItem="SIK-Gb-oyp" firstAttribute="trailing" secondItem="c8Q-bV-hhm" secondAttribute="trailing" constant="45" id="og0-fK-QHV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SIK-Gb-oyp"/>
