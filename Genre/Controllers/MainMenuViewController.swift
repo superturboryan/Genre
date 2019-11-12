@@ -20,28 +20,38 @@ class MainMenuViewController: UIViewController {
     @IBOutlet weak var iconButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!
     
- 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Set all state variables
         loadOptions()
-  
+
+        setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        let sessions: [Session] = SessionManager.sharedInstance.getAllSessions()
+
+        showMenu(WithDelay: 0.3)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    func setupView() {
+        
+        self.view.setupGradientBG(withFrame: self.view.frame)
+        
         //Set soft corners
-        menuView.layer.cornerRadius = CGFloat(7.0)
-        startGameButton.layer.cornerRadius = CGFloat(5.0)
-        statsButton.layer.cornerRadius = CGFloat(5.0)
-        wordListButton.layer.cornerRadius = CGFloat(5.0)
-        optionsButton.layer.cornerRadius = CGFloat(5.0)
-
-        //Hide all buttons separately
-//        startGameButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-//        statsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-//        wordListButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-//        optionsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-//        iconButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-
+       menuView.layer.cornerRadius = CGFloat(7.0)
+       startGameButton.layer.cornerRadius = CGFloat(5.0)
+       statsButton.layer.cornerRadius = CGFloat(5.0)
+       wordListButton.layer.cornerRadius = CGFloat(5.0)
+       optionsButton.layer.cornerRadius = CGFloat(5.0)
+        
         //Set button label language
         startGameButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
             "Commencer":"Start", for: .normal)
@@ -52,25 +62,23 @@ class MainMenuViewController: UIViewController {
         optionsButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
             "Réglages":"Settings", for: .normal)
         
+//        self.view.bringSubviewToFront(self.menuView)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        let sessions: [Session] = SessionManager.sharedInstance.getAllSessions()
-        print("Stored sessions:")
-        sessions.forEach { (session) in
-            print("Session correct count: \(session.correctCount)")
-        }
-    }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: false)
-    }
     
     @IBAction func startPressed(_ sender: UIButton) {
+        
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+            // Transform similar to card swipe animation
+            let transform = CGAffineTransform(translationX: self.view.frame.width, y: 0)
+            self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+        }) { (completion) in
+            if (completion) {
+                self.performSegue(withIdentifier: "goToGame", sender: nil)
+            }
+        }
 
-        self.performSegue(withIdentifier: "goToGame", sender: nil)
     }
     
     
@@ -102,19 +110,7 @@ class MainMenuViewController: UIViewController {
         
         changeLabelLanguage()
         
-        UIView.animate(withDuration: 0.8, delay: 0.7, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-            
-            self.menuView.transform = CGAffineTransform.identity
-            //Lighten background
-//            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.1)
-            //Add shadow to menu
-            self.menuView.layer.shadowColor = UIColor.black.cgColor
-            self.menuView.layer.shadowOpacity = 0.4
-            self.menuView.layer.shadowOffset = CGSize.zero
-            self.menuView.layer.shadowRadius = CGFloat(12)
-            
-        }, completion: nil)
-        
+        showMenu(WithDelay: 0.8)
     }
     
     //UI animation functions
@@ -128,42 +124,19 @@ class MainMenuViewController: UIViewController {
        
     }
     
-    func hideButtons() {
-        
-        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-            
-            self.startGameButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-            
-        }, completion: { (success) in
-            
-            UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                
-                self.statsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-                
-            }, completion: { (success) in
-                
-                UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+    func showMenu(WithDelay delay:Double) {
+        UIView.animate(withDuration: 0.8, delay: delay, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
                     
-                    self.wordListButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+                    self.menuView.transform = CGAffineTransform.identity
+                    //Lighten background
+        //            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.1)
+                    //Add shadow to menu
+                    self.menuView.layer.shadowColor = UIColor.black.cgColor
+                    self.menuView.layer.shadowOpacity = 0.4
+                    self.menuView.layer.shadowOffset = CGSize.zero
+                    self.menuView.layer.shadowRadius = CGFloat(12)
                     
-                }, completion: { (success) in
-                    
-                    UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                        
-                        self.optionsButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-                        
-                    }, completion: { (success) in
-                        
-                        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                            
-                            self.iconButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-                            
-                        }, completion: nil)
-                    })
-                })
-            })
-        })
-        
+                }, completion: nil)
     }
     
     func changeLabelLanguage() {
@@ -207,11 +180,17 @@ class MainMenuViewController: UIViewController {
         
     }
     
-    
-    
-    
-    
-    
-    
 
+}
+
+extension UIView {
+    func setupGradientBG(withFrame frame:CGRect) {
+        let gradient = CAGradientLayer()
+        let colorTop = UIColor(hexString: "00b4db")
+        let colorBottom = UIColor(hexString: "0083b0")
+        gradient.colors = [colorTop?.cgColor,colorBottom?.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradient.frame = frame
+        self.layer.insertSublayer(gradient, at: 0)
+    }
 }

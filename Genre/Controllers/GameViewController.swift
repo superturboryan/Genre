@@ -23,6 +23,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var progressBar: UIView!
     @IBOutlet weak var timerLabel: UILabel!
     
+    @IBOutlet var backButton: UIButton!
+    
     @IBOutlet var correctPopup: UIImageView!
     @IBOutlet var incorrectPopup: UIImageView!
     
@@ -58,13 +60,13 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
-        
         GameEngine.sharedInstance.loadNewGameWords()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        setupView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,7 +84,10 @@ class GameViewController: UIViewController {
     
     @objc func setupView() {
         
-        self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.33)
+        self.view.setupGradientBG(withFrame: self.view.bounds)
+        
+        self.view.bringSubviewToFront(self.backButton)
+        
         restartButton.layer.cornerRadius = CGFloat(10)
         restartButton.alpha = 0
         progressBar.frame.size.width = CGFloat(0)
@@ -96,17 +101,27 @@ class GameViewController: UIViewController {
        //Check whether to display timer
         if options.value(forKey: "Timer") as! Bool == false { timerLabel.alpha = 0 }
        //And whether to display progress bar
-       if options.value(forKey: "Progress") as! Bool == false { progressBar.alpha = 0 }
-       timerLabel.text = String(counter)
-        
+        if options.value(forKey: "Progress") as! Bool == false { progressBar.alpha = 0 }
+    
+        timerLabel.text = String(counter)
+    
         hideNavBar()
     }
     
+    @IBAction func backButtonPressed(_ sender: UIButton) {
+        
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+            // Transform similar to card swipe animation
+            let transform = CGAffineTransform(translationX: self.view.frame.width, y: 0)
+            self.wordCardView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+        }) { (completion) in
+            // DismissVC sans animation because backgrounds are all the same
+            self.navigationController?.popViewController(animated: false)
+        }
+    }
+    
     @objc func hideNavBar() {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.view.backgroundColor = .clear
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     @objc func startTimer() {
@@ -213,6 +228,7 @@ class GameViewController: UIViewController {
             }
             animator.isReversed = true
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+            
         default:
             break
         }
