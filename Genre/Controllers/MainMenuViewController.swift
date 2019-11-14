@@ -16,7 +16,6 @@ class MainMenuViewController: UIViewController {
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var startGameButton: UIButton!
     @IBOutlet weak var wordListButton: UIButton!
-    @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var iconButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!
     
@@ -46,11 +45,10 @@ class MainMenuViewController: UIViewController {
         self.view.setupGradientBG(withFrame: self.view.frame)
         
         //Set soft corners
-       menuView.layer.cornerRadius = CGFloat(7.0)
+       menuView.layer.cornerRadius = CGFloat(15.0)
        startGameButton.layer.cornerRadius = CGFloat(5.0)
        statsButton.layer.cornerRadius = CGFloat(5.0)
        wordListButton.layer.cornerRadius = CGFloat(5.0)
-       optionsButton.layer.cornerRadius = CGFloat(5.0)
         
         //Set button label language
         startGameButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
@@ -59,8 +57,6 @@ class MainMenuViewController: UIViewController {
             "Statistiques":"Stats" , for: .normal)
         wordListButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
             "Vocabulaire":"Word List" , for: .normal)
-        optionsButton.setTitle(options.bool(forKey: "FrenchLanguage") == true ?
-            "Réglages":"Settings", for: .normal)
         
 //        self.view.bringSubviewToFront(self.menuView)
     }
@@ -71,21 +67,17 @@ class MainMenuViewController: UIViewController {
         
         UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
             // Transform similar to card swipe animation
-            let transform = CGAffineTransform(translationX: self.view.frame.width, y: 0)
+            let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
             self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
         }) { (completion) in
             if (completion) {
-                self.performSegue(withIdentifier: "goToGame", sender: nil)
+                self.performSegue(withIdentifier: "goToOptions", sender: nil)
             }
         }
 
     }
     
-    
-    @IBAction func optionsPressed(_ sender: UIButton) {
-        
-        self.performSegue(withIdentifier: "goToOptions", sender: nil)
-    }
+
     
     @IBAction func wordListPressed(_ sender: UIButton) {
         
@@ -149,13 +141,11 @@ class MainMenuViewController: UIViewController {
             startGameButton.setTitle("Commencer", for: .normal)
             statsButton.setTitle("Statistiques", for: .normal)
             wordListButton.setTitle("Vocabulaire", for: .normal)
-            optionsButton.setTitle("Réglages", for: .normal)
         }
         else{
             startGameButton.setTitle("Start", for: .normal)
             statsButton.setTitle("Stats", for: .normal)
             wordListButton.setTitle("Word List", for: .normal)
-            optionsButton.setTitle("Settings", for: .normal)
         }
     }
     
@@ -173,14 +163,13 @@ class MainMenuViewController: UIViewController {
             options.set(false, forKey: "FrenchLanguage")
             options.set(0, forKey: "correctCount")
             options.set(0, forKey: "incorrectCount")
+            options.set(false, forKey: "SuddenDeath")
             
             print("Default options set!" + String(options.bool(forKey: "OptionsSet")))
         }
         
         
     }
-    
-
 }
 
 extension UIView {

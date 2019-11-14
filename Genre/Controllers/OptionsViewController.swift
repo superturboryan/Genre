@@ -20,7 +20,13 @@ class OptionsViewController: UIViewController {
     
     @IBOutlet weak var progressBarSwitch: UISwitch!
     
+    @IBOutlet var suddenDeathSwitch: UISwitch!
+    
     @IBOutlet weak var numOfWordsSlider: UISlider!
+    
+    @IBOutlet var newWordsButton: UIButton!
+    
+    @IBOutlet var sameWordsButton: UIButton!
     
     //Labels
 
@@ -34,6 +40,8 @@ class OptionsViewController: UIViewController {
     
     @IBOutlet weak var numOfWordsLabel: UILabel!
     
+    @IBOutlet var suddenDeathLabel: UILabel!
+    
     let options = UserDefaults.standard
     
     var hintOption : Bool = false
@@ -43,8 +51,6 @@ class OptionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        hideNavBar()
-        
         setupView()
     }
     
@@ -53,22 +59,15 @@ class OptionsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-    }
-    
-    func setupLabels() {
-
-        hintsLabel.textColor = UIColor.black
-        
-        timerLabel.textColor = UIColor.black
-        
-        progressLabel.textColor = UIColor.black
-        
-        numOfWords.textColor = UIColor.black
-        
-        numOfWordsLabel.textColor = UIColor.black
+        hideNavBar()
     }
     
     @objc func setupView() {
+        
+        addMenuShadow()
+        
+        self.menuView.layer.cornerRadius = 15.0
+        
         //Set values for switches and slider
         guard let hintOption = options.value(forKey: "Hints") as? Bool else {return}
         
@@ -82,6 +81,10 @@ class OptionsViewController: UIViewController {
         
         progressBarSwitch.isOn = progressOption
         
+        guard let suddenDeathOption = options.value(forKey: "SuddenDeath") as? Bool else {return}
+        
+        suddenDeathSwitch.isOn = suddenDeathOption
+        
         guard let wordCountOption = options.value(forKey: "WordCount") as? Int else {return}
         
         numOfWords.text = String(wordCountOption)
@@ -93,19 +96,56 @@ class OptionsViewController: UIViewController {
         
         //Set label language
 
-        hintsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Conseils :":"Hints :"
-        timerLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Chrono :":"Timer :"
-        progressLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Progrès :":"Progress Bar :"
-        numOfWordsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "# de mots :":"Word Count :"
+        hintsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Conseils:":"Hints:"
+        timerLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Chrono:":"Timer:"
+        progressLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Progrès:":"Progress Bar:"
+        numOfWordsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "# de mots:":"Word Count:"
+        suddenDeathLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Mort soudain:":"Sudden death:"
         
-        setupLabels()
+        //Rounded corner buttons
+        newWordsButton.layer.cornerRadius = 7.0;
+        sameWordsButton.layer.cornerRadius = 7.0;
+
+        self.view.setupGradientBG(withFrame: self.view.bounds)
+        
+        hideOptionsMenu()
+        
+        showOptionsMenu()
+    }
+    
+    func hideOptionsMenu() {
+        // Transform similar to card swipe animation
+        let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
+        self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+    }
+    
+    func showOptionsMenu() {
+        UIView.animate(withDuration: 0.4, delay: 0.1, options: .curveEaseInOut, animations: {
+            self.menuView.transform = CGAffineTransform.identity
+        }) { (completion) in
+            return
+        }
     }
     
     @objc func hideNavBar() {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.view.backgroundColor = .clear
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.isTranslucent = true
+//        self.navigationController?.view.backgroundColor = .clear
+        
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    
+    @IBAction func backButtonPressed(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+            // Transform similar to card swipe animation
+            let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
+            self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+        }) { (completion) in
+            // DismissVC sans animation because backgrounds are all the same
+            self.navigationController?.popViewController(animated: false)
+        }
     }
     
     @IBAction func hintsPressed(_ sender: UISwitch) {
@@ -142,7 +182,16 @@ class OptionsViewController: UIViewController {
         else {
             options.set(false, forKey: "Progress")
         }
-        
+    }
+    
+    
+    @IBAction func suddenDeathPressed(_ sender: UISwitch) {
+        if sender.isOn {
+            options.set(true, forKey: "SuddenDeath")
+        }
+        else {
+            options.set(false, forKey: "SuddenDeath")
+        }
     }
     
     
@@ -161,6 +210,13 @@ class OptionsViewController: UIViewController {
         menuView.layer.shadowRadius = CGFloat(12)
     }
     
+    @IBAction func newWordsPressed(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "goToGame", sender: nil)
+    }
     
-
+    @IBAction func sameWordsPressed(_ sender: UIButton) {
+        
+    }
+    
+    
 }

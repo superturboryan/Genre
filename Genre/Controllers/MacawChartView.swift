@@ -33,6 +33,7 @@ class MacawChartView: MacawView {
     static var animations: [Animation] = []
     
     required init?(coder aDecoder: NSCoder) {
+        
         super.init(node: MacawChartView.createChart(), coder: aDecoder)
         
         backgroundColor = .clear
@@ -40,6 +41,10 @@ class MacawChartView: MacawView {
     
     
     static func createChart() -> Group {
+        
+        if adjustedData.count == 0 {
+            return Group()
+        }
         
         var items: [Node] = addYAxisItems() + addXAxisItems()
         
