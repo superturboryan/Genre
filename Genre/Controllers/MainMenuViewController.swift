@@ -21,9 +21,6 @@ class MainMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Set all state variables
-        loadOptions()
 
         setupView()
     }
@@ -149,27 +146,7 @@ class MainMenuViewController: UIViewController {
         }
     }
     
-    func loadOptions() {
-        
-        //Set hints to false by default after checking if the first is set
-        if options.bool(forKey: "OptionsSet") == false {
-            
-            options.set(true, forKey: "OptionsSet")
-            
-            options.set(false, forKey: "Hints")
-            options.set(false, forKey: "Timer")
-            options.set(true, forKey: "Progress")
-            options.set(10, forKey: "WordCount")
-            options.set(false, forKey: "FrenchLanguage")
-            options.set(0, forKey: "correctCount")
-            options.set(0, forKey: "incorrectCount")
-            options.set(false, forKey: "SuddenDeath")
-            
-            print("Default options set!" + String(options.bool(forKey: "OptionsSet")))
-        }
-        
-        
-    }
+    
 }
 
 extension UIView {

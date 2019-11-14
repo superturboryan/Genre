@@ -16,10 +16,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        //Set all state variables
+        loadOptions()
        
         checkIfCsvHasBeenLoadedIntoCoreData()
         
         return true
+    }
+    
+    func loadOptions() {
+        
+         let options = UserDefaults.standard
+        
+        //Set hints to false by default after checking if the first is set
+        if options.bool(forKey: "OptionsSet") == false {
+            
+            options.set(true, forKey: "OptionsSet")
+            
+            options.set(false, forKey: "Hints")
+            options.set(false, forKey: "Timer")
+            options.set(true, forKey: "Progress")
+            options.set(10, forKey: "WordCount")
+            options.set(false, forKey: "FrenchLanguage")
+            options.set(0, forKey: "correctCount")
+            options.set(0, forKey: "incorrectCount")
+            options.set(false, forKey: "SuddenDeath")
+            
+            print("Default options set!" + String(options.bool(forKey: "OptionsSet")))
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

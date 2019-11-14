@@ -346,7 +346,7 @@
                     <connections>
                         <outlet property="searchBar" destination="x8K-PR-ryH" id="SpG-bz-FFK"/>
                         <outlet property="tableView" destination="Nvu-5e-Dx5" id="BlC-qo-cJY"/>
-                        <segue destination="k2I-PA-3Jf" kind="popoverPresentation" identifier="goToDetail" popoverAnchorView="hqT-Fa-bQM" id="GLN-gu-i9G">
+                        <segue destination="k2I-PA-3Jf" kind="popoverPresentation" identifier="goToDetail" popoverAnchorView="Nvu-5e-Dx5" id="GLN-gu-i9G">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                     </connections>

@@ -126,7 +126,9 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         if (segue.identifier == "goToDetail") {
             if let detailVC = segue.destination as? WordDetailViewController {
                 
-                detailVC.word = selectedWord
+                detailVC.modalPresentationStyle =  .overCurrentContext
+                
+                detailVC.word = self.selectedWord
             }
         }
     }
