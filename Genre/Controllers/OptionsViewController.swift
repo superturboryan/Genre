@@ -8,38 +8,26 @@
 
 import UIKit
 
-
+typealias CompletionHandler = () -> Void
 
 class OptionsViewController: UIViewController {
 
     @IBOutlet weak var menuView: UIView!
-    
     @IBOutlet weak var hintsSwitch: UISwitch!
-    
     @IBOutlet weak var timerSwitch: UISwitch!
-    
     @IBOutlet weak var progressBarSwitch: UISwitch!
-    
     @IBOutlet var suddenDeathSwitch: UISwitch!
-    
     @IBOutlet weak var numOfWordsSlider: UISlider!
-    
     @IBOutlet var newWordsButton: UIButton!
-    
     @IBOutlet var sameWordsButton: UIButton!
     
     //Labels
 
     @IBOutlet weak var hintsLabel: UILabel!
-    
     @IBOutlet weak var timerLabel: UILabel!
-    
     @IBOutlet weak var progressLabel: UILabel!
-    
     @IBOutlet weak var numOfWords: UILabel!
-    
     @IBOutlet weak var numOfWordsLabel: UILabel!
-    
     @IBOutlet var suddenDeathLabel: UILabel!
     
     let options = UserDefaults.standard
@@ -50,24 +38,50 @@ class OptionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupView()
     }
-    
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         hideNavBar()
+        setupView()
     }
     
-    @objc func setupView() {
+    func setupView() {
+        
+        setupSameWordsButton()
         
         addMenuShadow()
         
         self.menuView.layer.cornerRadius = 15.0
         
+        setupToggles()
+        
+        //View styling
+        menuView.layer.cornerRadius = CGFloat(7.0)
+        
+        //Set label language
+
+        hintsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Conseils:":"Hints:"
+        timerLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Chrono:":"Timer:"
+        progressLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Progrès:":"Progress Bar:"
+        numOfWordsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "# de mots:":"Word Count:"
+        suddenDeathLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Mort soudain:":"Sudden death:"
+        
+        //Rounded corner buttons
+        newWordsButton.layer.cornerRadius = 7.0;
+        sameWordsButton.layer.cornerRadius = 7.0;
+
+        self.view.setupGradientBG(withFrame: self.view.bounds)
+        
+        hideOptionsMenu(withAnimation: false) {
+    
+        }
+        
+        showOptionsMenu()
+    }
+    
+    func setupToggles() {
         //Set values for switches and slider
         guard let hintOption = options.value(forKey: "Hints") as? Bool else {return}
         
@@ -90,33 +104,28 @@ class OptionsViewController: UIViewController {
         numOfWords.text = String(wordCountOption)
         
         numOfWordsSlider.value = Float(wordCountOption)
-        
-        //View styling
-        menuView.layer.cornerRadius = CGFloat(7.0)
-        
-        //Set label language
-
-        hintsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Conseils:":"Hints:"
-        timerLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Chrono:":"Timer:"
-        progressLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Progrès:":"Progress Bar:"
-        numOfWordsLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "# de mots:":"Word Count:"
-        suddenDeathLabel.text = options.bool(forKey: "FrenchLanguage") == true ? "Mort soudain:":"Sudden death:"
-        
-        //Rounded corner buttons
-        newWordsButton.layer.cornerRadius = 7.0;
-        sameWordsButton.layer.cornerRadius = 7.0;
-
-        self.view.setupGradientBG(withFrame: self.view.bounds)
-        
-        hideOptionsMenu()
-        
-        showOptionsMenu()
     }
     
-    func hideOptionsMenu() {
-        // Transform similar to card swipe animation
-        let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
-        self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+    func setupSameWordsButton() {
+        
+        sameWordsButton.isEnabled = GameEngine.sharedInstance.gameWords.count != 0
+    }
+    
+    func hideOptionsMenu(withAnimation animated:Bool, thenDo completion: @escaping CompletionHandler) {
+        
+        if animated {
+            UIView.animate(withDuration: 0.4, delay: 0.1, options: .curveEaseInOut, animations: {
+                let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
+                self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+            }) { (success) in
+                completion()
+            }
+        }
+        else {
+            // Transform similar to card swipe animation
+           let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
+           self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+        }
     }
     
     func showOptionsMenu() {
@@ -127,7 +136,7 @@ class OptionsViewController: UIViewController {
         }
     }
     
-    @objc func hideNavBar() {
+    func hideNavBar() {
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
 //        self.navigationController?.navigationBar.isTranslucent = true
@@ -212,13 +221,20 @@ class OptionsViewController: UIViewController {
     
     @IBAction func newWordsPressed(_ sender: UIButton) {
         
-        GameEngine.sharedInstance.loadNewGameWords()
+        GameEngine.sharedInstance.restartGame(withNewWords: true)
         
-        self.performSegue(withIdentifier: "goToGame", sender: nil)
+        hideOptionsMenu(withAnimation: true) {
+            self.performSegue(withIdentifier: "goToGame", sender: nil)
+        }
     }
     
     @IBAction func sameWordsPressed(_ sender: UIButton) {
         
+        GameEngine.sharedInstance.restartGame(withNewWords: false)
+        
+        hideOptionsMenu(withAnimation: true) {
+            self.performSegue(withIdentifier: "goToGame", sender: nil)
+        }
     }
     
     

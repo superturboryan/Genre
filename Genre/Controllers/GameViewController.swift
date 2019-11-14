@@ -413,7 +413,7 @@ class GameViewController: UIViewController {
     
     @IBAction func restartPressed(_ sender: UIButton) {
         
-        GameEngine.sharedInstance.restartGame()
+        GameEngine.sharedInstance.restartGame(withNewWords: true)
         
         counter = 0
         

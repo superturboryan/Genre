@@ -36,13 +36,15 @@ class GameEngine: NSObject {
         super.init()
         
         loadSettings()
-        restartGame()
     }
     
-    func restartGame() {
+    func restartGame(withNewWords toggle:Bool) {
+        
+        if toggle {
+            loadNewGameWords()
+        }
         
         resetCurrentQuestionNumber()
-        loadNewGameWords()
         resetCurrentQuestionNumber()
         resetUserScore()
     }
