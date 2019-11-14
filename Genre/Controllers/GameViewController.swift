@@ -59,8 +59,6 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        GameEngine.sharedInstance.loadNewGameWords()
     }
     
     override func viewWillAppear(_ animated: Bool) {

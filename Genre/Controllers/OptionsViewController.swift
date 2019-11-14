@@ -211,6 +211,9 @@ class OptionsViewController: UIViewController {
     }
     
     @IBAction func newWordsPressed(_ sender: UIButton) {
+        
+        GameEngine.sharedInstance.loadNewGameWords()
+        
         self.performSegue(withIdentifier: "goToGame", sender: nil)
     }
     
