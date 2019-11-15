@@ -14,11 +14,6 @@ class WordDetailViewController: UIViewController {
     
     var word: Word = Word()
     
-    convenience init(word: Word) {
-        self.init(nibName:nil, bundle:nil)
-        self.word = word
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

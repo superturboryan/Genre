@@ -39,7 +39,6 @@ class GameEngine: NSObject {
     }
     
     func restartGame(withNewWords toggle:Bool) {
-        
         if toggle {
             loadNewGameWords()
         }

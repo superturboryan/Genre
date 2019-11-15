@@ -103,11 +103,14 @@
                     <connections>
                         <outlet property="iconButton" destination="MpY-Az-l0K" id="9FS-6T-Bih"/>
                         <outlet property="menuView" destination="c8Q-bV-hhm" id="fqq-dz-e9o"/>
+                        <outlet property="menuViewHeight" destination="CiQ-lB-s6D" id="vMG-nU-3pa"/>
+                        <outlet property="menuViewLeading" destination="HHZ-kG-gUo" id="7op-pm-6yb"/>
+                        <outlet property="menuViewTrailing" destination="og0-fK-QHV" id="2k5-rA-1OG"/>
                         <outlet property="startGameButton" destination="LeV-s5-8jJ" id="2uB-Oj-5D0"/>
                         <outlet property="statsButton" destination="JWF-QQ-dZC" id="EtN-6h-z8K"/>
                         <outlet property="wordListButton" destination="caJ-xg-UsP" id="ylg-qI-PXc"/>
                         <segue destination="2La-X6-BlC" kind="show" identifier="goToOptions" animates="NO" id="9KW-9A-a4j"/>
-                        <segue destination="if2-xk-aO5" kind="show" identifier="goToWordList" id="knN-tn-l3b"/>
+                        <segue destination="if2-xk-aO5" kind="show" identifier="goToWordList" animates="NO" id="knN-tn-l3b"/>
                         <segue destination="M1s-DJ-Kbu" kind="show" identifier="goToStats" id="puO-j7-ZSj"/>
                     </connections>
                 </viewController>
@@ -342,11 +345,19 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="29u-r5-Lb5"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Word List" id="MH8-3H-loD"/>
+                    <navigationItem key="navigationItem" title="Word List" id="MH8-3H-loD">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="10W-co-EkP">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="backButtonPressed:" destination="if2-xk-aO5" id="JWz-85-sPr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="10W-co-EkP" id="N00-S1-sK2"/>
                         <outlet property="searchBar" destination="x8K-PR-ryH" id="SpG-bz-FFK"/>
                         <outlet property="tableView" destination="Nvu-5e-Dx5" id="BlC-qo-cJY"/>
-                        <segue destination="k2I-PA-3Jf" kind="popoverPresentation" identifier="goToDetail" popoverAnchorView="Nvu-5e-Dx5" id="GLN-gu-i9G">
+                        <segue destination="k2I-PA-3Jf" kind="popoverPresentation" identifier="goToDetail" popoverAnchorView="hqT-Fa-bQM" id="GLN-gu-i9G">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                     </connections>
@@ -370,7 +381,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9TZ-mZ-VPw" firstAttribute="top" secondItem="61L-mL-tFt" secondAttribute="top" constant="75" id="0d2-BT-jRj"/>
                             <constraint firstItem="9TZ-mZ-VPw" firstAttribute="centerX" secondItem="sjb-85-lGX" secondAttribute="centerX" id="CbH-aa-dRt"/>

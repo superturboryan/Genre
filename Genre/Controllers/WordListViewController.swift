@@ -14,6 +14,8 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet var searchBar: UISearchBar!
     
+    @IBOutlet var backButton: UIBarButtonItem!
+    
     private var alphabeticalWordList: [Word] = []
      
     private var searchedWordList : [Word] = []
@@ -21,18 +23,20 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
     private var searching : Bool = false
     
     private var searchbarHidden : Bool = false
+    
+    var delegate: MainMenuDelegate?
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-//        navigationController?.navigationBar.tintColor = UIColor.black
+        if #available(iOS 13.0, *) { overrideUserInterfaceStyle = .light }
         
-//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor]
-//
-//        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        
+        navigationController?.navigationBar.tintColor = UIColor.black
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.prefersLargeTitles = true
+
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -125,9 +129,7 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         if (segue.identifier == "goToDetail") {
             if let detailVC = segue.destination as? WordDetailViewController {
-                
-                detailVC.modalPresentationStyle =  .overCurrentContext
-                
+
                 detailVC.word = self.selectedWord
             }
         }
@@ -167,8 +169,16 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
             // Fallback on earlier versions
         }
     }
-   
-
+    
+    
+    @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
+        
+        self.delegate?.shrinkMenu()
+        self.delegate?.showButtons()
+        
+        self.navigationController?.popViewController(animated: false)
+    }
+    
 }
 
 extension WordListViewController: UISearchBarDelegate {

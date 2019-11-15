@@ -76,7 +76,7 @@ class GameViewController: UIViewController {
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
         }, completion: nil)
 
-        updateUI(withNewCard: true)
+        updateUI(withNewCards: 1)
         startTimer()
     }
     
@@ -129,7 +129,7 @@ class GameViewController: UIViewController {
     }
     
     
-    @objc func updateUI(withNewCard addCard:Bool) {
+    @objc func updateUI(withNewCards count:Int) {
         
         scoreLabel.text = "\(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.numberOfQuestionsForGame)"
 
@@ -139,7 +139,12 @@ class GameViewController: UIViewController {
             }, completion: nil)
         }
         
-        if (addCard) { addNextCard() }
+        if (count != 0) {
+            for _ in 0..<count {
+               addNextCard()
+                
+            }
+        }
     }
     
     
@@ -196,9 +201,8 @@ class GameViewController: UIViewController {
 
                     //Remove answered card from view
                     self.wordCardView.removeFromSuperview()
-                    
                     GameEngine.sharedInstance.goToNextQuestion()
-                   
+                      
                     //Check if quiz has finished!
                     if GameEngine.sharedInstance.isGameFinished() {
                         
@@ -211,14 +215,15 @@ class GameViewController: UIViewController {
                             self.progressBar.frame.size.width = self.view.frame.size.width
                             self.progressBar.backgroundColor = self.progressBar.backgroundColor?.darken(byPercentage: 0.4)
                         })
-                        self.updateUI(withNewCard: false)
+                        self.updateUI(withNewCards: 0)
                         //Delay finish popup to show +1 label
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                             self.gameFinishedPopup()
                         })
                     }
                     else{
-                        self.updateUI(withNewCard: true)
+                        
+                        self.updateUI(withNewCards: 1)
                     }
                 }
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
@@ -295,7 +300,7 @@ class GameViewController: UIViewController {
     }
     
     func addNextCard() {
-        
+    
         wordCardView = UINib(nibName: "WordCardView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? WordCardView
         
         wordCardView.frame = CGRect(x: 30, y: (view.frame.height - CGFloat(290)) / 2 , width: view.frame.width - CGFloat(60), height: 290)
@@ -317,7 +322,7 @@ class GameViewController: UIViewController {
         //Hide and shrink card before showing with animation
         wordCardView.alpha = 0
         wordCardView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-        
+         
         view.addSubview(wordCardView)
         
         UIView.animate(withDuration: 0.2) {
@@ -437,7 +442,7 @@ class GameViewController: UIViewController {
             //And remove from SuperView
             self.gameFinishedView.removeFromSuperview()
 
-            self.updateUI(withNewCard: true)
+            self.updateUI(withNewCards: 1)
             
             ///////////////////////////////////////////////////////
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

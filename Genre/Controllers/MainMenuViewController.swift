@@ -9,7 +9,13 @@
 import UIKit
 import ChameleonFramework
 
-class MainMenuViewController: UIViewController {
+protocol MainMenuDelegate {
+    func showButtons()
+    func hideButtons()
+    func shrinkMenu()
+}
+
+class MainMenuViewController: UIViewController, MainMenuDelegate {
 
     let options = UserDefaults.standard
     
@@ -19,10 +25,17 @@ class MainMenuViewController: UIViewController {
     @IBOutlet weak var iconButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!
     
+    //Constraints
+    @IBOutlet var menuViewLeading: NSLayoutConstraint!
+    @IBOutlet var menuViewTrailing: NSLayoutConstraint!
+    @IBOutlet var menuViewHeight: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
+        
+        hideMenu(animated: false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,13 +91,23 @@ class MainMenuViewController: UIViewController {
     
     @IBAction func wordListPressed(_ sender: UIButton) {
         
-        self.performSegue(withIdentifier: "goToWordList", sender: nil)
+        expandMenu {
+            self.performSegue(withIdentifier: "goToWordList", sender: nil)
+        }
+        
     }
     
     
     @IBAction func statsPressed(_ sender: UIButton) {
         
         self.performSegue(withIdentifier: "goToStats", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? WordListViewController {
+            
+            destination.delegate = self
+        }
     }
     
     
@@ -95,7 +118,7 @@ class MainMenuViewController: UIViewController {
         
         options.set(!currentLang, forKey: "FrenchLanguage")
         
-        hideMenu()
+        hideMenu(animated: true)
         
         changeLabelLanguage()
         
@@ -104,13 +127,19 @@ class MainMenuViewController: UIViewController {
     
     //UI animation functions
     
-    func hideMenu() {
+    func hideMenu(animated:Bool) {
         
-        UIView.animate(withDuration: 0.55, delay: 0, options: .curveEaseOut, animations: {
-            self.menuView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
-//            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.1)
-        }, completion: nil)
-       
+        if animated {
+            UIView.animate(withDuration: 0.55, delay: 0, options: .curveEaseOut, animations: {
+                // Transform similar to card swipe animation
+                let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
+                self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+                }, completion: nil)
+            return
+        }
+       // Transform similar to card swipe animation
+       let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
+       self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
     }
     
     func showMenu(WithDelay delay:Double) {
@@ -126,6 +155,61 @@ class MainMenuViewController: UIViewController {
                     self.menuView.layer.shadowRadius = CGFloat(12)
                     
                 }, completion: nil)
+    }
+    
+    func expandMenu(thenDo: @escaping CompletionHandler) {
+        
+        self.menuViewHeight.constant = self.view.frame.size.height
+        self.menuViewLeading.constant = 0
+        self.menuViewTrailing.constant = 0
+        
+        hideButtons()
+        
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
+            
+            self.view.layoutIfNeeded()
+            
+        }) { (success) in
+            
+            thenDo()
+        }
+        
+    }
+    
+    func shrinkMenu() {
+        self.menuViewHeight.constant = 450
+        self.menuViewLeading.constant = 45
+        self.menuViewTrailing.constant = 45
+
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
+            
+            self.view.layoutIfNeeded()
+            
+        }) { (success) in
+            return
+        }
+    }
+    
+    func hideButtons() {
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+            self.startGameButton.alpha = 0
+            self.statsButton.alpha = 0
+            self.wordListButton.alpha = 0
+            self.iconButton.alpha = 0
+        }) { (success) in
+            return
+        }
+    }
+    
+    func showButtons() {
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+            self.startGameButton.alpha = 1
+            self.statsButton.alpha = 1
+            self.wordListButton.alpha = 1
+            self.iconButton.alpha = 1
+        }) { (success) in
+            return
+        }
     }
     
     func changeLabelLanguage() {
