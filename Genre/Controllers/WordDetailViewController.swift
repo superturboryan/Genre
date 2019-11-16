@@ -14,6 +14,7 @@ class WordDetailViewController: UIViewController {
     
     var word: Word = Word()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

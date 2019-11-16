@@ -176,13 +176,23 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         self.selectedWord = searching ? searchedWordList[indexPath.row] : filteredWordList[indexPath.row]
         
         self.performSegue(withIdentifier: "goToDetail", sender: self)
+        
+//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:.main)
+//
+//        let detailVC = storyboard!.instantiateViewController(withIdentifier: "WordDetailViewController") as? WordDetailViewController
+//
+//        detailVC?.word = selectedWord
+//
+//        guard let push = detailVC else {return}
+//
+//        navigationController?.pushViewController(push, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if (segue.identifier == "goToDetail") {
             if let detailVC = segue.destination as? WordDetailViewController {
-
+                
                 detailVC.word = self.selectedWord
             }
         }
