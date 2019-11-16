@@ -326,7 +326,7 @@ class GameViewController: UIViewController {
     
         wordCardView = UINib(nibName: "WordCardView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? WordCardView
         
-        wordCardView.frame = CGRect(x: (view.frame.width/2), y: (view.frame.height - CGFloat(290)) / 2 , width: view.frame.width - CGFloat(60), height: 290)
+        wordCardView.frame = CGRect(x: (view.frame.width - 300) / 2, y: (view.frame.height - 300) / 2 , width:300, height: 300)
         
         //iPad sizing
         if (UIScreen.main.bounds.size.height >= 834) {
