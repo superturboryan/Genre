@@ -114,7 +114,7 @@ class OptionsViewController: UIViewController {
     func hideOptionsMenu(withAnimation animated:Bool, thenDo completion: @escaping CompletionHandler) {
         
         if animated {
-            UIView.animate(withDuration: 0.4, delay: 0.1, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.8, delay: 0.1, options: .curveEaseInOut, animations: {
                 let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
                 self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
             }) { (success) in
@@ -129,7 +129,7 @@ class OptionsViewController: UIViewController {
     }
     
     func showOptionsMenu() {
-        UIView.animate(withDuration: 0.4, delay: 0.1, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
             self.menuView.transform = CGAffineTransform.identity
         }) { (completion) in
             return
