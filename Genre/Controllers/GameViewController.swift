@@ -119,7 +119,7 @@ class GameViewController: UIViewController {
     func playConfetti() {
         self.skView.isHidden = false
         let confettiScene = ConfettiScene(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
-        confettiScene.setupConfetti(withPositon: CGPoint(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height*0.6))
+        confettiScene.setupConfetti(withPositon: CGPoint(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height*0.99))
         self.skView.presentScene(confettiScene)
     }
     

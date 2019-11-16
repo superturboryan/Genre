@@ -19,7 +19,7 @@ class ConfettiScene: SKScene {
     
     func setupConfetti(withPositon position:CGPoint) {
         
-        let emitter = SKEmitterNode(fileNamed: "ConfettiExplosion")
+        let emitter = SKEmitterNode(fileNamed: "ConfettiDrop")
         
         let colorArray:[UIColor] = [
             UIColor(red: 204.0/255.0, green: 23.0/255.0, blue: 71.0/255.0, alpha: 1),
@@ -29,23 +29,23 @@ class ConfettiScene: SKScene {
             UIColor(red: 195.0/255.0, green: 94.0/255.0, blue: 232.0/255.0, alpha: 1),
             .white
         ]
-        emitter?.particleColorSequence = nil
-        emitter?.particleColorBlendFactor = 1.0
+//        emitter?.particleColorSequence = nil
+//        emitter?.particleColorBlendFactor = 1.0
         
         emitter?.position = position
         
         self.addChild(emitter!)
         
-        let action = SKAction.run({
-            [unowned self] in
-            let random = Int(arc4random_uniform(UInt32(colorArray.count)))
-
-            emitter?.particleColor = colorArray[random];
-        })
-
-        let wait = SKAction.wait(forDuration: 0.1)
-
-        self.run(SKAction.repeatForever(SKAction.sequence([action,wait])))
+//        let action = SKAction.run({
+//            [unowned self] in
+//            let random = Int(arc4random_uniform(UInt32(colorArray.count)))
+//
+//            emitter?.particleColor = colorArray[random];
+//        })
+//
+//        let wait = SKAction.wait(forDuration: 0.1)
+//
+//        self.run(SKAction.repeatForever(SKAction.sequence([action,wait])))
     }
 
 }
