@@ -15,6 +15,8 @@ protocol MainMenuDelegate {
     func shrinkMenu()
 }
 
+let kSuddenDeathKey = "SuddenDeath"
+
 class MainMenuViewController: UIViewController, MainMenuDelegate {
 
     let options = UserDefaults.standard

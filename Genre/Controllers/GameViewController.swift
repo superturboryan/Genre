@@ -195,6 +195,13 @@ class GameViewController: UIViewController {
                         self.revealAndHidePopup(forCorrect: true)
                         
                     }
+                    // Check if sudden death is enabled
+                    else if self.options.bool(forKey: kSuddenDeathKey) {
+                        self.revealAndHidePopup(forCorrect: false)
+                        self.wordCardView.removeFromSuperview()
+                        self.finishGame()
+                        return
+                    }
                     else {
                         self.revealAndHidePopup(forCorrect: false)
                     }
@@ -202,27 +209,12 @@ class GameViewController: UIViewController {
                     //Remove answered card from view
                     self.wordCardView.removeFromSuperview()
                     GameEngine.sharedInstance.goToNextQuestion()
-                      
+                    
                     //Check if quiz has finished!
                     if GameEngine.sharedInstance.isGameFinished() {
-                        
-                        self.timer.invalidate()
-                        
-                        //Darken background view and back button
-                        UIView.animate(withDuration: 0.7, animations: {
-                            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.4)
-                            self.scoreLabel.alpha = 0
-                            self.progressBar.frame.size.width = self.view.frame.size.width
-                            self.progressBar.backgroundColor = self.progressBar.backgroundColor?.darken(byPercentage: 0.4)
-                        })
-                        self.updateUI(withNewCards: 0)
-                        //Delay finish popup to show +1 label
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                            self.gameFinishedPopup()
-                        })
+                        self.finishGame()
                     }
                     else{
-                        
                         self.updateUI(withNewCards: 1)
                     }
                 }
@@ -235,6 +227,23 @@ class GameViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    func finishGame() {
+        self.timer.invalidate()
+                               
+       //Darken background view and back button
+       UIView.animate(withDuration: 0.7, animations: {
+           self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.4)
+           self.scoreLabel.alpha = 0
+           self.progressBar.frame.size.width = self.view.frame.size.width
+           self.progressBar.backgroundColor = self.progressBar.backgroundColor?.darken(byPercentage: 0.4)
+       })
+       self.updateUI(withNewCards: 0)
+       //Delay finish popup to show +1 label
+       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+           self.gameFinishedPopup()
+       })
     }
     
     func revealAndHidePopup(forCorrect correct:Bool) {
