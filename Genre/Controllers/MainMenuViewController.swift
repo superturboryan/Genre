@@ -28,9 +28,9 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
     @IBOutlet weak var statsButton: UIButton!
     
     //Constraints
-    @IBOutlet var menuViewLeading: NSLayoutConstraint!
-    @IBOutlet var menuViewTrailing: NSLayoutConstraint!
     @IBOutlet var menuViewHeight: NSLayoutConstraint!
+    @IBOutlet var menuViewWidth: NSLayoutConstraint!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +60,12 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
        wordListButton.layer.cornerRadius = CGFloat(5.0)
         
         setupForLanguage()
+        
+        //iPad sizing
+        if (UIScreen.main.bounds.size.height >= 834) {
+            menuViewWidth.constant = 375.0
+            menuViewHeight.constant = 550.0
+        }
     }
     
     func setupForLanguage() {
@@ -149,9 +155,8 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
     
     func expandMenu(thenDo: @escaping CompletionHandler) {
         
-        self.menuViewHeight.constant = self.view.frame.size.height*1.05;
-        self.menuViewLeading.constant = -5
-        self.menuViewTrailing.constant = -5
+        self.menuViewHeight.constant = self.view.frame.size.height*1.05
+        self.menuViewWidth.constant = self.view.frame.size.width*1.05
         hideButtons()
         UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
@@ -161,9 +166,13 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
     }
     
     func shrinkMenu() {
-        self.menuViewHeight.constant = 450
-        self.menuViewLeading.constant = 45
-        self.menuViewTrailing.constant = 45
+        self.menuViewHeight.constant = 450.0
+        self.menuViewWidth.constant = 285.0
+        //iPad sizing
+        if (UIScreen.main.bounds.size.height >= 834) {
+            self.menuViewWidth.constant = 375.0
+            self.menuViewHeight.constant = 550.0
+        }
         UIView.animate(withDuration: 1.2, delay: 0.1, usingSpringWithDamping: 0.55, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         }) { (success) in

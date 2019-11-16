@@ -20,6 +20,8 @@ class WordDetailViewController: UIViewController {
         if #available(iOS 13.0, *) { overrideUserInterfaceStyle = .light }
         
         self.titleLabel.text = self.word.word
+        
+        self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
     }
     
     override func viewWillAppear(_ animated: Bool) {

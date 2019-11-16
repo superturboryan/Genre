@@ -326,7 +326,12 @@ class GameViewController: UIViewController {
     
         wordCardView = UINib(nibName: "WordCardView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? WordCardView
         
-        wordCardView.frame = CGRect(x: 30, y: (view.frame.height - CGFloat(290)) / 2 , width: view.frame.width - CGFloat(60), height: 290)
+        wordCardView.frame = CGRect(x: (view.frame.width/2), y: (view.frame.height - CGFloat(290)) / 2 , width: view.frame.width - CGFloat(60), height: 290)
+        
+        //iPad sizing
+        if (UIScreen.main.bounds.size.height >= 834) {
+            wordCardView.frame = CGRect(x: (view.frame.width-400)/2, y: (view.frame.height - CGFloat(400))/2 , width: 400, height: 400)
+        }
         
         if !GameEngine.sharedInstance.showHints {
             wordCardView.hintLabel.alpha = 0
@@ -413,7 +418,16 @@ class GameViewController: UIViewController {
         
         gameFinishedView.frame = CGRect(x: 30, y: (view.frame.height - CGFloat(290)) / 2 , width: view.frame.width - CGFloat(60), height: 290)
         
+        //iPad sizing
+        if (UIScreen.main.bounds.size.height >= 834) {
+            gameFinishedView.frame = CGRect(x: (view.frame.width-400)/2, y: (view.frame.height - CGFloat(400))/2 , width: 400, height: 400)
+        }
+        
         view.addSubview(gameFinishedView)
+        
+        view.bringSubviewToFront(skView)
+        view.bringSubviewToFront(backButton)
+        view.bringSubviewToFront(restartButton)
     }
     
     func presentGameFinishedView() {

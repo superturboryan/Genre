@@ -21,6 +21,9 @@ class OptionsViewController: UIViewController {
     @IBOutlet var newWordsButton: UIButton!
     @IBOutlet var sameWordsButton: UIButton!
     
+    @IBOutlet var optionsMenuWidth: NSLayoutConstraint!
+    @IBOutlet var optionsMenuHeight: NSLayoutConstraint!
+    
     //Labels
 
     @IBOutlet weak var hintsLabel: UILabel!
@@ -75,6 +78,12 @@ class OptionsViewController: UIViewController {
         sameWordsButton.layer.cornerRadius = 7.0;
 
         self.view.setupGradientBG(withFrame: self.view.bounds)
+        
+        //iPad sizing
+        if (UIScreen.main.bounds.size.height >= 834) {
+            optionsMenuWidth.constant = 375.0
+            optionsMenuHeight.constant = 550.0
+        }
         
         showOptionsMenu()
     }
