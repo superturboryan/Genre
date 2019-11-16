@@ -338,9 +338,9 @@
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oR8-xE-YpM">
                                         <rect key="frame" x="94" y="0.0" width="93.5" height="50"/>
-                                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="x.circle.fill" catalog="system">
+                                        <state key="normal" image="xmark" catalog="system">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -349,7 +349,7 @@
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jc1-KI-hNe">
                                         <rect key="frame" x="187.5" y="0.0" width="94" height="50"/>
-                                        <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="star.fill" catalog="system">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -362,7 +362,7 @@
                                         <rect key="frame" x="281.5" y="0.0" width="93.5" height="50"/>
                                         <color key="backgroundColor" red="0.0" green="0.62170744570000003" blue="0.73144569650000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="return" catalog="system">
+                                        <state key="normal" image="clock" catalog="system">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -447,7 +447,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9TZ-mZ-VPw" firstAttribute="top" secondItem="61L-mL-tFt" secondAttribute="top" constant="75" id="0d2-BT-jRj"/>
                             <constraint firstItem="9TZ-mZ-VPw" firstAttribute="centerX" secondItem="sjb-85-lGX" secondAttribute="centerX" id="CbH-aa-dRt"/>
@@ -565,7 +565,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="48s-oi-xOy">
                                 <rect key="frame" x="143.5" y="543" width="88" height="68"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="dfo-aR-Iga"/>
                                     <constraint firstAttribute="width" constant="88" id="yPG-M2-kvq"/>
@@ -574,7 +574,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PI8-Zt-Sju">
                                 <rect key="frame" x="143.5" y="543" width="88" height="68"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ySU-s8-BAZ">
                                 <rect key="frame" x="20" y="20" width="30" height="30"/>
@@ -643,10 +643,11 @@
     <resources>
         <image name="checkmark.rectangle.fill" catalog="system" width="64" height="48"/>
         <image name="circle" catalog="system" width="64" height="62"/>
+        <image name="clock" catalog="system" width="64" height="62"/>
         <image name="g-icon" width="150" height="150"/>
         <image name="return" catalog="system" width="64" height="52"/>
         <image name="star.fill" catalog="system" width="64" height="58"/>
-        <image name="x.circle.fill" catalog="system" width="64" height="62"/>
+        <image name="xmark" catalog="system" width="64" height="56"/>
         <image name="xmark.rectangle.fill" catalog="system" width="64" height="48"/>
     </resources>
 </document>

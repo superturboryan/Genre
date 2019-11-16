@@ -151,11 +151,20 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let emptyCell = tableView.dequeueReusableCell(withIdentifier: "wordListCell", for: index) as! WordListTableViewCell
         
-        emptyCell.wordLabel.text = "No results found 😢"
+        emptyCell.wordLabel.text = emptyCellText()
         emptyCell.correctLabel.text = "NA"
         emptyCell.incorrectLabel.text = "NA"
         
         return emptyCell
+    }
+    
+    func emptyCellText()->String{
+        switch (selectedFilter){
+        case .incorrect: return "You haven't gotten any wrong, yet!"
+        case .favourite: return "Click the ⭐️ to favourite a word"
+        case .lastGame: return "No previous game found, go play!"
+        default: return "No results found 😢"
+        }
     }
     
     var selectedWord: Word = Word()

@@ -38,6 +38,8 @@ class OptionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        hideOptionsMenu(toTheRight:false, withAnimation: false) { }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,10 +76,6 @@ class OptionsViewController: UIViewController {
 
         self.view.setupGradientBG(withFrame: self.view.bounds)
         
-        hideOptionsMenu(withAnimation: false) {
-    
-        }
-        
         showOptionsMenu()
     }
     
@@ -111,11 +109,11 @@ class OptionsViewController: UIViewController {
         sameWordsButton.isEnabled = GameEngine.sharedInstance.gameWords.count != 0
     }
     
-    func hideOptionsMenu(withAnimation animated:Bool, thenDo completion: @escaping CompletionHandler) {
+    func hideOptionsMenu(toTheRight direction:Bool, withAnimation animated:Bool, thenDo completion: @escaping CompletionHandler) {
         
         if animated {
             UIView.animate(withDuration: 0.8, delay: 0.1, options: .curveEaseInOut, animations: {
-                let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
+                let transform = CGAffineTransform(translationX: direction ? self.view.frame.width*1.1 : -self.view.frame.width*1.1, y: 0)
                 self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
             }) { (success) in
                 completion()
@@ -123,7 +121,7 @@ class OptionsViewController: UIViewController {
         }
         else {
             // Transform similar to card swipe animation
-           let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
+            let transform = CGAffineTransform(translationX: direction ? self.view.frame.width*1.1 : -self.view.frame.width*1.1, y: 0)
            self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
         }
     }
@@ -147,12 +145,16 @@ class OptionsViewController: UIViewController {
     
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
-            // Transform similar to card swipe animation
-            let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
-            self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
-        }) { (completion) in
-            // DismissVC sans animation because backgrounds are all the same
+//        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+//            // Transform similar to card swipe animation
+//            let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
+//            self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+//        }) { (completion) in
+//            // DismissVC sans animation because backgrounds are all the same
+//            self.navigationController?.popViewController(animated: false)
+//        }
+//
+        hideOptionsMenu(toTheRight: false, withAnimation: true) {
             self.navigationController?.popViewController(animated: false)
         }
     }
@@ -223,7 +225,7 @@ class OptionsViewController: UIViewController {
         
         GameEngine.sharedInstance.restartGame(withNewWords: true)
         
-        hideOptionsMenu(withAnimation: true) {
+        hideOptionsMenu(toTheRight:true, withAnimation: true) {
             self.performSegue(withIdentifier: "goToGame", sender: nil)
         }
     }
@@ -232,7 +234,7 @@ class OptionsViewController: UIViewController {
         
         GameEngine.sharedInstance.restartGame(withNewWords: false)
         
-        hideOptionsMenu(withAnimation: true) {
+        hideOptionsMenu(toTheRight:true, withAnimation: true) {
             self.performSegue(withIdentifier: "goToGame", sender: nil)
         }
     }

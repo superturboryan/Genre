@@ -36,7 +36,7 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
         super.viewDidLoad()
 
         setupView()
-        hideMenu(animated: false, thenDo: nil)
+        hideMenu(toTheRight: false,withAnimation: false,thenDo: {})
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,10 +78,9 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
     }
     
     @IBAction func startPressed(_ sender: UIButton) {
-        
-        hideMenu(animated: true) {
+        hideMenu(toTheRight:true,withAnimation: true,thenDo: {
             self.performSegue(withIdentifier: "goToOptions", sender: nil)
-        }
+        })
     }
 
     @IBAction func wordListPressed(_ sender: UIButton) {
@@ -92,8 +91,9 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
     }
     
     @IBAction func statsPressed(_ sender: UIButton) {
-        
+        expandMenu {
         self.performSegue(withIdentifier: "goToStats", sender: nil)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -109,31 +109,28 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
         guard let currentLang = options.value(forKey: "FrenchLanguage") as? Bool
             else {fatalError()}
         options.set(!currentLang, forKey: "FrenchLanguage")
-        hideMenu(animated: true,thenDo: nil)
+        hideMenu(toTheRight:false,withAnimation: true,thenDo: {})
         changeLabelLanguage()
         showMenu(WithDelay: 0.8)
     }
     
     //UI animation functions
     
-    func hideMenu(animated:Bool, thenDo:CompletionHandler?) {
+    func hideMenu(toTheRight direction:Bool, withAnimation animated:Bool, thenDo completion: @escaping CompletionHandler) {
         
         if animated {
-            UIView.animate(withDuration: 0.45, delay: 0, options: .curveEaseIn, animations: {
-                // Transform similar to card swipe animation
-                let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
+            UIView.animate(withDuration: 0.8, delay: 0.1, options: .curveEaseInOut, animations: {
+                let transform = CGAffineTransform(translationX: direction ? self.view.frame.width*1.1 : -self.view.frame.width*1.1, y: 0)
                 self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
-            }){ (success) in
-                if (success) {
-                    guard let completion = thenDo else {return}
-                    completion()
-                }
+            }) { (success) in
+                completion()
             }
-            return
         }
-       // Transform similar to card swipe animation
-       let transform = CGAffineTransform(translationX: self.view.frame.width*1.1, y: 0)
-       self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+        else {
+            // Transform similar to card swipe animation
+            let transform = CGAffineTransform(translationX: direction ? self.view.frame.width*1.1 : -self.view.frame.width*1.1, y: 0)
+           self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+        }
     }
     
     func showMenu(WithDelay delay:Double) {
