@@ -230,14 +230,11 @@ class GameViewController: UIViewController {
     }
     
     func finishGame() {
+        
         self.timer.invalidate()
-                               
-       //Darken background view and back button
        UIView.animate(withDuration: 0.7, animations: {
-           self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.4)
            self.scoreLabel.alpha = 0
            self.progressBar.frame.size.width = self.view.frame.size.width
-           self.progressBar.backgroundColor = self.progressBar.backgroundColor?.darken(byPercentage: 0.4)
        })
        self.updateUI(withNewCards: 0)
        //Delay finish popup to show +1 label

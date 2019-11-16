@@ -118,6 +118,62 @@ class WordManager: NSObject {
         return []
     }
     
+    func getIncorrectWords() -> [Word] {
+        
+        let request : NSFetchRequest<Word> = Word.fetchRequest()
+        request.predicate = NSPredicate(format:"incorrectCount != 0")
+        
+        do{
+            var fetchResult = try delegateContext.fetch(request)
+
+            if (fetchResult.count != 0) {
+                
+                fetchResult = fetchResult.sorted(by: { $0.incorrectCount > $1.incorrectCount })
+                return fetchResult
+            }
+        }
+        catch {
+            print("Error no incorrect words found!")
+        }
+        
+        return []
+    }
+    
+    func getWordsFor(Filter filter:FilterOption) -> [Word] {
+        
+        let request : NSFetchRequest<Word> = Word.fetchRequest()
+        
+        switch filter {
+            
+            case .all: request.sortDescriptors = [NSSortDescriptor(key: "word", ascending: true)]; break;
+                    
+            case .incorrect: request.predicate = NSPredicate(format:"incorrectCount != 0"); break;
+                
+            case .favourite: request.predicate = NSPredicate(format: "favourite != 0"); break;
+
+            case .lastGame: return GameEngine.sharedInstance.gameWords
+        }
+        
+        do{
+            var fetchResult = try delegateContext.fetch(request)
+
+            if (fetchResult.count != 0) {
+                
+                if (filter == .incorrect) {
+                    fetchResult = fetchResult.sorted(by: { $0.incorrectCount > $1.incorrectCount })
+                }
+
+
+                return fetchResult
+            }
+        }
+        catch {
+            print("Error no incorrect words found!")
+        }
+        
+        return []
+    }
+    
     //MARK: Get single word
     
     func getWordFor(string: String) -> Word? {

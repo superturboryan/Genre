@@ -8,6 +8,14 @@
 
 import UIKit
 
+enum FilterOption : Int {
+    case all = 0
+    case incorrect = 1
+    case favourite = 2
+    case lastGame = 3
+}
+
+
 class WordListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
@@ -16,13 +24,21 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet var backButton: UIBarButtonItem!
     
-    private var alphabeticalWordList: [Word] = []
+    @IBOutlet var coverView: UIView!
+    
+    @IBOutlet var filterStackView: UIStackView!
+    
+    @IBOutlet var filterStackViewHeight: NSLayoutConstraint!
+    
+    private var filteredWordList: [Word] = []
      
     private var searchedWordList : [Word] = []
     
     private var searching : Bool = false
     
-    private var searchbarHidden : Bool = false
+    private var filterBarHidden : Bool = false
+    
+    var selectedFilter : FilterOption?
     
     var delegate: MainMenuDelegate?
 
@@ -34,23 +50,46 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         navigationController?.navigationBar.tintColor = UIColor.black
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.hidesBarsOnSwipe = true
 
-        
         tableView.dataSource = self
         tableView.delegate = self
         
         searchBar.delegate = self
         
+        selectedFilter = FilterOption.all
+        
         hideNavBar()
         
         loadAlphabeticalWordList()
+        
+        setupCoverView()
+        
+        hideCoverView()
     }
     
-    @objc func loadAlphabeticalWordList() {
-        
-        alphabeticalWordList = WordManager.sharedInstance.getAllWordAlphabetical()
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            return UIStatusBarStyle.darkContent
+        } else {
+            return UIStatusBarStyle.default
+        }
+    }
+    
+    func setupCoverView() {
+        self.coverView.backgroundColor = UIColor.white
+    }
+    
+    func hideCoverView() {
+        UIView.animate(withDuration: 0.6, delay: 0, options: .curveEaseInOut, animations: {
+            self.coverView.alpha = 0
+        }) { (success) in
+            return
+        }
+    }
+    
+    func loadAlphabeticalWordList() {
+        filteredWordList = WordManager.sharedInstance.getWordsFor(Filter: .all)
     }
 
     @objc func hideNavBar() {
@@ -70,7 +109,7 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         return searching ?
                 searchedWordList.count == 0 ? 1 : searchedWordList.count
                 :
-                alphabeticalWordList.count
+                filteredWordList.count == 0 ? 1 : filteredWordList.count
     }
 
     
@@ -78,21 +117,21 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         tableView.register(UINib.init(nibName: "WordListTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "wordListCell")
         
-        if (searching && searchedWordList.count == 0) {
+        if ((searching && searchedWordList.count == 0) || (!searching && filteredWordList.count == 0)) {
             return emptyCell(forIndexPath: indexPath)
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "wordListCell", for: indexPath) as! WordListTableViewCell
         
-        cell.word = searching ? searchedWordList[indexPath.row] : alphabeticalWordList[indexPath.row]
+        cell.word = searching ? searchedWordList[indexPath.row] : filteredWordList[indexPath.row]
         
-        cell.wordLabel.text = searching ? searchedWordList[indexPath.row].word : alphabeticalWordList[indexPath.row].word
+        cell.wordLabel.text = searching ? searchedWordList[indexPath.row].word : filteredWordList[indexPath.row].word
         
-        cell.correctLabel.text = searching ? "\(searchedWordList[indexPath.row].correctCount)" : "\(alphabeticalWordList[indexPath.row].correctCount)"
+        cell.correctLabel.text = searching ? "\(searchedWordList[indexPath.row].correctCount)" : "\(filteredWordList[indexPath.row].correctCount)"
         
-        cell.incorrectLabel.text = searching ? "\(searchedWordList[indexPath.row].incorrectCount)" : "\(alphabeticalWordList[indexPath.row].incorrectCount)"
+        cell.incorrectLabel.text = searching ? "\(searchedWordList[indexPath.row].incorrectCount)" : "\(filteredWordList[indexPath.row].incorrectCount)"
         
-        cell.genderIndicatorView.backgroundColor = searching ? {searchedWordList[indexPath.row].gender ? UIColor.flatRedDark() : UIColor.flatTealDark()}() : {alphabeticalWordList[indexPath.row].gender ? UIColor.flatRedDark() : UIColor.flatTealDark()}()
+        cell.genderIndicatorView.backgroundColor = searching ? {searchedWordList[indexPath.row].gender ? UIColor.flatRedDark() : UIColor.flatTealDark()}() : {filteredWordList[indexPath.row].gender ? UIColor.flatRedDark() : UIColor.flatTealDark()}()
         
         cell.updateStar()
         
@@ -101,6 +140,11 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70.0
+    }
+    
+    func loadWordListFor(Filter filter:FilterOption) {
+        
+        filteredWordList = WordManager.sharedInstance.getWordsFor(Filter: filter)
     }
     
     func emptyCell(forIndexPath index : IndexPath) -> WordListTableViewCell {
@@ -120,7 +164,7 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         tableView.deselectRow(at: indexPath, animated: true)
          
-        self.selectedWord = searching ? searchedWordList[indexPath.row] : alphabeticalWordList[indexPath.row]
+        self.selectedWord = searching ? searchedWordList[indexPath.row] : filteredWordList[indexPath.row]
         
         self.performSegue(withIdentifier: "goToDetail", sender: self)
     }
@@ -134,40 +178,36 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
-    
-    var previousScrollY: CGFloat = 0.0
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        let currentScrollY = scrollView.contentOffset.y
-        
-        print(currentScrollY)
-        
-        if (currentScrollY > previousScrollY &&
-            !searchbarHidden &&
-            currentScrollY > 0) {
-            
-        }
-        else {
-            showSearchBar()
-        }
-        
-        previousScrollY = currentScrollY
+ 
+        scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 ? hideFilterBar() : showFilterBar()
     }
     
-    func hideSearchBar() {
-        searchbarHidden = true
+    func hideFilterBar() {
+        filterBarHidden = true
+        self.filterStackViewHeight.constant = 0
         UIView.animate(withDuration: 0.3) {
-            self.searchBar.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 0)
+            self.view.layoutIfNeeded()
         }
     }
 
-    func showSearchBar() {
-        if #available(iOS 13.0, *) {
-            navigationController?.navigationBar.showsLargeContentViewer = true
-        } else {
-            // Fallback on earlier versions
+    func showFilterBar() {
+        filterBarHidden = false
+        self.filterStackViewHeight.constant = 50
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
         }
+    }
+    
+    
+    @IBAction func filterPressed(_ filterButton: UIButton) {
+        
+        selectedFilter = FilterOption(rawValue: filterButton.tag)
+        
+        loadWordListFor(Filter: selectedFilter!)
+        
+        tableView.reloadData()
     }
     
     
@@ -188,7 +228,7 @@ extension WordListViewController: UISearchBarDelegate {
         let textfieldNotEmpty = searchText.count != 0
         searching = textfieldNotEmpty
         
-        searchedWordList = alphabeticalWordList.filter({ (word) -> Bool in
+        searchedWordList = filteredWordList.filter({ (word) -> Bool in
             word.word!.lowercased().contains(searchText.lowercased())
         })
         
@@ -201,5 +241,13 @@ extension WordListViewController: UISearchBarDelegate {
         tableView.resignFirstResponder()
         
     }
+ 
     
+}
+
+extension UINavigationController {
+
+   open override var preferredStatusBarStyle: UIStatusBarStyle {
+      return topViewController?.preferredStatusBarStyle ?? .default
+   }
 }

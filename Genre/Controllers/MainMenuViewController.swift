@@ -71,6 +71,12 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
             "Vocabulaire":"Word List" , for: .normal)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+
+            return UIStatusBarStyle.default
+        
+    }
+    
     @IBAction func startPressed(_ sender: UIButton) {
         
         hideMenu(animated: true) {
@@ -220,3 +226,4 @@ extension UIView {
         self.layer.insertSublayer(gradient, at: 0)
     }
 }
+
