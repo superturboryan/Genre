@@ -98,7 +98,9 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? WordListViewController {
-            
+            destination.delegate = self
+        }
+        if let destination = segue.destination as? StatsViewController {
             destination.delegate = self
         }
     }
@@ -162,7 +164,7 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
         self.menuViewHeight.constant = 450
         self.menuViewLeading.constant = 45
         self.menuViewTrailing.constant = 45
-        UIView.animate(withDuration: 1.2, delay: 0.1, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 1.2, delay: 0.1, usingSpringWithDamping: 0.55, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         }) { (success) in
             return

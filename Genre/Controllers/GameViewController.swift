@@ -10,13 +10,15 @@ import UIKit
 import CSV
 import ProgressHUD
 import ChameleonFramework
-
+import SpriteKit
 
 class GameViewController: UIViewController {
     
     let options = UserDefaults.standard
 
     //MARK: - Outlets
+    
+    @IBOutlet var skView: SKView!
     
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var restartButton: UIButton!
@@ -104,6 +106,21 @@ class GameViewController: UIViewController {
         timerLabel.text = String(counter)
     
         hideNavBar()
+        
+        loadEmptyScene()
+    }
+    
+    func loadEmptyScene() {
+        let emptyScene = SKScene()
+        skView.backgroundColor = .clear
+        skView.presentScene(emptyScene)
+    }
+    
+    func playConfetti() {
+        self.skView.isHidden = false
+        let confettiScene = ConfettiScene(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
+        confettiScene.setupConfetti(withPositon: CGPoint(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height*0.6))
+        self.skView.presentScene(confettiScene)
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
@@ -377,7 +394,7 @@ class GameViewController: UIViewController {
         
         updateUserStats()
         
-        setupGameFinishedView()
+        presentGameFinishedView()
     }
     
     func updateUserStats() {
@@ -399,7 +416,7 @@ class GameViewController: UIViewController {
         view.addSubview(gameFinishedView)
     }
     
-    func setupGameFinishedView() {
+    func presentGameFinishedView() {
         let wpm = ( Double(GameEngine.sharedInstance.numberOfQuestionsForGame) / counter ) * 60.0
         let percentage = String(format: "%.1f" , (Double(GameEngine.sharedInstance.userScore) / Double(GameEngine.sharedInstance.gameWords.count)) * 100.0)
         gameFinishedView.correctAnswers.text = "Score: \(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.gameWords.count)"
@@ -409,8 +426,8 @@ class GameViewController: UIViewController {
         
         gameFinishedView.alpha = 0
         gameFinishedView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-        
-        UIView.animate(withDuration: 0.4) {
+
+        UIView.animate(withDuration: 0.35, delay: 0.1, options: .curveEaseInOut, animations: {
             self.timerLabel.alpha = 0
             self.scoreLabel.alpha = 0
             self.gameFinishedView.alpha = 1
@@ -418,6 +435,8 @@ class GameViewController: UIViewController {
 //            self.scoreLabel.alpha = 0
 //            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.7)
             self.restartButton.alpha = 1
+        }) { (success) in
+            self.playConfetti()
         }
                 
     }

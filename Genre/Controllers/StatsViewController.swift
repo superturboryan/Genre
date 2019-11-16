@@ -11,18 +11,13 @@ import UIKit
 
 class StatsViewController: UIViewController {
 
+    var delegate: MainMenuDelegate?
     let options = UserDefaults.standard
-    
     let shapeLayer = CAShapeLayer()
-    
     @IBOutlet weak var statsLabel: UILabel!
-    
     var displayLink: CADisplayLink?
-    
     var overallCorrectPercentage: Double = 0
-    
     var animationDuration: Double = 1.5
-    
     var animationStart: Date = Date()
     
     @IBOutlet var chartView: MacawChartView!
@@ -50,6 +45,13 @@ class StatsViewController: UIViewController {
         MacawChartView.playAnimation()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+            self.delegate?.shrinkMenu()
+            self.delegate?.showButtons()
+            self.navigationController?.popViewController(animated: false)
+    }
+    
     func setupView() {
         
         self.navigationController?.navigationBar.prefersLargeTitles = false
@@ -60,7 +62,6 @@ class StatsViewController: UIViewController {
     }
     
     func calculateStats() {
-        
         overallCorrectPercentage = round((Double(options.integer(forKey: "correctCount")) / (Double(options.integer(forKey: "correctCount")) + Double(options.integer(forKey: "incorrectCount")))) * 100)
     }
  
