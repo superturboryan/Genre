@@ -69,11 +69,7 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if #available(iOS 13.0, *) {
-            return UIStatusBarStyle.darkContent
-        } else {
-            return UIStatusBarStyle.default
-        }
+        if #available(iOS 13.0, *) { return UIStatusBarStyle.darkContent } else { return UIStatusBarStyle.default }
     }
     
     func setupCoverView() {

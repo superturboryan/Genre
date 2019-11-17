@@ -103,9 +103,11 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if let destination = segue.destination as? WordListViewController {
             destination.delegate = self
         }
+        
         if let destination = segue.destination as? StatsViewController {
             destination.delegate = self
         }

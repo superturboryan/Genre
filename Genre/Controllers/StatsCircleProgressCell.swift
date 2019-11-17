@@ -11,20 +11,15 @@ import UIKit
 class StatsCircleProgressCell: UICollectionViewCell {
     
     let shapeLayer = CAShapeLayer()
+    let trackLayer = CAShapeLayer()
     var displayLink: CADisplayLink?
 
     let animationDuration: Double = 1.5
     let animationStart: Date = Date()
     
-    var valueToDisplay: Double? {
-        didSet {
+    var valueToDisplay: Double?
     
-//            animateProgressCircleToPercent()
-//            
-//            animatePercentLabel()
-        }
-    }
-    
+    @IBOutlet weak var statDescriptionLabel: UILabel!
     @IBOutlet weak var statsPercentLabel: UILabel!
     
     override func awakeFromNib() {
@@ -32,31 +27,30 @@ class StatsCircleProgressCell: UICollectionViewCell {
         
         self.statsPercentLabel.text = "\(0)"
         
+        self.addDefaultShadow()
+        
         self.layer.cornerRadius = 10
     }
 
-    func setupCircularProgressBar(){
+    func positionCircularProgressBar(){
         
-        // Progress Layer
-        let screenWidth = UIScreen.main.bounds.width
-        let cellSquareSize: CGFloat = screenWidth / 2.2
-        let cellCenter = CGPoint(x: cellSquareSize/2, y: cellSquareSize/2)
+        let cellSquareWidth = self.frame.size.width
         
-        let circularPath = UIBezierPath(arcCenter: cellCenter, radius: 70, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+        let cellCenter = CGPoint(x: cellSquareWidth/2, y: cellSquareWidth/2)
+        
+        let circularPath = UIBezierPath(arcCenter: cellCenter, radius: cellSquareWidth*0.38, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
         
         shapeLayer.path = circularPath.cgPath
         shapeLayer.strokeColor = UIColor.white.cgColor
-        shapeLayer.lineWidth = 15
+        shapeLayer.lineWidth = cellSquareWidth == cellSquareSize ? 12 : 30
         shapeLayer.fillColor = UIColor(white: 1, alpha: 0.2).cgColor
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.strokeStart = 0.0
         shapeLayer.strokeEnd = 1.0
 
-        // Track Layer
-        let trackLayer = CAShapeLayer()
         trackLayer.path = circularPath.cgPath
         trackLayer.strokeColor = UIColor.lightGray.cgColor
-        trackLayer.lineWidth = 15
+        trackLayer.lineWidth = cellSquareWidth == cellSquareSize ? 12 : 30
         trackLayer.fillColor = UIColor.clear.cgColor
         
         self.layer.addSublayer(trackLayer)
@@ -83,6 +77,11 @@ class StatsCircleProgressCell: UICollectionViewCell {
         shapeLayer.add(basicAnimation,forKey: "basicStroke")
     }
     
+    func removeCircularProgressBar() {
+        self.shapeLayer.removeFromSuperlayer()
+        self.trackLayer.removeFromSuperlayer()
+    }
+    
     func setupPercentLabelAnimation() {
     
         displayLink = CADisplayLink(target: self, selector: #selector(animatePercentLabel))
@@ -97,13 +96,13 @@ class StatsCircleProgressCell: UICollectionViewCell {
         let elapsedTime = now.timeIntervalSince(animationStart)
        
        if elapsedTime > animationDuration {
-        self.statsPercentLabel.text = "\(end)%"
+        self.statsPercentLabel.text = "\(Int(end))%"
         self.displayLink!.invalidate()
         self.displayLink = nil
        }
        else {
-        let percentage = elapsedTime / animationDuration
-        let value = lround(start + percentage * (Double(end) - start))
+        let percentComplete = elapsedTime / animationDuration
+        let value = Int(start + percentComplete * (Double(end) - start))
         statsPercentLabel.text = "\(value)%"
        }
         

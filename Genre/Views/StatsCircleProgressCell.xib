@@ -16,20 +16,29 @@
                 <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRw-LJ-yIX">
-                        <rect key="frame" x="62" y="74.5" width="56" height="31.5"/>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
-                        <nil key="textColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99%" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRw-LJ-yIX">
+                        <rect key="frame" x="63.5" y="85.5" width="53.5" height="29"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overall" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVk-ex-5vV">
+                        <rect key="frame" x="66.5" y="65.5" width="47" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </view>
             <color key="backgroundColor" red="0.0" green="0.70588235290000001" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="WVk-ex-5vV" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Pzu-VP-HRN"/>
                 <constraint firstItem="tRw-LJ-yIX" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="U0F-MS-SzC"/>
-                <constraint firstItem="tRw-LJ-yIX" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="vb6-E1-7Ao"/>
+                <constraint firstItem="tRw-LJ-yIX" firstAttribute="top" secondItem="WVk-ex-5vV" secondAttribute="bottom" constant="2" id="uDq-KA-epa"/>
+                <constraint firstItem="tRw-LJ-yIX" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" constant="10" id="vb6-E1-7Ao"/>
             </constraints>
             <connections>
+                <outlet property="statDescriptionLabel" destination="WVk-ex-5vV" id="hMG-Ff-lah"/>
                 <outlet property="statsPercentLabel" destination="tRw-LJ-yIX" id="Srn-94-Po0"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="153.34821428571428"/>

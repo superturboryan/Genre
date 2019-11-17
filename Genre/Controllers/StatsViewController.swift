@@ -1,155 +1,173 @@
 //
-//  StatsViewController.swift
+//  StatsReskinViewController.swift
 //  Genre
 //
-//  Created by Ryan David Forsyth on 2019-10-05.
+//  Created by Ryan David Forsyth on 2019-11-17.
 //  Copyright © 2019 Ryan F. All rights reserved.
 //
 
 import UIKit
 
+let screenWidth = UIScreen.main.bounds.width
+let cellSquareSize: CGFloat = screenWidth / 2.5
 
 class StatsViewController: UIViewController {
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var headerView: UIView!
+    
+    @IBOutlet weak var leftHeaderLabel: UILabel!
+    @IBOutlet weak var rightHeaderLabel: UILabel!
+    @IBOutlet weak var leftHeaderStat: UILabel!
+    @IBOutlet weak var rightHeaderStat: UILabel!
+    
+    let statsNibName = "StatsCircleProgressCell"
+    let statsCellId = "statsCellId"
 
     var delegate: MainMenuDelegate?
-    let options = UserDefaults.standard
-    let shapeLayer = CAShapeLayer()
-    @IBOutlet weak var statsLabel: UILabel!
-    var displayLink: CADisplayLink?
-    var overallCorrectPercentage: Double = 0
-    var animationDuration: Double = 1.5
-    var animationStart: Date = Date()
     
-    @IBOutlet var chartView: MacawChartView!
+    var statsToDisplay: [Double] = [25,50,75,100]
+    var cellColourArray: [UIColor] = [.systemBlue, .systemPink, .systemOrange, .systemGreen]
+    var cellDescArray: [String] = ["Overall", "Exceptions", "Masculine", "Feminine"]
+    
+    var originalFrame: CGRect?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if #available(iOS 13.0, *) { overrideUserInterfaceStyle = .light }
         
-        calculateStats()
-        
-        setupCircularProgressBar()
-        
-        setupView()
-        
-        animateProgressCircleToPercent(value: overallCorrectPercentage)
-        
-        setupOverallPercentLabelAnimation()
+        self.setupNavigationController()
+        self.setupView()
+        self.setupCollectionView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        MacawChartView.reloadSessions()
-        MacawChartView.playAnimation()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-            self.delegate?.shrinkMenu()
-            self.delegate?.showButtons()
-            self.navigationController?.popViewController(animated: false)
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) { return UIStatusBarStyle.darkContent } else { return UIStatusBarStyle.default }
     }
     
     func setupView() {
         
-        self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.headerView.layer.cornerRadius = 15
         
-        chartView.contentMode = .scaleAspectFit
-        
-        MacawChartView.playAnimation()
+        self.headerView.addDefaultShadow()
     }
     
-    func calculateStats() {
-        overallCorrectPercentage = round((Double(options.integer(forKey: "correctCount")) / (Double(options.integer(forKey: "correctCount")) + Double(options.integer(forKey: "incorrectCount")))) * 100)
-    }
- 
-    func setupCircularProgressBar(){
-        
-        // Progress Layer
-        
-        var labelCenter = statsLabel.center
-        
-        labelCenter = CGPoint.init(x: labelCenter.x, y: labelCenter.y+20)
-        
-        let circularPath = UIBezierPath(arcCenter: labelCenter, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
-        shapeLayer.path = circularPath.cgPath
-        
-        if #available(iOS 13.0, *) {
-            shapeLayer.strokeColor = UIColor.systemIndigo.cgColor
-        } else {
-            shapeLayer.strokeColor = UIColor.red.cgColor
-        }
-        shapeLayer.lineWidth = 20
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.lineCap = CAShapeLayerLineCap.round
-        
-        shapeLayer.strokeStart = 0.0
-        shapeLayer.strokeEnd = 1.0
-
-        // Track Layer
-        
-        let trackLayer = CAShapeLayer()
-        
-        trackLayer.path = circularPath.cgPath
-        
-        trackLayer.strokeColor = UIColor.lightGray.cgColor
-        
-        trackLayer.lineWidth = 18
-        trackLayer.fillColor = UIColor.clear.cgColor
-        
-        view.layer.addSublayer(trackLayer)
-        
-        view.layer.addSublayer(shapeLayer)
-        
-    }
+    func setupCollectionView() {
     
-    func animateProgressCircleToPercent(value: Double) {
+        self.collectionView.layer.masksToBounds = false
         
-        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        collectionView.register(UINib(nibName: statsNibName, bundle: nil), forCellWithReuseIdentifier: statsCellId)
         
-        basicAnimation.fromValue = 0
-        
-        basicAnimation.toValue =  (value / 100) * 0.795
-
-        basicAnimation.duration = animationDuration
-        
-        basicAnimation.fillMode = .forwards
-        
-        basicAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        
-        basicAnimation.isRemovedOnCompletion = false
-        
-        shapeLayer.add(basicAnimation,forKey: "basicStroke")
-    }
-    
-    func setupOverallPercentLabelAnimation() {
-    
-        displayLink = CADisplayLink(target: self, selector: #selector(animateDisplayLink))
-        displayLink?.add(to: .main, forMode: RunLoop.Mode.default)
-    }
-    
-    @objc func animateDisplayLink() {
-        
-        let start: Double = 0
-        let end = overallCorrectPercentage
-        let now = Date()
-        let elapsedTime = now.timeIntervalSince(animationStart)
-       
-       if elapsedTime > animationDuration {
-        self.statsLabel.text = "\(lround(end)) %"
-            displayLink!.invalidate()
-            displayLink = nil
-        
-       }
-       else {
-        let percentage = elapsedTime / animationDuration
-           let value = lround(start + percentage * (end - start))
-            statsLabel.text = "\(value) %"
-       }
-        
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
     }
 
-
+    func setupNavigationController() {
+        self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationController?.navigationBar.barTintColor = .white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black]
+    }
+    
+    func setupCell(_ cell: StatsCircleProgressCell, atIndexPath ip: IndexPath) {
+        
+        cell.valueToDisplay = statsToDisplay[ip.row]
+        cell.statDescriptionLabel.text = cellDescArray[ip.row]
+        cell.backgroundColor = cellColourArray[ip.row]
+    }
+    
+    @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
+        
+        self.delegate?.shrinkMenu()
+        self.delegate?.showButtons()
+        
+        self.navigationController?.popViewController(animated: false)
+    }
 }
+
+
+extension StatsViewController: UICollectionViewDelegate {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return statsToDisplay.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let cell = collectionView.cellForItem(at: indexPath) as! StatsCircleProgressCell
+        collectionView.isScrollEnabled = false
+        collectionView.bringSubviewToFront(cell)
+        
+        cell.removeCircularProgressBar()
+        
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+            
+            if (cell.frame != collectionView.bounds) {
+                self.originalFrame = cell.frame
+                cell.frame = collectionView.bounds
+            }
+            else {cell.frame = self.originalFrame!}
+            
+            cell.positionCircularProgressBar()
+            
+        }) { (completion) in
+            return
+        }
+    }
+    
+}
+
+extension StatsViewController: UICollectionViewDataSource {
+        
+    func collectionView(_ cv: UICollectionView, cellForItemAt ip: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = cv.dequeueReusableCell(withReuseIdentifier: statsCellId, for: ip) as? StatsCircleProgressCell else {fatalError()}
+        
+        cell.backgroundColor = cellColourArray[ip.row]
+        cell.valueToDisplay = statsToDisplay[ip.row]
+        cell.statDescriptionLabel.text = cellDescArray[ip.row]
+        cell.setupPercentLabelAnimation()
+        cell.positionCircularProgressBar()
+
+        cell.animateProgressCircle()
+        cell.animatePercentLabel()
+        
+        return cell
+    }
+    
+}
+
+extension StatsViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width:cellSquareSize, height:cellSquareSize);
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+}
+
+extension UIView {
+    
+    func addDefaultShadow(){
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 0.25
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+        self.layer.shadowRadius = CGFloat(6)
+        self.layer.masksToBounds = false
+        self.layer.shouldRasterize = true
+        self.layer.rasterizationScale = UIScreen.main.scale
+    }
+}
+
