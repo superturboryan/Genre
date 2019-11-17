@@ -138,14 +138,14 @@ class StatsViewController: UIViewController {
         let elapsedTime = now.timeIntervalSince(animationStart)
        
        if elapsedTime > animationDuration {
-        self.statsLabel.text = "\(end) %"
+        self.statsLabel.text = "\(lround(end)) %"
             displayLink!.invalidate()
             displayLink = nil
         
        }
        else {
         let percentage = elapsedTime / animationDuration
-           let value = round(start + percentage * (end - start))
+           let value = lround(start + percentage * (end - start))
             statsLabel.text = "\(value) %"
        }
         
