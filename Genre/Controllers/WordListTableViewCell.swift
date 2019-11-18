@@ -13,13 +13,10 @@ class WordListTableViewCell: UITableViewCell {
     var word: Word = Word()
     
     @IBOutlet weak var genderIndicatorView: UIView!
-    
+    @IBOutlet weak var articleLabel: UILabel!
     @IBOutlet weak var wordLabel: UILabel!
-    
     @IBOutlet weak var correctLabel: UILabel!
-    
     @IBOutlet weak var incorrectLabel: UILabel!
-    
     @IBOutlet var favouriteButton: UIButton!
     
     override func awakeFromNib() {
@@ -29,7 +26,16 @@ class WordListTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        
+    }
+    
+    func setupWithWord(_ word: Word) {
+        self.word = word
+        self.articleLabel.text = vowels.contains(String(self.word.word!.prefix(1))) ? "L'" : self.word.gender ? "Le" : "La"
+        self.wordLabel.text = self.word.word!
+        self.correctLabel.text = "\(self.word.correctCount)"
+        self.incorrectLabel.text = "\(self.word.incorrectCount)"
+        self.genderIndicatorView.backgroundColor = self.word.gender ? .systemBlue : .systemPink
+        self.updateStar()
     }
     
     

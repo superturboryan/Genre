@@ -8,12 +8,10 @@
 
 import UIKit
 
-let screenWidth = UIScreen.main.bounds.width
-let cellSquareSize: CGFloat = screenWidth / 2.5
-
 
 class StatsViewController: UIViewController {
     
+    //MARK: Outlets
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var headerView: UIView!
@@ -23,12 +21,11 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var leftHeaderStat: UILabel!
     @IBOutlet weak var rightHeaderStat: UILabel!
     
-    var displayLink: CADisplayLink?
+    //MARK: Properties
+    var leftDisplayLink: CADisplayLink?
+    var rightDisplayLink: CADisplayLink?
     let animationDuration: Double = 1.5
     let animationStart: Date = Date()
-    
-    let statsNibName = "StatsCircleProgressCell"
-    let statsCellId = "statsCellId"
 
     var delegate: MainMenuDelegate?
     
@@ -38,6 +35,7 @@ class StatsViewController: UIViewController {
     
     var originalFrame: CGRect?
     
+    //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,6 +51,7 @@ class StatsViewController: UIViewController {
         if #available(iOS 13.0, *) { return UIStatusBarStyle.darkContent } else { return UIStatusBarStyle.default }
     }
     
+    //MARK: Setup
     func setupView() {
         
         self.headerView.layer.cornerRadius = 15
@@ -81,67 +80,62 @@ class StatsViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black]
     }
     
-    func setupCell(_ cell: StatsCircleProgressCell, atIndexPath ip: IndexPath) {
-        
-        cell.valueToDisplay = statsToDisplay[ip.row]
-        cell.statDescriptionLabel.text = cellDescArray[ip.row]
-        cell.backgroundColor = cellColourArray[ip.row]
-    }
-    
+    //MARK: Load Stats
     func loadStats() {
-        statsToDisplay.append(Double(StatsManager.sharedInstance.getTotalSessionsCount()))
-        statsToDisplay.append(Double(StatsManager.sharedInstance.getTotalAnswerCount()))
         statsToDisplay.append(StatsManager.sharedInstance.getOverallCorrectPercentage())
-        statsToDisplay.append(33.0)
+        statsToDisplay.append(69.0)
         statsToDisplay.append(StatsManager.sharedInstance.getOverallCorrectPercentage(forGender: true))
         statsToDisplay.append(StatsManager.sharedInstance.getOverallCorrectPercentage(forGender: false))
+        statsToDisplay.append(Double(StatsManager.sharedInstance.getTotalSessionsCount()))
+        statsToDisplay.append(Double(StatsManager.sharedInstance.getTotalAnswerCount()))
     }
     
+    //MARK: CADisplayLink
     func setupLeftPercentLabelAnimation() {
-        displayLink = CADisplayLink(target: self, selector: #selector(animateLeftPercentLabel))
-        displayLink?.add(to: .main, forMode: RunLoop.Mode.default)
+        leftDisplayLink = CADisplayLink(target: self, selector: #selector(animateLeftPercentLabel))
+        leftDisplayLink?.add(to: .main, forMode: RunLoop.Mode.default)
     }
     
     @objc func animateLeftPercentLabel() {
         
         let start: Double = 0
-        let end = statsToDisplay[0]
+        let end = statsToDisplay[4]
         let now = Date()
         let elapsedTime = now.timeIntervalSince(animationStart)
        
         if elapsedTime > 1.0 {
-        self.leftHeaderStat.text = "\(Int(end))%"
-        self.displayLink!.invalidate()
-        self.displayLink = nil
+        self.leftHeaderStat.text = "\(Int(end))"
+        self.leftDisplayLink?.invalidate()
+        self.leftDisplayLink = nil
        }
        else {
         let percentComplete = elapsedTime / animationDuration
         let value = Int(start + percentComplete * (Double(end) - start))
-        self.leftHeaderStat.text = "\(value)%"
+        self.leftHeaderStat.text = "\(value)"
        }
     }
     
     func setupRightLabelAnimation() {
-        displayLink = CADisplayLink(target: self, selector: #selector(animateRightPercentLabel))
-        displayLink?.add(to: .main, forMode: RunLoop.Mode.default)
+        rightDisplayLink = CADisplayLink(target: self, selector: #selector(animateRightPercentLabel))
+        rightDisplayLink?.add(to: .main, forMode: RunLoop.Mode.default)
     }
     
     @objc func animateRightPercentLabel() {
         
         let start: Double = 0
-        let end = statsToDisplay[1]
+        let end = statsToDisplay[5]
         let now = Date()
         let elapsedTime = now.timeIntervalSince(animationStart)
     
         if elapsedTime > 1.0 {
-        self.rightHeaderStat.text = "\(Int(end))%"
-        self.displayLink!.invalidate()
-        self.displayLink = nil
+        self.rightHeaderStat.text = "\(Int(end))"
+        self.rightDisplayLink?.invalidate()
+        self.rightDisplayLink = nil
        }
        else {
         let percentComplete = elapsedTime / animationDuration
         let value = Int(start + percentComplete * (Double(end) - start))
-        self.rightHeaderStat.text = "\(value)%"
+        self.rightHeaderStat.text = "\(value)"
        }
     }
     
@@ -154,7 +148,7 @@ class StatsViewController: UIViewController {
     }
 }
 
-
+//MARK: UICollectionViewDelegate
 extension StatsViewController: UICollectionViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -173,7 +167,7 @@ extension StatsViewController: UICollectionViewDelegate {
         
         cell.removeCircularProgressBar()
         
-        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
             
             if (cell.frame != collectionView.bounds) {
                 self.originalFrame = cell.frame
@@ -190,6 +184,7 @@ extension StatsViewController: UICollectionViewDelegate {
     
 }
 
+//MARK: UICollectionViewDataSource
 extension StatsViewController: UICollectionViewDataSource {
         
     func collectionView(_ cv: UICollectionView, cellForItemAt ip: IndexPath) -> UICollectionViewCell {
@@ -210,6 +205,7 @@ extension StatsViewController: UICollectionViewDataSource {
     
 }
 
+//MARK: UICollectionViewDelegateFlowLayout
 extension StatsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -226,6 +222,7 @@ extension StatsViewController: UICollectionViewDelegateFlowLayout {
     
 }
 
+//MARK: Shadow Helper
 extension UIView {
     
     func addDefaultShadow(){

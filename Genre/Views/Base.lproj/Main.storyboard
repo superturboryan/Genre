@@ -422,7 +422,7 @@
                         <outlet property="filterStackViewHeight" destination="ZhO-tZ-7h4" id="QOk-qF-vIh"/>
                         <outlet property="searchBar" destination="x8K-PR-ryH" id="SpG-bz-FFK"/>
                         <outlet property="tableView" destination="Nvu-5e-Dx5" id="BlC-qo-cJY"/>
-                        <segue destination="k2I-PA-3Jf" kind="show" identifier="goToDetail" id="GLN-gu-i9G"/>
+                        <segue destination="k2I-PA-3Jf" kind="modal" identifier="goToDetail" id="GLN-gu-i9G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d8C-oc-byt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -434,17 +434,17 @@
             <objects>
                 <viewController storyboardIdentifier="WordDetailViewController" title="WordDetailViewController" id="k2I-PA-3Jf" customClass="WordDetailViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sjb-85-lGX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9TZ-mZ-VPw">
-                                <rect key="frame" x="138" y="119" width="99" height="48"/>
+                                <rect key="frame" x="138" y="75" width="99" height="48"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More info and stats for each word coming soon" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdC-1X-vsk">
-                                <rect key="frame" x="87.5" y="267" width="200" height="70"/>
+                                <rect key="frame" x="87.5" y="223" width="200" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="VZb-bK-vSu"/>
                                     <constraint firstAttribute="width" constant="200" id="oex-Qu-4vn"/>

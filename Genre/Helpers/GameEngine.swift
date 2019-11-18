@@ -22,10 +22,8 @@ class GameEngine: NSObject {
     
     let AppOptions = UserDefaults.standard
     
-    var numberOfQuestionsForGame : Int = 10
-    
     var currentQuestionIndex : Int = 0
-    
+    var numberOfQuestionsForGame : Int = 10
     var userScore : Int = 0
     var timeLimitPerWord:Int = 0
     
@@ -142,29 +140,19 @@ class GameEngine: NSObject {
     func checkAnswer(pickedAnswer: Bool) -> Bool {
         
         let currentWord = gameWords[currentQuestionIndex]
-        
         let correctAnswer = currentWord.gender
-        
         let correctResult = pickedAnswer == correctAnswer
-        
         let answer = Answer(gender: pickedAnswer, correct: correctResult)
         
         addAnswerToEngine(answer)
         
         if correctResult {
-            
             incrementUserScore()
-            
             incrementCountFor(word: currentWord, correct: true)
-            
-            print("Correct!")
             return true
         }
         else{
-            
             incrementCountFor(word: currentWord, correct: false)
-            
-            print("Incorrect!")
             return false
         }
         

@@ -6,9 +6,18 @@
 //  Copyright © 2019 Ryan F. All rights reserved.
 //
 
-import Foundation
+
+import UIKit
 
 typealias CompletionHandler = () -> Void
+
+let vowels = ["a","e","i","o","u","h"]
+
+let screenWidth = UIScreen.main.bounds.width
+let cellSquareSize: CGFloat = screenWidth / 2.5
+
+let statsNibName = "StatsCircleProgressCell"
+let statsCellId = "statsCellId"
 
 // MARK: User Default Keys
 

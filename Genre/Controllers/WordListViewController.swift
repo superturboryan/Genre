@@ -92,7 +92,6 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.view.backgroundColor = .clear
     }
     
     // MARK: - Table view data source
@@ -113,23 +112,11 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         tableView.register(UINib.init(nibName: "WordListTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "wordListCell")
         
-        if ((searching && searchedWordList.count == 0) || (!searching && filteredWordList.count == 0)) {
-            return emptyCell(forIndexPath: indexPath)
-        }
+        if ((searching && searchedWordList.count == 0) || (!searching && filteredWordList.count == 0)) { return emptyCell(forIndexPath: indexPath) }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "wordListCell", for: indexPath) as! WordListTableViewCell
-        
-        cell.word = searching ? searchedWordList[indexPath.row] : filteredWordList[indexPath.row]
-        
-        cell.wordLabel.text = searching ? searchedWordList[indexPath.row].word : filteredWordList[indexPath.row].word
-        
-        cell.correctLabel.text = searching ? "\(searchedWordList[indexPath.row].correctCount)" : "\(filteredWordList[indexPath.row].correctCount)"
-        
-        cell.incorrectLabel.text = searching ? "\(searchedWordList[indexPath.row].incorrectCount)" : "\(filteredWordList[indexPath.row].incorrectCount)"
-        
-        cell.genderIndicatorView.backgroundColor = searching ? {searchedWordList[indexPath.row].gender ? UIColor.flatRedDark() : UIColor.flatTealDark()}() : {filteredWordList[indexPath.row].gender ? UIColor.flatRedDark() : UIColor.flatTealDark()}()
-        
-        cell.updateStar()
+
+        cell.setupWithWord(searching ? searchedWordList[indexPath.row] : filteredWordList[indexPath.row])
         
         return cell
     }
@@ -147,6 +134,7 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let emptyCell = tableView.dequeueReusableCell(withIdentifier: "wordListCell", for: index) as! WordListTableViewCell
         
+        emptyCell.articleLabel.text = ""
         emptyCell.wordLabel.text = emptyCellText()
         emptyCell.correctLabel.text = "NA"
         emptyCell.incorrectLabel.text = "NA"
@@ -173,15 +161,6 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         self.performSegue(withIdentifier: "goToDetail", sender: self)
         
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:.main)
-//
-//        let detailVC = storyboard!.instantiateViewController(withIdentifier: "WordDetailViewController") as? WordDetailViewController
-//
-//        detailVC?.word = selectedWord
-//
-//        guard let push = detailVC else {return}
-//
-//        navigationController?.pushViewController(push, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -190,6 +169,7 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
             if let detailVC = segue.destination as? WordDetailViewController {
                 
                 detailVC.word = self.selectedWord
+                detailVC.view.backgroundColor = self.selectedWord.gender ? .systemBlue : .systemPink
             }
         }
     }
