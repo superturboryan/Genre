@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias CompletionHandler = () -> Void
+
 // MARK: User Default Keys
 
 let kOptionsSet = "OptionsSet"

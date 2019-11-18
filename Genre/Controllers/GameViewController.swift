@@ -395,14 +395,9 @@ class GameViewController: UIViewController {
         
         addGameFinishedView()
         
-        updateUserStats()
+        GameEngine.sharedInstance.saveGameAndUpdateStats()
         
         presentGameFinishedView()
-    }
-    
-    func updateUserStats() {
-        
-        
     }
     
     func addGameFinishedView() {

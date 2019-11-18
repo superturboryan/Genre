@@ -61,7 +61,7 @@ class StatsViewControllerOld: UIViewController {
     }
     
     func calculateStats() {
-        overallCorrectPercentage = round((Double(options.integer(forKey: "correctCount")) / (Double(options.integer(forKey: "correctCount")) + Double(options.integer(forKey: "incorrectCount")))) * 100)
+        overallCorrectPercentage = StatsManager.sharedInstance.getOverallCorrectPercentage()
     }
  
     func setupCircularProgressBar(){

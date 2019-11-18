@@ -11,6 +11,7 @@ import UIKit
 let screenWidth = UIScreen.main.bounds.width
 let cellSquareSize: CGFloat = screenWidth / 2.5
 
+
 class StatsViewController: UIViewController {
     
     @IBOutlet weak var backButton: UIBarButtonItem!
@@ -22,12 +23,16 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var leftHeaderStat: UILabel!
     @IBOutlet weak var rightHeaderStat: UILabel!
     
+    var displayLink: CADisplayLink?
+    let animationDuration: Double = 1.5
+    let animationStart: Date = Date()
+    
     let statsNibName = "StatsCircleProgressCell"
     let statsCellId = "statsCellId"
 
     var delegate: MainMenuDelegate?
     
-    var statsToDisplay: [Double] = [25,50,75,100]
+    var statsToDisplay: [Double] = [Double]()
     var cellColourArray: [UIColor] = [.systemBlue, .systemPink, .systemOrange, .systemGreen]
     var cellDescArray: [String] = ["Overall", "Exceptions", "Masculine", "Feminine"]
     
@@ -38,6 +43,7 @@ class StatsViewController: UIViewController {
         
         if #available(iOS 13.0, *) { overrideUserInterfaceStyle = .light }
         
+        self.loadStats()
         self.setupNavigationController()
         self.setupView()
         self.setupCollectionView()
@@ -52,6 +58,11 @@ class StatsViewController: UIViewController {
         self.headerView.layer.cornerRadius = 15
         
         self.headerView.addDefaultShadow()
+        
+        setupLeftPercentLabelAnimation()
+        setupRightLabelAnimation()
+        animateLeftPercentLabel()
+        animateRightPercentLabel()
     }
     
     func setupCollectionView() {
@@ -77,6 +88,63 @@ class StatsViewController: UIViewController {
         cell.backgroundColor = cellColourArray[ip.row]
     }
     
+    func loadStats() {
+        statsToDisplay.append(Double(StatsManager.sharedInstance.getTotalSessionsCount()))
+        statsToDisplay.append(Double(StatsManager.sharedInstance.getTotalAnswerCount()))
+        statsToDisplay.append(StatsManager.sharedInstance.getOverallCorrectPercentage())
+        statsToDisplay.append(33.0)
+        statsToDisplay.append(StatsManager.sharedInstance.getOverallCorrectPercentage(forGender: true))
+        statsToDisplay.append(StatsManager.sharedInstance.getOverallCorrectPercentage(forGender: false))
+    }
+    
+    func setupLeftPercentLabelAnimation() {
+        displayLink = CADisplayLink(target: self, selector: #selector(animateLeftPercentLabel))
+        displayLink?.add(to: .main, forMode: RunLoop.Mode.default)
+    }
+    
+    @objc func animateLeftPercentLabel() {
+        
+        let start: Double = 0
+        let end = statsToDisplay[0]
+        let now = Date()
+        let elapsedTime = now.timeIntervalSince(animationStart)
+       
+        if elapsedTime > 1.0 {
+        self.leftHeaderStat.text = "\(Int(end))%"
+        self.displayLink!.invalidate()
+        self.displayLink = nil
+       }
+       else {
+        let percentComplete = elapsedTime / animationDuration
+        let value = Int(start + percentComplete * (Double(end) - start))
+        self.leftHeaderStat.text = "\(value)%"
+       }
+    }
+    
+    func setupRightLabelAnimation() {
+        displayLink = CADisplayLink(target: self, selector: #selector(animateRightPercentLabel))
+        displayLink?.add(to: .main, forMode: RunLoop.Mode.default)
+    }
+    
+    @objc func animateRightPercentLabel() {
+        
+        let start: Double = 0
+        let end = statsToDisplay[1]
+        let now = Date()
+        let elapsedTime = now.timeIntervalSince(animationStart)
+    
+        if elapsedTime > 1.0 {
+        self.rightHeaderStat.text = "\(Int(end))%"
+        self.displayLink!.invalidate()
+        self.displayLink = nil
+       }
+       else {
+        let percentComplete = elapsedTime / animationDuration
+        let value = Int(start + percentComplete * (Double(end) - start))
+        self.rightHeaderStat.text = "\(value)%"
+       }
+    }
+    
     @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
         
         self.delegate?.shrinkMenu()
@@ -94,7 +162,7 @@ extension StatsViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return statsToDisplay.count
+        return statsToDisplay.count-2
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

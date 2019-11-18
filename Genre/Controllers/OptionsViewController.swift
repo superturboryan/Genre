@@ -8,12 +8,9 @@
 
 import UIKit
 
-typealias CompletionHandler = () -> Void
-
 class OptionsViewController: UIViewController {
 
     //MARK: Outlets
-    
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var hintsSwitch: UISwitch!
     @IBOutlet weak var timerSwitch: UISwitch!
@@ -34,44 +31,32 @@ class OptionsViewController: UIViewController {
     @IBOutlet var suddenDeathLabel: UILabel!
 
     //MARK: Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // Hide menu view on load
         hideOptionsMenu(toTheRight:false, withAnimation: false) { }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        hideNavBar()
         setupView()
+        
+        showOptionsMenu()
     }
     
     //MARK: Setup view
-    
     func setupView() {
-
-        addMenuShadow()
         
+        hideNavBar()
+        addMenuShadow()
         self.menuView.layer.cornerRadius = 15.0
         
         setupToggles()
+        setupLabels()
         
-        //Same words button
         sameWordsButton.isEnabled = GameEngine.sharedInstance.gameWords.count != 0
-        
-        //View styling
-        menuView.layer.cornerRadius = CGFloat(7.0)
-        
-        //Set label language
 
-        hintsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Conseils:":"Hints:"
-        timerLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Chrono:":"Timer:"
-        progressLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Progrès:":"Progress Bar:"
-        numOfWordsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "# de mots:":"Word Count:"
-        suddenDeathLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Mort soudain:":"Sudden death:"
-        
         //Rounded corner buttons
         newWordsButton.layer.cornerRadius = 7.0;
         sameWordsButton.layer.cornerRadius = 7.0;
@@ -83,26 +68,25 @@ class OptionsViewController: UIViewController {
             optionsMenuWidth.constant = 375.0
             optionsMenuHeight.constant = 550.0
         }
-        
-        showOptionsMenu()
     }
     
-    func setupToggles() {
-
-        guard let hintOption = options.value(forKey: kHints) as? Bool else {print("Error loading User Defaults"); return;}
-        hintsSwitch.isOn = hintOption
-        guard let timerOption = options.value(forKey: kTimer) as? Bool else {print("Error loading User Defaults"); return;}
-        timerSwitch.isOn = timerOption
-        guard let progressOption = options.value(forKey: kProgress) as? Bool else {print("Error loading User Defaults"); return;}
-        progressBarSwitch.isOn = progressOption
-        guard let suddenDeathOption = options.value(forKey: kSuddenDeath) as? Bool else {print("Error loading User Defaults"); return;}
-        suddenDeathSwitch.isOn = suddenDeathOption
-        guard let wordCountOption = options.value(forKey: kWordCount) as? Int else {print("Error loading User Defaults"); return;}
-        numOfWords.text = String(wordCountOption)
-        
-        numOfWordsSlider.value = Float(wordCountOption)
+    func setupLabels() {
+        //Set label language
+        hintsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Conseils:":"Hints:"
+        timerLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Chrono:":"Timer:"
+        progressLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Progrès:":"Progress Bar:"
+        numOfWordsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "# de mots:":"Word Count:"
+        suddenDeathLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Mort soudain:":"Sudden death:"
     }
     
+    func addMenuShadow() {
+        menuView.layer.shadowColor = UIColor.black.cgColor
+        menuView.layer.shadowOpacity = 0.4
+        menuView.layer.shadowOffset = CGSize.zero
+        menuView.layer.shadowRadius = CGFloat(12)
+    }
+    
+    //MARK: Hide+Show Menu
     func hideOptionsMenu(toTheRight direction:Bool, withAnimation animated:Bool, thenDo completion: @escaping CompletionHandler) {
         
         if animated {
@@ -140,39 +124,44 @@ class OptionsViewController: UIViewController {
         }
     }
     
+    //MARK: Toggles
+    func setupToggles() {
+
+        guard let hintOption = options.value(forKey: kHints) as? Bool else {print("Error loading User Defaults"); return;}
+        hintsSwitch.isOn = hintOption
+        guard let timerOption = options.value(forKey: kTimer) as? Bool else {print("Error loading User Defaults"); return;}
+        timerSwitch.isOn = timerOption
+        guard let progressOption = options.value(forKey: kProgress) as? Bool else {print("Error loading User Defaults"); return;}
+        progressBarSwitch.isOn = progressOption
+        guard let suddenDeathOption = options.value(forKey: kSuddenDeath) as? Bool else {print("Error loading User Defaults"); return;}
+        suddenDeathSwitch.isOn = suddenDeathOption
+        guard let wordCountOption = options.value(forKey: kWordCount) as? Int else {print("Error loading User Defaults"); return;}
+        numOfWords.text = String(wordCountOption)
+        numOfWordsSlider.value = Float(wordCountOption)
+    }
+    
     @IBAction func hintsPressed(_ sender: UISwitch) {
         options.set(sender.isOn, forKey: kHints)
     }
-    
     
     @IBAction func timerPressed(_ sender: UISwitch) {
          options.set(sender.isOn, forKey: kTimer)
     }
     
-    
     @IBAction func progressPressed(_ sender: UISwitch) {
         options.set(sender.isOn, forKey: kProgress)
     }
     
-    
     @IBAction func suddenDeathPressed(_ sender: UISwitch) {
         options.set(sender.isOn, forKey: kSuddenDeath)
     }
-    
     
     @IBAction func numOfWordsSet(_ sender: UISlider) {
         numOfWords.text = String(Int(sender.value))
         options.set(Int(sender.value), forKey: "WordCount")
     }
     
-    func addMenuShadow() {
-        
-        menuView.layer.shadowColor = UIColor.black.cgColor
-        menuView.layer.shadowOpacity = 0.4
-        menuView.layer.shadowOffset = CGSize.zero
-        menuView.layer.shadowRadius = CGFloat(12)
-    }
-    
+    //MARK: IBActions
     @IBAction func newWordsPressed(_ sender: UIButton) {
         
         GameEngine.sharedInstance.restartGame(withNewWords: true)

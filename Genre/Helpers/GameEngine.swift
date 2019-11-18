@@ -83,22 +83,27 @@ class GameEngine: NSObject {
         currentQuestionIndex += 1
     }
     
-    func addAnswerToStats(_ answer:Answer) {
+    func addAnswerToEngine(_ answer:Answer) {
         answer.gender ? (answer.correct ? (self.masculineCorrect+=1) : (self.masculineIncorrect+=1)) : (answer.correct ? (self.feminineCorrect+=1) : (self.feminineIncorrect+=1))
     }
     
     func saveGameAndUpdateStats() {
         
         let incorrectCount: Int = (numberOfQuestionsForGame - userScore)
-        let newTotalIncorrectCount: Int = options.integer(forKey: "incorrectCount") + incorrectCount
-        let newTotalCorrectCount: Int = options.integer(forKey: "correctCount") + GameEngine.sharedInstance.userScore
+        let newTotalIncorrectCount: Int = options.integer(forKey: kIncorrectCount) + incorrectCount
+        let newTotalCorrectCount: Int = options.integer(forKey: kCorrectCount) + GameEngine.sharedInstance.userScore
         
-        let newIncorrectMasculineCount: Int = options.integer(forKey: "incorrectMasculineCount") + masculineIncorrect
-        let newCorrectMasculineCount: Int = options.integer(forKey: "correctMasculineCount") + masculineCorrect
-        let newIncorrectFeminineCount: Int = options.integer(forKey: "incorrectFeminineCount") + feminineIncorrect
+        let newIncorrectMasculineCount: Int = options.integer(forKey: kMascIncorrectCount) + masculineIncorrect
+        let newCorrectMasculineCount: Int = options.integer(forKey: kMascCorrectCount) + masculineCorrect
+        let newIncorrectFeminineCount: Int = options.integer(forKey: kFemIncorrectCount) + feminineIncorrect
+        let newCorrectFeminineCount: Int = options.integer(forKey: kFemCorrectCount) + feminineCorrect
         
-        options.set(newTotalIncorrectCount, forKey: "incorrectCount")
-        options.set(newTotalCorrectCount, forKey: "correctCount")
+        options.set(newTotalIncorrectCount, forKey: kIncorrectCount)
+        options.set(newTotalCorrectCount, forKey: kCorrectCount)
+        options.set(newIncorrectMasculineCount, forKey: kMascIncorrectCount)
+        options.set(newCorrectMasculineCount, forKey: kMascCorrectCount)
+        options.set(newIncorrectFeminineCount, forKey: kFemIncorrectCount)
+        options.set(newCorrectFeminineCount, forKey: kFemCorrectCount)
         
         SessionManager.sharedInstance.registerNewSessionWith(withScore: Int32(userScore), outOf: Int32(numberOfQuestionsForGame))
     }
@@ -134,13 +139,19 @@ class GameEngine: NSObject {
     }
     
     //MARK:- Check Answer
-    func checkAnswer(pickedAnswer: Bool?) -> Bool {
+    func checkAnswer(pickedAnswer: Bool) -> Bool {
         
         let currentWord = gameWords[currentQuestionIndex]
         
         let correctAnswer = currentWord.gender
         
-        if pickedAnswer == correctAnswer {
+        let correctResult = pickedAnswer == correctAnswer
+        
+        let answer = Answer(gender: pickedAnswer, correct: correctResult)
+        
+        addAnswerToEngine(answer)
+        
+        if correctResult {
             
             incrementUserScore()
             
@@ -156,6 +167,8 @@ class GameEngine: NSObject {
             print("Incorrect!")
             return false
         }
+        
+        
     }
     
     func incrementCountFor(word: Word, correct: Bool) {
