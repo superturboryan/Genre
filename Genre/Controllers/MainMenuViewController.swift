@@ -15,22 +15,19 @@ protocol MainMenuDelegate {
     func shrinkMenu()
 }
 
-let options = UserDefaults.standard
-
-let kSuddenDeathKey = "SuddenDeath"
-
 class MainMenuViewController: UIViewController, MainMenuDelegate {
 
+    //MARK: Outlets
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var startGameButton: UIButton!
     @IBOutlet weak var wordListButton: UIButton!
     @IBOutlet weak var iconButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!
     
-    //Constraints
     @IBOutlet var menuViewHeight: NSLayoutConstraint!
     @IBOutlet var menuViewWidth: NSLayoutConstraint!
     
+    var delegate: UIPopoverPresentationControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +40,11 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
         showMenu(WithDelay: 0.3)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        AppStoreReviewManager.sharedInstance.checkIfReviewShouldBeRequested()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -236,4 +238,5 @@ extension UIView {
         self.layer.insertSublayer(gradient, at: 0)
     }
 }
+
 

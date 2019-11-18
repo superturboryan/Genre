@@ -211,7 +211,7 @@ class GameViewController: UIViewController {
                         
                     }
                     // Check if sudden death is enabled
-                    else if options.bool(forKey: kSuddenDeathKey) {
+                    else if options.bool(forKey: kSuddenDeath) {
                         self.revealAndHidePopup(forCorrect: false)
                         self.wordCardView.removeFromSuperview()
                         self.finishGame()

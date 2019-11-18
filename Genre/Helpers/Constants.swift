@@ -11,6 +11,8 @@ import UIKit
 
 typealias CompletionHandler = () -> Void
 
+let options = UserDefaults.standard
+
 let vowels = ["a","e","i","o","u","h"]
 
 let screenWidth = UIScreen.main.bounds.width

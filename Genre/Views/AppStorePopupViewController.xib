@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AppStorePopupViewController" customModule="Genre" customModuleProvider="target">
+            <connections>
+                <outlet property="handLabel" destination="3ut-98-ktr" id="oFh-tX-TfR"/>
+                <outlet property="middleTextLabel" destination="pQY-mg-UGZ" id="LnS-Lg-9ly"/>
+                <outlet property="negativeAnswerButton" destination="eat-cJ-Shs" id="bht-a3-Wau"/>
+                <outlet property="positiveAnswerButton" destination="srU-V8-6hQ" id="nhc-8U-q7v"/>
+                <outlet property="titleLabel" destination="Eq0-sZ-kyZ" id="xAT-9b-a7A"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey you!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eq0-sZ-kyZ">
+                    <rect key="frame" x="61.5" y="40" width="252.5" height="72"/>
+                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="60"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👋" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ut-98-ktr">
+                    <rect key="frame" x="133.5" y="152" width="108" height="119.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srU-V8-6hQ">
+                    <rect key="frame" x="57.5" y="487" width="260" height="70"/>
+                    <color key="backgroundColor" red="0.85923619920000005" green="0.18625984230000001" blue="0.51663990100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="70" id="acj-oq-Rm4"/>
+                        <constraint firstAttribute="width" constant="260" id="shE-I6-mpN"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                    <state key="normal" title="I'm loving it! 💙">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="positiveButtonPressed:" destination="-1" eventType="touchUpInside" id="d9Y-eY-ZF2"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eat-cJ-Shs">
+                    <rect key="frame" x="77.5" y="577" width="220" height="60"/>
+                    <color key="backgroundColor" red="0.60691624361624363" green="0.13235607112000236" blue="0.37043740923688362" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="0ut-J0-RK8"/>
+                        <constraint firstAttribute="width" constant="220" id="AZI-5E-7F8"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                    <state key="normal" title="Not so much 🥴">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="negativeButtonPressed:" destination="-1" eventType="touchUpInside" id="H4c-ch-XzW"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQY-mg-UGZ">
+                    <rect key="frame" x="0.0" y="311.5" width="375" height="86"/>
+                    <string key="text">Enjoying the app thus far?
+
+All feedback helps to improve future versions😄</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.62170744570000003" blue="0.73144569650000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="pQY-mg-UGZ" secondAttribute="trailing" id="4MH-Q5-duK"/>
+                <constraint firstItem="eat-cJ-Shs" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5I9-Vo-kgE"/>
+                <constraint firstItem="Eq0-sZ-kyZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="8XZ-gg-oNb"/>
+                <constraint firstItem="pQY-mg-UGZ" firstAttribute="top" secondItem="3ut-98-ktr" secondAttribute="bottom" constant="40" id="ABG-lW-6rC"/>
+                <constraint firstItem="eat-cJ-Shs" firstAttribute="top" secondItem="srU-V8-6hQ" secondAttribute="bottom" constant="20" id="CUk-93-YGv"/>
+                <constraint firstItem="pQY-mg-UGZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FpK-dL-RCk"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="eat-cJ-Shs" secondAttribute="bottom" constant="30" id="U69-8A-Nxn"/>
+                <constraint firstItem="3ut-98-ktr" firstAttribute="top" secondItem="Eq0-sZ-kyZ" secondAttribute="bottom" constant="40" id="hyF-3i-xYS"/>
+                <constraint firstItem="Eq0-sZ-kyZ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="oY6-nv-5gN"/>
+                <constraint firstItem="pQY-mg-UGZ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sBO-YE-Hyv"/>
+                <constraint firstItem="3ut-98-ktr" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="teC-dQ-KM6"/>
+                <constraint firstItem="srU-V8-6hQ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="yFO-pH-t8E"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="139" y="142"/>
+        </view>
+    </objects>
+</document>
