@@ -15,12 +15,12 @@ protocol MainMenuDelegate {
     func shrinkMenu()
 }
 
+let options = UserDefaults.standard
+
 let kSuddenDeathKey = "SuddenDeath"
 
 class MainMenuViewController: UIViewController, MainMenuDelegate {
 
-    let options = UserDefaults.standard
-    
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var startGameButton: UIButton!
     @IBOutlet weak var wordListButton: UIButton!

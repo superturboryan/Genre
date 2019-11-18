@@ -12,7 +12,6 @@ import UIKit
 class StatsViewControllerOld: UIViewController {
 
     var delegate: MainMenuDelegate?
-    let options = UserDefaults.standard
     let shapeLayer = CAShapeLayer()
     @IBOutlet weak var statsLabel: UILabel!
     var displayLink: CADisplayLink?

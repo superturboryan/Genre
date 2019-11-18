@@ -9,6 +9,11 @@
 import Foundation
 import CoreData
 
+struct Answer {
+    var gender: Bool
+    var correct: Bool
+}
+
 class GameEngine: NSObject {
     
     //MARK:- Properties
@@ -23,6 +28,11 @@ class GameEngine: NSObject {
     
     var userScore : Int = 0
     var timeLimitPerWord:Int = 0
+    
+    var masculineCorrect : Int = 0
+    var masculineIncorrect : Int = 0
+    var feminineCorrect: Int = 0
+    var feminineIncorrect: Int = 0
     
     var showHints: Bool = false
     var showTimer: Bool = false
@@ -71,6 +81,26 @@ class GameEngine: NSObject {
 
     func goToNextQuestion() {
         currentQuestionIndex += 1
+    }
+    
+    func addAnswerToStats(_ answer:Answer) {
+        answer.gender ? (answer.correct ? (self.masculineCorrect+=1) : (self.masculineIncorrect+=1)) : (answer.correct ? (self.feminineCorrect+=1) : (self.feminineIncorrect+=1))
+    }
+    
+    func saveGameAndUpdateStats() {
+        
+        let incorrectCount: Int = (numberOfQuestionsForGame - userScore)
+        let newTotalIncorrectCount: Int = options.integer(forKey: "incorrectCount") + incorrectCount
+        let newTotalCorrectCount: Int = options.integer(forKey: "correctCount") + GameEngine.sharedInstance.userScore
+        
+        let newIncorrectMasculineCount: Int = options.integer(forKey: "incorrectMasculineCount") + masculineIncorrect
+        let newCorrectMasculineCount: Int = options.integer(forKey: "correctMasculineCount") + masculineCorrect
+        let newIncorrectFeminineCount: Int = options.integer(forKey: "incorrectFeminineCount") + feminineIncorrect
+        
+        options.set(newTotalIncorrectCount, forKey: "incorrectCount")
+        options.set(newTotalCorrectCount, forKey: "correctCount")
+        
+        SessionManager.sharedInstance.registerNewSessionWith(withScore: Int32(userScore), outOf: Int32(numberOfQuestionsForGame))
     }
 
     func resetCurrentQuestionNumber() {
@@ -140,6 +170,5 @@ class GameEngine: NSObject {
         }
         
         WordManager.sharedInstance.saveChangesToCoreData()
-        
     }
 }

@@ -13,8 +13,6 @@ import ChameleonFramework
 import SpriteKit
 
 class GameViewController: UIViewController {
-    
-    let options = UserDefaults.standard
 
     //MARK: - Outlets
     
@@ -213,7 +211,7 @@ class GameViewController: UIViewController {
                         
                     }
                     // Check if sudden death is enabled
-                    else if self.options.bool(forKey: kSuddenDeathKey) {
+                    else if options.bool(forKey: kSuddenDeathKey) {
                         self.revealAndHidePopup(forCorrect: false)
                         self.wordCardView.removeFromSuperview()
                         self.finishGame()
@@ -404,13 +402,7 @@ class GameViewController: UIViewController {
     
     func updateUserStats() {
         
-        let incorrectCount: Int = (GameEngine.sharedInstance.numberOfQuestionsForGame - GameEngine.sharedInstance.userScore)
-        let newIncorrectCount: Int = options.integer(forKey: "incorrectCount") + incorrectCount
-        let newCorrectCount: Int = options.integer(forKey: "correctCount") + GameEngine.sharedInstance.userScore
-        options.set(newIncorrectCount, forKey: "incorrectCount")
-        options.set(newCorrectCount, forKey: "correctCount")
         
-        SessionManager.sharedInstance.registerNewSessionWith(withScore: Int32(GameEngine.sharedInstance.userScore), outOf: Int32(GameEngine.sharedInstance.numberOfQuestionsForGame))
     }
     
     func addGameFinishedView() {
