@@ -44,7 +44,7 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        AppStoreReviewManager.sharedInstance.checkIfReviewShouldBeRequested()
+//        AppStoreReviewManager.sharedInstance.checkIfReviewShouldBeRequested()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

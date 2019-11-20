@@ -229,40 +229,87 @@ class OptionsViewController: UIViewController {
         maskLayer.fillColor = UIColor.black.cgColor
         maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
         
-        let radius: CGFloat = 55.0
-
+        let radius: CGFloat = 50.0
+ 
+        let bigRect = CGRect(
+        x: self.view.frame.size.width/2,
+        y: self.view.frame.size.height/2,
+        width: 500,
+        height: 500)
+        
         let labelRect = CGRect(
         x: self.numOfWordsLabel.frame.minX+radius-15,
         y: self.numOfWordsLabel.frame.maxY+radius+10,
         width: 2 * radius,
         height: 2 * radius)
         
-        let bigLabelRect = CGRect(
-        x: self.numOfWordsLabel.frame.minX+radius-15,
-        y: self.numOfWordsLabel.frame.maxY+radius+10,
-        width: 300,
-        height: 300)
-
-        let path = UIBezierPath(rect: overlay.bounds)
-        path.append(UIBezierPath(ovalIn: labelRect))
+        let secondLabelRect = CGRect(
+        x: self.hintsLabel.frame.minX+radius-25,
+        y: self.hintsLabel.frame.maxY+radius-10,
+        width: 2 * radius,
+        height: 2 * radius)
+        
+        let thirdLabelRect = CGRect(
+        x: self.timerLabel.frame.minX+radius-25,
+        y: self.timerLabel.frame.maxY+radius-10,
+        width: 2 * radius,
+        height: 2 * radius)
         
         let bigPath = UIBezierPath(rect: overlay.bounds)
-        bigPath.append(UIBezierPath(ovalIn: bigLabelRect))
+        bigPath.append(UIBezierPath(ovalIn: bigRect))
+
+        let labelPath = UIBezierPath(rect: overlay.bounds)
+        labelPath.append(UIBezierPath(ovalIn: labelRect))
         
-        maskLayer.path = path.cgPath
+        let secondLabelPath = UIBezierPath(rect: overlay.bounds)
+        secondLabelPath.append(UIBezierPath(ovalIn: secondLabelRect))
+        
+        let thirdLabelPath = UIBezierPath(rect: overlay.bounds)
+        thirdLabelPath.append(UIBezierPath(ovalIn: thirdLabelRect))
+        
+        maskLayer.path = labelPath.cgPath
         
         // Set the mask of the view.
         overlay.layer.mask = maskLayer
         
         let circleShrink = CABasicAnimation(keyPath: "path")
         circleShrink.fromValue = bigPath.cgPath
-        circleShrink.toValue = path.cgPath
-        circleShrink.duration = 0.5
+        circleShrink.toValue = labelPath.cgPath
+        circleShrink.duration = 0.75
         circleShrink.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         circleShrink.fillMode = CAMediaTimingFillMode.forwards
         circleShrink.isRemovedOnCompletion = false
+        
+        let circleMove1 = CABasicAnimation(keyPath: "path")
+        circleMove1.fromValue = labelPath.cgPath
+        circleMove1.toValue = secondLabelPath.cgPath
+        circleMove1.duration = 1.0
+        circleMove1.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        circleMove1.fillMode = CAMediaTimingFillMode.forwards
+        circleMove1.isRemovedOnCompletion = false
+        
+        let circleMove2 = CABasicAnimation(keyPath: "path")
+        circleMove2.fromValue = secondLabelPath.cgPath
+        circleMove2.toValue = thirdLabelPath.cgPath
+        circleMove2.duration = 1.0
+        circleMove2.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        circleMove2.fillMode = CAMediaTimingFillMode.forwards
+        circleMove2.isRemovedOnCompletion = false
 
-        maskLayer.addAnimation(circleShrink, forKey: circleShrink.keyPath, withCompletion: nil)
+        maskLayer.addAnimation(circleShrink, forKey: circleShrink.keyPath) { (success) in
+                
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                maskLayer.addAnimation(circleMove1, forKey: circleMove1.keyPath) { (success) in
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        maskLayer.addAnimation(circleMove2, forKey: circleMove2.keyPath) { (success) in
+                            
+                            return
+                        }
+                    }
+                }
+            }
+        }
 
         // Add the view so it is visible.
         self.view.addSubview(overlay)
