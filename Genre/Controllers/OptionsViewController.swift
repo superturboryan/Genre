@@ -220,35 +220,49 @@ class OptionsViewController: UIViewController {
 //        bgFadeIn.fillMode = CAMediaTimingFillMode.forwards
 //        overlay.addAnimation(bgFadeIn, forKey: bgFadeIn.keyPath, withCompletion: nil)
         
-        // Create a view filling the screen.
         let overlay = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
 
-        // Set a semi-transparent, black background.
-        overlay.backgroundColor = UIColor(red: 25, green: 25, blue: 25, alpha: 0.5)
+        overlay.backgroundColor = UIColor.colorWith(r: 25, g: 25, b: 25, a: 0.55)
 
-        // Create the initial layer from the view bounds.
         let maskLayer = CAShapeLayer()
         maskLayer.frame = overlay.bounds
         maskLayer.fillColor = UIColor.black.cgColor
-
-        // Create the frame for the circle.
-        let radius: CGFloat = 50.0
-        let rect = CGRect(
-            x: overlay.frame.midX - radius,
-            y: overlay.frame.midY - radius,
-            width: 2 * radius,
-            height: 2 * radius)
-
-        // Create the path.
-        let path = UIBezierPath(rect: overlay.bounds)
         maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
+        
+        let radius: CGFloat = 55.0
 
-        // Append the circle to the path so that it is subtracted.
-        path.append(UIBezierPath(ovalIn: rect))
+        let labelRect = CGRect(
+        x: self.numOfWordsLabel.frame.minX+radius-15,
+        y: self.numOfWordsLabel.frame.maxY+radius+10,
+        width: 2 * radius,
+        height: 2 * radius)
+        
+        let bigLabelRect = CGRect(
+        x: self.numOfWordsLabel.frame.minX+radius-15,
+        y: self.numOfWordsLabel.frame.maxY+radius+10,
+        width: 300,
+        height: 300)
+
+        let path = UIBezierPath(rect: overlay.bounds)
+        path.append(UIBezierPath(ovalIn: labelRect))
+        
+        let bigPath = UIBezierPath(rect: overlay.bounds)
+        bigPath.append(UIBezierPath(ovalIn: bigLabelRect))
+        
         maskLayer.path = path.cgPath
-
+        
         // Set the mask of the view.
         overlay.layer.mask = maskLayer
+        
+        let circleShrink = CABasicAnimation(keyPath: "path")
+        circleShrink.fromValue = bigPath.cgPath
+        circleShrink.toValue = path.cgPath
+        circleShrink.duration = 0.5
+        circleShrink.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        circleShrink.fillMode = CAMediaTimingFillMode.forwards
+        circleShrink.isRemovedOnCompletion = false
+
+        maskLayer.addAnimation(circleShrink, forKey: circleShrink.keyPath, withCompletion: nil)
 
         // Add the view so it is visible.
         self.view.addSubview(overlay)
@@ -258,7 +272,7 @@ class OptionsViewController: UIViewController {
 
 extension UIColor {
     
-    static func colorWithRedValue(redValue: CGFloat, greenValue: CGFloat, blueValue: CGFloat, alpha: CGFloat) -> UIColor {
-        return UIColor(red: redValue/255.0, green: greenValue/255.0, blue: blueValue/255.0, alpha: alpha)
+    static func colorWith(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
+        return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
     }
 }
