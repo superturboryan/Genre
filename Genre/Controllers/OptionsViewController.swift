@@ -43,6 +43,13 @@ class OptionsViewController: UIViewController {
         setupView()
         
         showOptionsMenu()
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        presentOnboarding()
     }
     
     //MARK: Setup view
@@ -180,5 +187,78 @@ class OptionsViewController: UIViewController {
         }
     }
     
+    func presentOnboarding() {
+        
+//        let overlay = CAShapeLayer()
+//        let circle = CAShapeLayer()
+//        overlay.path = CGPath.init(rect: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height), transform: nil)
+//        overlay.backgroundColor = UIColor.clear.cgColor
+//        overlay.fillColor = UIColor.clear.cgColor
+//        overlay.mask = circle
+//
+////        let radius: CGFloat = myRect.size.width
+//        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height), cornerRadius: 0)
+//        let circlePath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 2 * radius, height: 2 * radius), cornerRadius: radius)
+//        path.append(circlePath)
+//        path.usesEvenOddFillRule = true
+//
+//        let fillLayer = CAShapeLayer()
+//        fillLayer.path = path.cgPath
+//        fillLayer.fillRule = .evenOdd
+//        fillLayer.fillColor = view.backgroundColor?.cgColor
+//        fillLayer.opacity = 0.5
+//        view.layer.addSublayer(fillLayer)
+//
+//        self.view.layer.addSublayer(overlay)
+//        self.view.layer.addSublayer(circle)
+        
+//        let bgFadeIn = CABasicAnimation(keyPath: "fillColor")
+//        bgFadeIn.duration = 1.0
+//        bgFadeIn.fromValue = UIColor.clear.cgColor
+//        bgFadeIn.toValue = UIColor.colorWithRedValue(redValue: 35, greenValue: 35, blueValue: 35, alpha: 0.6).cgColor
+//        bgFadeIn.isRemovedOnCompletion = false
+//        bgFadeIn.fillMode = CAMediaTimingFillMode.forwards
+//        overlay.addAnimation(bgFadeIn, forKey: bgFadeIn.keyPath, withCompletion: nil)
+        
+        // Create a view filling the screen.
+        let overlay = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+
+        // Set a semi-transparent, black background.
+        overlay.backgroundColor = UIColor(red: 25, green: 25, blue: 25, alpha: 0.5)
+
+        // Create the initial layer from the view bounds.
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = overlay.bounds
+        maskLayer.fillColor = UIColor.black.cgColor
+
+        // Create the frame for the circle.
+        let radius: CGFloat = 50.0
+        let rect = CGRect(
+            x: overlay.frame.midX - radius,
+            y: overlay.frame.midY - radius,
+            width: 2 * radius,
+            height: 2 * radius)
+
+        // Create the path.
+        let path = UIBezierPath(rect: overlay.bounds)
+        maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
+
+        // Append the circle to the path so that it is subtracted.
+        path.append(UIBezierPath(ovalIn: rect))
+        maskLayer.path = path.cgPath
+
+        // Set the mask of the view.
+        overlay.layer.mask = maskLayer
+
+        // Add the view so it is visible.
+        self.view.addSubview(overlay)
+    }
     
+}
+
+extension UIColor {
+    
+    static func colorWithRedValue(redValue: CGFloat, greenValue: CGFloat, blueValue: CGFloat, alpha: CGFloat) -> UIColor {
+        return UIColor(red: redValue/255.0, green: greenValue/255.0, blue: blueValue/255.0, alpha: alpha)
+    }
 }
