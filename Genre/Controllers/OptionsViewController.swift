@@ -35,6 +35,8 @@ class OptionsViewController: UIViewController {
         super.viewDidLoad()
         // Hide menu view on load
         hideOptionsMenu(toTheRight:false, withAnimation: false) { }
+        
+        presentOnboarding()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,7 +51,6 @@ class OptionsViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        presentOnboarding()
     }
     
     //MARK: Setup view
@@ -186,12 +187,13 @@ class OptionsViewController: UIViewController {
             self.performSegue(withIdentifier: "goToGame", sender: nil)
         }
     }
+
+    var overlay = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    var currentCircleRect = CGRect()
     
     func presentOnboarding() {
         
-        let overlay = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-
-        overlay.backgroundColor = UIColor.colorWith(r: 25, g: 25, b: 25, a: 0.55)
+        overlay.backgroundColor = UIColor.colorWith(r: 15, g: 15, b: 15, a: 0.85)
 
         let maskLayer = CAShapeLayer()
         maskLayer.frame = overlay.bounds
@@ -200,65 +202,109 @@ class OptionsViewController: UIViewController {
         
         let radius: CGFloat = 50.0
  
-        let bigRect = CGRect(
-        x: self.view.frame.size.width/2,
-        y: self.view.frame.size.height/2,
-        width: 500,
-        height: 500)
+        let bigPath = getRoundRectBezierForRect(CGRect(
+        x: self.numOfWordsLabel.frame.minX+radius-15,
+        y: self.numOfWordsLabel.frame.maxY+radius+10,
+        width: 8 * radius,
+        height: 8 * radius))
         
-        let labelRect = CGRect(
+        let firstLabelPath = getRoundRectBezierForRect(CGRect(
         x: self.numOfWordsLabel.frame.minX+radius-15,
         y: self.numOfWordsLabel.frame.maxY+radius+10,
         width: 2 * radius,
-        height: 2 * radius)
+        height: 2 * radius))
         
-        let secondLabelRect = CGRect(
+        let secondLabelPath = getRoundRectBezierForRect(CGRect(
         x: self.hintsLabel.frame.minX+radius-25,
         y: self.hintsLabel.frame.maxY+radius-10,
         width: 2 * radius,
-        height: 2 * radius)
+        height: 2 * radius))
         
-        let thirdLabelRect = CGRect(
+        let thirdLabelPath = getRoundRectBezierForRect(CGRect(
         x: self.timerLabel.frame.minX+radius-25,
         y: self.timerLabel.frame.maxY+radius-10,
         width: 2 * radius,
-        height: 2 * radius)
-        
-        let bigPath = UIBezierPath(rect: overlay.bounds)
-        bigPath.append(UIBezierPath(ovalIn: bigRect))
-
-        let firstLabelPath = UIBezierPath(rect: overlay.bounds)
-        firstLabelPath.append(UIBezierPath(ovalIn: labelRect))
-        
-        let secondLabelPath = UIBezierPath(rect: overlay.bounds)
-        secondLabelPath.append(UIBezierPath(ovalIn: secondLabelRect))
-        
-        let thirdLabelPath = UIBezierPath(rect: overlay.bounds)
-        thirdLabelPath.append(UIBezierPath(ovalIn: thirdLabelRect))
+        height: 2 * radius))
         
         maskLayer.path = bigPath.cgPath
         
         // Set the mask of the view.
         overlay.layer.mask = maskLayer
         
-        let circleShrink = getAnimationForPathToPath(from: bigPath, to: firstLabelPath, withDuration: 0.6)
-        let circleMove1 = getAnimationForPathToPath(from: firstLabelPath, to: secondLabelPath, withDuration: 1.0)
-        let circleMove2 = getAnimationForPathToPath(from: secondLabelPath, to: thirdLabelPath, withDuration: 1.0)
+        let circleShrink = getAnimationFromPathToPath(from: bigPath, to: firstLabelPath, withDuration: 0.6)
+        let circleMove1 = getAnimationFromPathToPath(from: firstLabelPath, to: secondLabelPath, withDuration: 1.0)
+        let circleMove2 = getAnimationFromPathToPath(from: secondLabelPath, to: thirdLabelPath, withDuration: 1.0)
+        
+        let numWordsText = "Move the slider to set the quiz length"
+        let hintsText = "Turn on hints to get tips about spotting the noun's gender"
+        let timerText = "Turn on the timer to see a counter showing you how long you're taking"
 
         self.animateBezierPath(forLayer: maskLayer, withAnimation: circleShrink, withDelay: 0.0) {
-            self.animateBezierPath(forLayer: maskLayer, withAnimation: circleMove1, withDelay: 2.0) {
-                self.animateBezierPath(forLayer: maskLayer, withAnimation: circleMove2, withDelay: 2.0) {
+            
+            self.fadeInAndOutLabel(inView: self.overlay, withText: numWordsText, positionNextToView:self.numOfWordsLabel, afterDelay: 1.0) {
                     
-                    return
+                self.animateBezierPath(forLayer: maskLayer, withAnimation: circleMove1, withDelay: 0.0) {
+                    
+                    self.fadeInAndOutLabel(inView: self.overlay, withText: hintsText, positionNextToView:self.hintsLabel, afterDelay: 0.2) {
+                        
+                        self.animateBezierPath(forLayer: maskLayer, withAnimation: circleMove2, withDelay: 0.0) {
+                            
+                            self.fadeInAndOutLabel(inView: self.overlay, withText: timerText, positionNextToView:self.timerLabel, afterDelay: 0.2) {
+                                
+                                UIView.animate(withDuration: 0.5, delay: 1.0, options: .curveEaseInOut, animations: {
+                                    self.overlay.alpha = 0
+                                }) { (success) in
+                                    self.overlay.removeFromSuperview()
+                                }
+                            }
+                            
+                        }
+                    }
                 }
             }
         }
 
-        // Add the view so it is visible.
-        self.view.addSubview(overlay)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.view.addSubview(self.overlay)
+        }
     }
     
-    func getAnimationForPathToPath(from:UIBezierPath, to:UIBezierPath, withDuration duration:Double) -> CABasicAnimation {
+    func fadeInAndOutLabel(inView:UIView, withText text:String, positionNextToView view:UIView, afterDelay delay:Double, thenDo: @escaping CompletionHandler) {
+        
+        let labelFrame = self.menuView.convert(view.frame, to: inView)
+        
+        let label = UILabel(frame: CGRect(x: labelFrame.maxX + 15, y: labelFrame.maxY, width: 150, height: 100))
+        label.text = text
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.alpha = 0
+        
+        inView.addSubview(label)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+                label.alpha = 1.0
+            }) { (success) in
+                UIView.animate(withDuration: 0.3, delay: 5.0, options: .curveEaseInOut, animations: {
+                    label.alpha = 0.0
+                }) { (success) in
+                    label.removeFromSuperview()
+                    thenDo()
+                }
+            }
+        }
+        
+    }
+    
+    func getRoundRectBezierForRect(_ rect:CGRect) -> UIBezierPath {
+        let rect = rect
+        let path = UIBezierPath(rect: self.overlay.bounds)
+        path.append(UIBezierPath(ovalIn: rect))
+        return path
+    }
+    
+    func getAnimationFromPathToPath(from:UIBezierPath, to:UIBezierPath, withDuration duration:Double) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: "path")
         animation.fromValue = from.cgPath
         animation.toValue = to.cgPath
@@ -270,8 +316,10 @@ class OptionsViewController: UIViewController {
     }
     
     func animateBezierPath(forLayer layer:CAShapeLayer, withAnimation animation:CABasicAnimation, withDelay delay:Double, thenDo: @escaping CompletionHandler) {
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             layer.addAnimation(animation, forKey: "path") { (success) in
+                
                 thenDo()
             }
         }
