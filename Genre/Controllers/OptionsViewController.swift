@@ -189,37 +189,6 @@ class OptionsViewController: UIViewController {
     
     func presentOnboarding() {
         
-//        let overlay = CAShapeLayer()
-//        let circle = CAShapeLayer()
-//        overlay.path = CGPath.init(rect: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height), transform: nil)
-//        overlay.backgroundColor = UIColor.clear.cgColor
-//        overlay.fillColor = UIColor.clear.cgColor
-//        overlay.mask = circle
-//
-////        let radius: CGFloat = myRect.size.width
-//        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height), cornerRadius: 0)
-//        let circlePath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 2 * radius, height: 2 * radius), cornerRadius: radius)
-//        path.append(circlePath)
-//        path.usesEvenOddFillRule = true
-//
-//        let fillLayer = CAShapeLayer()
-//        fillLayer.path = path.cgPath
-//        fillLayer.fillRule = .evenOdd
-//        fillLayer.fillColor = view.backgroundColor?.cgColor
-//        fillLayer.opacity = 0.5
-//        view.layer.addSublayer(fillLayer)
-//
-//        self.view.layer.addSublayer(overlay)
-//        self.view.layer.addSublayer(circle)
-        
-//        let bgFadeIn = CABasicAnimation(keyPath: "fillColor")
-//        bgFadeIn.duration = 1.0
-//        bgFadeIn.fromValue = UIColor.clear.cgColor
-//        bgFadeIn.toValue = UIColor.colorWithRedValue(redValue: 35, greenValue: 35, blueValue: 35, alpha: 0.6).cgColor
-//        bgFadeIn.isRemovedOnCompletion = false
-//        bgFadeIn.fillMode = CAMediaTimingFillMode.forwards
-//        overlay.addAnimation(bgFadeIn, forKey: bgFadeIn.keyPath, withCompletion: nil)
-        
         let overlay = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
 
         overlay.backgroundColor = UIColor.colorWith(r: 25, g: 25, b: 25, a: 0.55)
@@ -258,8 +227,8 @@ class OptionsViewController: UIViewController {
         let bigPath = UIBezierPath(rect: overlay.bounds)
         bigPath.append(UIBezierPath(ovalIn: bigRect))
 
-        let labelPath = UIBezierPath(rect: overlay.bounds)
-        labelPath.append(UIBezierPath(ovalIn: labelRect))
+        let firstLabelPath = UIBezierPath(rect: overlay.bounds)
+        firstLabelPath.append(UIBezierPath(ovalIn: labelRect))
         
         let secondLabelPath = UIBezierPath(rect: overlay.bounds)
         secondLabelPath.append(UIBezierPath(ovalIn: secondLabelRect))
@@ -267,52 +236,45 @@ class OptionsViewController: UIViewController {
         let thirdLabelPath = UIBezierPath(rect: overlay.bounds)
         thirdLabelPath.append(UIBezierPath(ovalIn: thirdLabelRect))
         
-        maskLayer.path = labelPath.cgPath
+        maskLayer.path = bigPath.cgPath
         
         // Set the mask of the view.
         overlay.layer.mask = maskLayer
         
-        let circleShrink = CABasicAnimation(keyPath: "path")
-        circleShrink.fromValue = bigPath.cgPath
-        circleShrink.toValue = labelPath.cgPath
-        circleShrink.duration = 0.75
-        circleShrink.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        circleShrink.fillMode = CAMediaTimingFillMode.forwards
-        circleShrink.isRemovedOnCompletion = false
-        
-        let circleMove1 = CABasicAnimation(keyPath: "path")
-        circleMove1.fromValue = labelPath.cgPath
-        circleMove1.toValue = secondLabelPath.cgPath
-        circleMove1.duration = 1.0
-        circleMove1.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        circleMove1.fillMode = CAMediaTimingFillMode.forwards
-        circleMove1.isRemovedOnCompletion = false
-        
-        let circleMove2 = CABasicAnimation(keyPath: "path")
-        circleMove2.fromValue = secondLabelPath.cgPath
-        circleMove2.toValue = thirdLabelPath.cgPath
-        circleMove2.duration = 1.0
-        circleMove2.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        circleMove2.fillMode = CAMediaTimingFillMode.forwards
-        circleMove2.isRemovedOnCompletion = false
+        let circleShrink = getAnimationForPathToPath(from: bigPath, to: firstLabelPath, withDuration: 0.6)
+        let circleMove1 = getAnimationForPathToPath(from: firstLabelPath, to: secondLabelPath, withDuration: 1.0)
+        let circleMove2 = getAnimationForPathToPath(from: secondLabelPath, to: thirdLabelPath, withDuration: 1.0)
 
-        maskLayer.addAnimation(circleShrink, forKey: circleShrink.keyPath) { (success) in
-                
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                maskLayer.addAnimation(circleMove1, forKey: circleMove1.keyPath) { (success) in
-
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                        maskLayer.addAnimation(circleMove2, forKey: circleMove2.keyPath) { (success) in
-                            
-                            return
-                        }
-                    }
+        self.animateBezierPath(forLayer: maskLayer, withAnimation: circleShrink, withDelay: 0.0) {
+            self.animateBezierPath(forLayer: maskLayer, withAnimation: circleMove1, withDelay: 2.0) {
+                self.animateBezierPath(forLayer: maskLayer, withAnimation: circleMove2, withDelay: 2.0) {
+                    
+                    return
                 }
             }
         }
 
         // Add the view so it is visible.
         self.view.addSubview(overlay)
+    }
+    
+    func getAnimationForPathToPath(from:UIBezierPath, to:UIBezierPath, withDuration duration:Double) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: "path")
+        animation.fromValue = from.cgPath
+        animation.toValue = to.cgPath
+        animation.duration = duration
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        animation.isRemovedOnCompletion = false
+        return animation
+    }
+    
+    func animateBezierPath(forLayer layer:CAShapeLayer, withAnimation animation:CABasicAnimation, withDelay delay:Double, thenDo: @escaping CompletionHandler) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            layer.addAnimation(animation, forKey: "path") { (success) in
+                thenDo()
+            }
+        }
     }
     
 }
