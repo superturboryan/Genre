@@ -45,7 +45,6 @@ class OptionsViewController: UIViewController {
         setupView()
         
         showOptionsMenu()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -187,11 +186,18 @@ class OptionsViewController: UIViewController {
             self.performSegue(withIdentifier: "goToGame", sender: nil)
         }
     }
+    
+    @IBAction func helpPressed(_ sender: UIButton) {
+        presentOnboarding()
+    }
+    
 
     var overlay = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
     var currentCircleRect = CGRect()
     
     func presentOnboarding() {
+        
+        overlay = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         
         overlay.backgroundColor = UIColor.colorWith(r: 15, g: 15, b: 15, a: 0.85)
 
@@ -226,6 +232,19 @@ class OptionsViewController: UIViewController {
         width: 2 * radius,
         height: 2 * radius))
         
+        let fourthLabelPath = getRoundRectBezierForRect(CGRect(
+        x: self.progressLabel.frame.minX+radius-25,
+        y: self.progressLabel.frame.maxY+radius-10,
+        width: 2 * radius,
+        height: 2 * radius))
+        
+        let fifthLabelPath = getRoundRectBezierForRect(CGRect(
+        x: self.suddenDeathLabel.frame.minX+radius-25,
+        y: self.suddenDeathLabel.frame.maxY+radius-10,
+        width: 2 * radius,
+        height: 2 * radius))
+        
+        
         maskLayer.path = bigPath.cgPath
         
         // Set the mask of the view.
@@ -234,10 +253,14 @@ class OptionsViewController: UIViewController {
         let circleShrink = getAnimationFromPathToPath(from: bigPath, to: firstLabelPath, withDuration: 0.6)
         let circleMove1 = getAnimationFromPathToPath(from: firstLabelPath, to: secondLabelPath, withDuration: 1.0)
         let circleMove2 = getAnimationFromPathToPath(from: secondLabelPath, to: thirdLabelPath, withDuration: 1.0)
+        let circleMove3 = getAnimationFromPathToPath(from: thirdLabelPath, to: fourthLabelPath, withDuration: 1.0)
+        let circleMove4 = getAnimationFromPathToPath(from: fourthLabelPath, to: fifthLabelPath, withDuration: 1.0)
         
         let numWordsText = "Move the slider to set the quiz length"
         let hintsText = "Turn on hints to get tips about spotting the noun's gender"
         let timerText = "Turn on the timer to see a counter showing you how long you're taking"
+        let progressText = "Turn on to display the progress bar to see how far along you are in the quiz"
+        let suddenDeathText = "Turn on sudden death move to end the quiz on your first wrong answer. For experts only!"
 
         self.animateBezierPath(forLayer: maskLayer, withAnimation: circleShrink, withDelay: 0.0) {
             
@@ -251,13 +274,25 @@ class OptionsViewController: UIViewController {
                             
                             self.fadeInAndOutLabel(inView: self.overlay, withText: timerText, positionNextToView:self.timerLabel, afterDelay: 0.2) {
                                 
-                                UIView.animate(withDuration: 0.5, delay: 1.0, options: .curveEaseInOut, animations: {
-                                    self.overlay.alpha = 0
-                                }) { (success) in
-                                    self.overlay.removeFromSuperview()
+                                self.animateBezierPath(forLayer: maskLayer, withAnimation: circleMove3, withDelay: 0.0) {
+                                    
+                                    self.fadeInAndOutLabel(inView: self.overlay, withText: progressText, positionNextToView:self.progressLabel, afterDelay: 0.2) {
+                                        
+                                        self.animateBezierPath(forLayer: maskLayer, withAnimation: circleMove4, withDelay: 0.0) {
+                                            
+                                            self.fadeInAndOutLabel(inView: self.overlay, withText: suddenDeathText, positionNextToView:self.suddenDeathLabel, afterDelay: 0.2) {
+                                                
+                                                UIView.animate(withDuration: 0.5, delay: 1.0, options: .curveEaseInOut, animations: {
+                                                    self.overlay.alpha = 0
+                                                }) { (success) in
+                                                    self.overlay.removeFromSuperview()
+                                                }
+                                                
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                            
                         }
                     }
                 }
@@ -286,7 +321,7 @@ class OptionsViewController: UIViewController {
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
                 label.alpha = 1.0
             }) { (success) in
-                UIView.animate(withDuration: 0.3, delay: 5.0, options: .curveEaseInOut, animations: {
+                UIView.animate(withDuration: 0.3, delay: 3.0, options: .curveEaseInOut, animations: {
                     label.alpha = 0.0
                 }) { (success) in
                     label.removeFromSuperview()
