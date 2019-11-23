@@ -28,6 +28,10 @@ class GameViewController: UIViewController {
     @IBOutlet var correctPopup: UIImageView!
     @IBOutlet var incorrectPopup: UIImageView!
     
+    @IBOutlet weak var leftAnswerButton: UIButton!
+    @IBOutlet weak var rightAnswerButon: UIButton!
+    
+    
     //MARK: - Variables
     
     //Timer variables
@@ -476,6 +480,49 @@ class GameViewController: UIViewController {
             }
         }
     }
+    
+    
+    @IBAction func answerButtonPressed(_ sender: UIButton) {
+        
+        simulateSwipeForDirection(sender.tag==2)
+        
+    }
+    
+    func simulateSwipeForDirection(_ direction:Bool) {
+        
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseIn, animations: {
+            
+            let transform = CGAffineTransform(translationX: direction ? self.view.frame.width*1.1 : -self.view.frame.width*1.1, y: 0)
+            self.wordCardView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+            
+        }) { (completion) in
+            
+            if (GameEngine.sharedInstance.checkAnswer(pickedAnswer: direction)) {
+                self.revealAndHidePopup(forCorrect: true)
+            }
+            else if options.bool(forKey: kSuddenDeath) {
+                self.revealAndHidePopup(forCorrect: false)
+                self.wordCardView.removeFromSuperview()
+                self.finishGame()
+                return
+            }
+            else {
+                self.revealAndHidePopup(forCorrect: false)
+            }
+        
+            self.wordCardView.removeFromSuperview()
+            GameEngine.sharedInstance.goToNextQuestion()
+            
+            if GameEngine.sharedInstance.isGameFinished() {
+                self.finishGame()
+            }
+            else{
+                self.updateUI(withNewCards: 1)
+            }
 
+        }
+        
+    }
+    
     
 }

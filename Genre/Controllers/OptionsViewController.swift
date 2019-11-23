@@ -36,7 +36,7 @@ class OptionsViewController: UIViewController {
         // Hide menu view on load
         hideOptionsMenu(toTheRight:false, withAnimation: false) { }
         
-        presentOnboarding()
+//        presentOnboarding()
     }
     
     override func viewDidAppear(_ animated: Bool) {
