@@ -13,6 +13,7 @@ protocol MainMenuDelegate {
     func showButtons()
     func hideButtons()
     func shrinkMenu()
+    func showMenu(WithDelay:Double)
 }
 
 class MainMenuViewController: UIViewController, MainMenuDelegate {
@@ -29,22 +30,34 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
     
     var delegate: UIPopoverPresentationControllerDelegate?
     
+    
+    //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupView()
+        self.setupGradientBG()
+        
         hideMenu(toTheRight: false,withAnimation: false,thenDo: {})
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        showMenu(WithDelay: 0.3)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        AppStoreReviewManager.sharedInstance.checkIfReviewShouldBeRequested()
+        
+        showMenu(WithDelay: 0.3)
+        
+//AppStoreReviewManager.sharedInstance.checkIfReviewShouldBeRequested()
+    }
+  
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+         setupView()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -52,10 +65,12 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
+    //MARK:Setup UI
     func setupView() {
         
         self.view.setupGradientBG(withFrame: self.view.frame)
 
+        iconButton.layer.cornerRadius = CGFloat(15.0)
        menuView.layer.cornerRadius = CGFloat(15.0)
        startGameButton.layer.cornerRadius = CGFloat(5.0)
        statsButton.layer.cornerRadius = CGFloat(5.0)
@@ -85,6 +100,7 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
         
     }
     
+    //MARK: IB Actions
     @IBAction func startPressed(_ sender: UIButton) {
         hideMenu(toTheRight:true,withAnimation: true,thenDo: {
             self.performSegue(withIdentifier: "goToOptions", sender: nil)
@@ -104,17 +120,6 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if let destination = segue.destination as? WordListViewController {
-            destination.delegate = self
-        }
-        
-        if let destination = segue.destination as? StatsViewController {
-            destination.delegate = self
-        }
-    }
-    
     
     @IBAction func languageButtonPressed(_ sender: UIButton) {
         
@@ -126,7 +131,23 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
         showMenu(WithDelay: 0.8)
     }
     
-    //UI animation functions
+    //MARK:Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let destination = segue.destination as? OptionsViewController {
+            destination.delegate = self
+        }
+        
+        if let destination = segue.destination as? WordListViewController {
+            destination.delegate = self
+        }
+        
+        if let destination = segue.destination as? StatsViewController {
+            destination.delegate = self
+        }
+    }
+    
+    //MARK:UI animation functions
     
     func hideMenu(toTheRight direction:Bool, withAnimation animated:Bool, thenDo completion: @escaping CompletionHandler) {
         
@@ -223,16 +244,97 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
         }
     }
     
+    //MARK: Gradient variables
+    let gradient = CAGradientLayer()
+    var currentGradient = 0
+    var gradientSet = [[CGColor]]()
     
+}
+
+extension MainMenuViewController: CAAnimationDelegate {
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        
+        if flag {
+            if let colorChange = gradient.value(forKey: "colorChange") as? Int {
+                gradient.colors = gradientSet[colorChange]
+                animateGradient()
+            }
+        }
+    }
+    
+    func setupGradientBG() {
+        
+        let colorTop = UIColor(hexString: "00b4db")?.cgColor
+        let colorBottom = UIColor(hexString: "0083b0")?.cgColor
+        let thirdColor = UIColor(hexString: "#02AAB0")?.cgColor
+        let fourthColor = UIColor(hexString: "#00CDAC")?.cgColor
+
+        gradientSet.append([colorBottom!, colorTop!])
+        gradientSet.append([colorTop!, thirdColor!])
+        gradientSet.append([thirdColor!, fourthColor!])
+        gradientSet.append([fourthColor!, colorBottom!])
+        
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        
+        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+        
+        gradient.drawsAsynchronously = true
+        
+        self.view.layer.insertSublayer(gradient, at: 1)
+    }
+    
+    func animateGradient() {
+        
+        var previousGradient: Int!
+        
+        if currentGradient < gradientSet.count - 1 {
+            
+            currentGradient += 1
+            
+            previousGradient = currentGradient - 1
+            
+        }
+        else {
+            
+            currentGradient = 0
+            
+            previousGradient = gradientSet.count - 1
+            
+        }
+        
+        let gradientChangeAnim = CABasicAnimation(keyPath: "colors")
+        
+        gradientChangeAnim.duration = 5.0
+        
+        gradientChangeAnim.fromValue = gradientSet[previousGradient]
+        
+        gradientChangeAnim.toValue = gradientSet[currentGradient]
+        
+        gradient.setValue(currentGradient, forKeyPath: "colorChange")
+        
+        gradientChangeAnim.fillMode = CAMediaTimingFillMode.forwards
+        
+        gradientChangeAnim.isRemovedOnCompletion = false
+        
+        gradientChangeAnim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        
+        gradientChangeAnim.delegate = self
+        
+        gradient.add(gradientChangeAnim, forKey: nil)
+        
+    }
 }
 
 extension UIView {
     
     func setupGradientBG(withFrame frame:CGRect) {
         let gradient = CAGradientLayer()
-        let colorTop = UIColor(hexString: "00b4db")
-        let colorBottom = UIColor(hexString: "0083b0")
-        gradient.colors = [colorTop?.cgColor,colorBottom?.cgColor]
+        let colorTop = UIColor(hexString: "00b4db")?.cgColor
+        let colorBottom = UIColor(hexString: "0083b0")?.cgColor
+        let thirdColor = UIColor(hexString: "#02AAB0")?.cgColor
+        let fourthColor = UIColor(hexString: "#00CDAC")?.cgColor
+        gradient.colors = [thirdColor,colorTop]
         gradient.locations = [0.0, 1.0]
         gradient.frame = frame
         self.layer.insertSublayer(gradient, at: 0)

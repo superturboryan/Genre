@@ -85,11 +85,19 @@ class GameViewController: UIViewController {
         startTimer()
         
         showAnswerButtons(animated: true)
+        
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+
     }
     
     //MARK: Setup UI
     
-    @objc func setupView() {
+    func setupView() {
         
         self.view.setupGradientBG(withFrame: self.view.bounds)
         
@@ -572,4 +580,7 @@ class GameViewController: UIViewController {
         }
     }
     
+
 }
+
+

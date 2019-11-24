@@ -29,6 +29,8 @@ class OptionsViewController: UIViewController {
     @IBOutlet weak var numOfWords: UILabel!
     @IBOutlet weak var numOfWordsLabel: UILabel!
     @IBOutlet var suddenDeathLabel: UILabel!
+    
+    var delegate:MainMenuDelegate?
 
     //MARK: Lifecycle
     override func viewDidLoad() {
@@ -127,6 +129,9 @@ class OptionsViewController: UIViewController {
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         hideOptionsMenu(toTheRight: false, withAnimation: true) {
+//            if let del = self.delegate {
+//                del.showMenu(WithDelay: 0.2)
+//            }
             self.navigationController?.popViewController(animated: false)
         }
     }

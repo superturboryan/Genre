@@ -59,12 +59,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let firstItem = UIApplicationShortcutItem(type: "ShortcutItem2", localizedTitle: "Replay game", localizedSubtitle: "With the same words", icon: UIApplicationShortcutIcon(type: .bookmark), userInfo: nil)
             
-            UIApplication.shared.shortcutItems = [firstItem]
+            UIApplication.shared.shortcutItems?.append(firstItem)
         
         }
-        else {
+        
+        if SessionManager.sharedInstance.getAllSessions().count > 0 {
             
-            UIApplication.shared.shortcutItems = []
+            let secondItem = UIApplicationShortcutItem(type: "ShortcutItem4", localizedTitle: "View Stats", localizedSubtitle: "Review past games", icon: UIApplicationShortcutIcon(type: .time), userInfo: nil)
+            
+            UIApplication.shared.shortcutItems?.append(secondItem)
             
         }
         
@@ -91,6 +94,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case "ShortcutItem3":
             let wordListVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WordListVC")
             rootNav.pushViewController(wordListVC, animated: false)
+            break;
+            
+        case "ShortcutItem4":
+            let statsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StatsVC")
+            rootNav.pushViewController(statsVC, animated: false)
             break;
             
         default:

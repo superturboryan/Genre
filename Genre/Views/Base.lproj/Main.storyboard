@@ -67,7 +67,7 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MpY-Az-l0K">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MpY-Az-l0K">
                                         <rect key="frame" x="80" y="25" width="125" height="125"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="MpY-Az-l0K" secondAttribute="height" multiplier="1:1" id="IFm-Iv-302"/>
@@ -434,7 +434,7 @@
                         <outlet property="filterStackViewHeight" destination="ZhO-tZ-7h4" id="QOk-qF-vIh"/>
                         <outlet property="searchBar" destination="x8K-PR-ryH" id="SpG-bz-FFK"/>
                         <outlet property="tableView" destination="Nvu-5e-Dx5" id="BlC-qo-cJY"/>
-                        <segue destination="k2I-PA-3Jf" kind="modal" identifier="goToDetail" id="GLN-gu-i9G"/>
+                        <segue destination="k2I-PA-3Jf" kind="presentation" identifier="goToDetail" modalPresentationStyle="pageSheet" id="GLN-gu-i9G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d8C-oc-byt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -485,10 +485,10 @@
             </objects>
             <point key="canvasLocation" x="-951" y="1711"/>
         </scene>
-        <!--Stats-->
+        <!--StatsVC-->
         <scene sceneID="yzB-GW-Fbf">
             <objects>
-                <viewController id="TpC-lp-ke0" customClass="StatsViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StatsVC" title="StatsVC" id="TpC-lp-ke0" customClass="StatsViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UcK-V8-jT8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -661,9 +661,6 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <skView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="07P-fe-huQ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </skView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="aBI-mZ-hAl">
                                 <rect key="frame" x="102.5" y="542" width="170" height="75"/>
                                 <subviews>
@@ -708,6 +705,9 @@
                                     <action selector="backButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7FG-dV-EBC"/>
                                 </connections>
                             </button>
+                            <skView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="07P-fe-huQ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </skView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.70588235290000001" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
