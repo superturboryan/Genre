@@ -53,6 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupShortcutItems() {
         
+        UIApplication.shared.shortcutItems = []
+        
         if GameEngine.sharedInstance.gameWords.count > 0 {
             
             let firstItem = UIApplicationShortcutItem(type: "ShortcutItem2", localizedTitle: "Replay game", localizedSubtitle: "With the same words", icon: UIApplicationShortcutIcon(type: .bookmark), userInfo: nil)
