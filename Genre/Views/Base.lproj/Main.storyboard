@@ -325,10 +325,10 @@
             </objects>
             <point key="canvasLocation" x="1109.5999999999999" y="19.340329835082461"/>
         </scene>
-        <!--Word List-->
+        <!--WordListVC-->
         <scene sceneID="2BE-7O-Y7w">
             <objects>
-                <viewController id="if2-xk-aO5" customClass="WordListViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WordListVC" title="WordListVC" id="if2-xk-aO5" customClass="WordListViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hqT-Fa-bQM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -617,10 +617,10 @@
             </objects>
             <point key="canvasLocation" x="72.799999999999997" y="870.31484257871068"/>
         </scene>
-        <!--Game View Controller-->
+        <!--GameVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="GameViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameVC" title="GameVC" id="BYZ-38-t0r" customClass="GameViewController" customModule="Genre" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

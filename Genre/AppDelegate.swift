@@ -18,11 +18,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        setDefaultOptions()
+        self.setDefaultOptions()
        
-        checkIfCsvHasBeenLoadedIntoCoreData()
+        self.checkIfCsvHasBeenLoadedIntoCoreData()
+        
+        
         
         return true
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        self.setupShortcutItems()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -37,13 +43,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    
     }
 
-    func applicationDidBecomeActive(_ application: UIApplication) {
-    
-    }
-
     func applicationWillTerminate(_ application: UIApplication) {
         
         self.saveContext()
+    }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        
+        handleShortcutAction(shortcutItem.type)
+    }
+    
+    func setupShortcutItems() {
+        
+        if GameEngine.sharedInstance.gameWords.count > 0 {
+            let firstItem = UIApplicationShortcutItem(type: "ShortcutItem2", localizedTitle: "Replay game", localizedSubtitle: "With the same words", icon: UIApplicationShortcutIcon(type: .bookmark), userInfo: nil)
+            
+            UIApplication.shared.shortcutItems = [firstItem]
+        }
+        
+    }
+    
+    func handleShortcutAction(_ type:String) {
+        
+        let rootNav = self.window?.rootViewController as! UINavigationController
+        
+        switch type {
+            
+        case "ShortcutItem1":
+            
+            GameEngine.sharedInstance.loadNewGameWords()
+            let gameVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GameVC")
+            rootNav.pushViewController(gameVC, animated: false)
+            break;
+            
+        case "ShortcutItem2":
+            let gameVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GameVC")
+            rootNav.pushViewController(gameVC, animated: false)
+            break;
+            
+        case "ShortcutItem3":
+            let wordListVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WordListVC")
+            rootNav.pushViewController(wordListVC, animated: false)
+            break;
+            
+        default:
+            break;
+            
+        }
+        
     }
     
     // MARK: - Core Data stack

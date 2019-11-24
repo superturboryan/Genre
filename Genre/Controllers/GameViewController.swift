@@ -32,7 +32,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var rightAnswerButon: UIButton!
     
     
-    //MARK: - Variables
+    //MARK: Variables
     
     //Timer variables
     private var counter = 0.0
@@ -59,15 +59,16 @@ class GameViewController: UIViewController {
     var animateProgress : CGFloat = 0
     var currentSwipeDirection : SwipeDirection!
     
-//MARK: - View load, appear, disappear
+//MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+        hideAnswerButtons(animated: false)
         setupView()
     }
     
@@ -82,7 +83,11 @@ class GameViewController: UIViewController {
 
         updateUI(withNewCards: 1)
         startTimer()
+        
+        showAnswerButtons(animated: true)
     }
+    
+    //MARK: Setup UI
     
     @objc func setupView() {
         
@@ -112,18 +117,7 @@ class GameViewController: UIViewController {
         loadEmptyScene()
     }
     
-    func loadEmptyScene() {
-        let emptyScene = SKScene()
-        skView.backgroundColor = .clear
-        skView.presentScene(emptyScene)
-    }
     
-    func playConfetti() {
-        self.skView.isHidden = false
-        let confettiScene = ConfettiScene(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
-        confettiScene.setupConfetti(withPositon: CGPoint(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height*0.99))
-        self.skView.presentScene(confettiScene)
-    }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         
@@ -147,31 +141,57 @@ class GameViewController: UIViewController {
         }
     }
     
-    
-    @objc func updateUI(withNewCards count:Int) {
+    func hideAnswerButtons(animated:Bool) {
         
-        scoreLabel.text = "\(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.numberOfQuestionsForGame)"
-
-        if options.value(forKey: "Progress") as! Bool == true {
-            UIView.animate(withDuration: 0.8, delay: 0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                self.progressBar.frame.size.width = (self.view.frame.size.width / CGFloat(GameEngine.sharedInstance.numberOfQuestionsForGame)) * CGFloat(GameEngine.sharedInstance.currentQuestionIndex)
-            }, completion: nil)
+        if animated {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+                self.leftAnswerButton.transform = CGAffineTransform.init(scaleX: 0, y: 0)
+                self.rightAnswerButon.transform = CGAffineTransform.init(scaleX: 0, y: 0)
+            }) { (completion) in return }
+        }
+        else {
+            self.leftAnswerButton.transform = CGAffineTransform.init(scaleX: 0, y: 0)
+            self.rightAnswerButon.transform = CGAffineTransform.init(scaleX: 0, y: 0)
         }
         
-        if (count != 0) {
-            for _ in 0..<count {
-               addNextCard()
-                
-            }
-        }
     }
     
+    func showAnswerButtons(animated:Bool) {
+        
+        if animated {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+                self.leftAnswerButton.transform = CGAffineTransform.identity
+                self.rightAnswerButon.transform = CGAffineTransform.identity
+            }) { (completion) in return }
+        }
+        else {
+            self.leftAnswerButton.transform = CGAffineTransform.identity
+            self.rightAnswerButon.transform = CGAffineTransform.identity
+        }
+        
+    }
     
     @objc func updateTimer() {
         counter += 0.1
         timerLabel.text = String(format: "%.1f" , counter)
     }
     
+    //MARK: SpriteKit
+    
+    func loadEmptyScene() {
+        let emptyScene = SKScene()
+        skView.backgroundColor = .clear
+        skView.presentScene(emptyScene)
+    }
+    
+    func playConfetti() {
+        self.skView.isHidden = false
+        let confettiScene = ConfettiScene(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
+        confettiScene.setupConfetti(withPositon: CGPoint(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height*0.99))
+        self.skView.presentScene(confettiScene)
+    }
+    
+    //MARK: Gesture Recognizer
     
     @objc func wordCardViewPanned(recognizer : UIPanGestureRecognizer) {
 
@@ -248,18 +268,24 @@ class GameViewController: UIViewController {
         }
     }
     
-    func finishGame() {
+    //MARK: Game UI
+    
+    @objc func updateUI(withNewCards count:Int) {
         
-        self.timer.invalidate()
-       UIView.animate(withDuration: 0.7, animations: {
-           self.scoreLabel.alpha = 0
-           self.progressBar.frame.size.width = self.view.frame.size.width
-       })
-       self.updateUI(withNewCards: 0)
-       //Delay finish popup to show +1 label
-       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-           self.gameFinishedPopup()
-       })
+        scoreLabel.text = "\(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.numberOfQuestionsForGame)"
+
+        if options.value(forKey: "Progress") as! Bool == true {
+            UIView.animate(withDuration: 0.8, delay: 0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+                self.progressBar.frame.size.width = (self.view.frame.size.width / CGFloat(GameEngine.sharedInstance.numberOfQuestionsForGame)) * CGFloat(GameEngine.sharedInstance.currentQuestionIndex)
+            }, completion: nil)
+        }
+        
+        if (count != 0) {
+            for _ in 0..<count {
+               addNextCard()
+                
+            }
+        }
     }
     
     func revealAndHidePopup(forCorrect correct:Bool) {
@@ -323,6 +349,8 @@ class GameViewController: UIViewController {
         animator.pauseAnimation()
         animateProgress = animator.fractionComplete
     }
+    
+    //MARK: Create cards
     
     func addNextCard() {
     
@@ -395,12 +423,28 @@ class GameViewController: UIViewController {
         }
     }
     
+    //MARK: Game finished
+    
+    func finishGame() {
+        
+        self.hideAnswerButtons(animated: true)
+        
+        self.timer.invalidate()
+       UIView.animate(withDuration: 0.7, animations: {
+           self.scoreLabel.alpha = 0
+           self.progressBar.frame.size.width = self.view.frame.size.width
+       })
+       self.updateUI(withNewCards: 0)
+       //Delay finish popup to show +1 label
+       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+           self.gameFinishedPopup()
+       })
+    }
+    
     func gameFinishedPopup() {
         
         addGameFinishedView()
-        
         GameEngine.sharedInstance.saveGameAndUpdateStats()
-        
         presentGameFinishedView()
     }
     
@@ -446,7 +490,13 @@ class GameViewController: UIViewController {
                 
     }
     
+    //MARK: Restart
+    
     @IBAction func restartPressed(_ sender: UIButton) {
+        
+        self.view.sendSubviewToBack(self.skView)
+        
+        self.showAnswerButtons(animated: true)
         
         GameEngine.sharedInstance.restartGame(withNewWords: true)
         
@@ -481,11 +531,11 @@ class GameViewController: UIViewController {
         }
     }
     
+    //MARK: Answer buttons
     
     @IBAction func answerButtonPressed(_ sender: UIButton) {
         
         simulateSwipeForDirection(sender.tag==2)
-        
     }
     
     func simulateSwipeForDirection(_ direction:Bool) {
@@ -493,7 +543,7 @@ class GameViewController: UIViewController {
         UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseIn, animations: {
             
             let transform = CGAffineTransform(translationX: direction ? self.view.frame.width*1.1 : -self.view.frame.width*1.1, y: 0)
-            self.wordCardView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+            self.wordCardView.transform = CGAffineTransform(rotationAngle: CGFloat(direction ? Double.pi / 8 : -Double.pi / 8 )).concatenating(transform)
             
         }) { (completion) in
             
@@ -519,10 +569,7 @@ class GameViewController: UIViewController {
             else{
                 self.updateUI(withNewCards: 1)
             }
-
         }
-        
     }
-    
     
 }
