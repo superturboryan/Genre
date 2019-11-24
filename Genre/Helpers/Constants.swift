@@ -36,3 +36,5 @@ let kMascCorrectCount = "MascCorrectCount"
 let kMascIncorrectCount = "MascIncorrectCount"
 let kFemCorrectCount = "FemCorrectCount"
 let kFemIncorrectCount = "FemIncorrectCount"
+
+let kHasPresentedAppleReviewPopup = "hasPresentedDefaultPopup"

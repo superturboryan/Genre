@@ -15,21 +15,26 @@ class AppStoreReviewManager: NSObject {
     
     func presentPopupIfAppropriate() {
         
-        SKStoreReviewController.requestReview()
+        if options.bool(forKey: kHasPresentedAppleReviewPopup) == false {
+          SKStoreReviewController.requestReview()
+        }
     }
     
     func checkIfReviewShouldBeRequested() {
         
-        if StatsManager.sharedInstance.getTotalSessionsCount() >= 3 {
+        if (StatsManager.sharedInstance.getTotalSessionsCount() == 3 || StatsManager.sharedInstance.getTotalSessionsCount() == 10) &&
+            options.bool(forKey: kHasPresentedAppleReviewPopup) == false {
          
             if var topController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
                 
                 while let presentedViewController = topController.presentedViewController as? UINavigationController {
                     topController = presentedViewController
                 }
+                
                 let reviewVC = AppStorePopupViewController()
                 let navVC = UINavigationController(rootViewController: reviewVC)
                 navVC.isNavigationBarHidden = true
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     topController.present(navVC, animated: true, completion: nil)
                 }

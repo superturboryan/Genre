@@ -37,8 +37,6 @@ class OptionsViewController: UIViewController {
         super.viewDidLoad()
         // Hide menu view on load
         hideOptionsMenu(toTheRight:false, withAnimation: false) { }
-        
-//        presentOnboarding()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -196,6 +194,7 @@ class OptionsViewController: UIViewController {
         presentOnboarding()
     }
     
+    //MARK:Onboarding
 
     var overlay = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
     var currentCircleRect = CGRect()
@@ -309,6 +308,7 @@ class OptionsViewController: UIViewController {
         }
     }
     
+    //MARK: Onboarding helpers
     func fadeInAndOutLabel(inView:UIView, withText text:String, positionNextToView view:UIView, afterDelay delay:Double, thenDo: @escaping CompletionHandler) {
         
         let labelFrame = self.menuView.convert(view.frame, to: inView)
@@ -367,6 +367,7 @@ class OptionsViewController: UIViewController {
     
 }
 
+//MARK: Color extension
 extension UIColor {
     
     static func colorWith(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {

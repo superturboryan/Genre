@@ -22,8 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         self.checkIfCsvHasBeenLoadedIntoCoreData()
         
-        
-        
         return true
     }
     
@@ -157,18 +155,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             options.set(true, forKey: kOptionsSet)
             
+            options.set(NSLocale.preferredLanguages[0].prefix(2) == "fr", forKey: kFrenchLanguage)
+            
             options.set(false, forKey: kHints)
             options.set(false, forKey: kTimer)
             options.set(true, forKey: kProgress)
             options.set(false, forKey: kSuddenDeath)
             options.set(10, forKey: kWordCount)
-            options.set(false, forKey: kFrenchLanguage)
             options.set(0, forKey: kCorrectCount)
             options.set(0, forKey: kIncorrectCount)
             options.set(0, forKey: kMascCorrectCount)
             options.set(0, forKey: kMascIncorrectCount)
             options.set(0, forKey: kFemCorrectCount)
             options.set(0, forKey: kFemIncorrectCount)
+            
+            options.set(false, forKey: kHasPresentedAppleReviewPopup)
             
             print("Default options set!" + String(options.bool(forKey: "OptionsSet")))
         }

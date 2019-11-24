@@ -51,7 +51,7 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
         
         showMenu(WithDelay: 0.3)
         
-//AppStoreReviewManager.sharedInstance.checkIfReviewShouldBeRequested()
+        AppStoreReviewManager.sharedInstance.checkIfReviewShouldBeRequested()
     }
   
     override func viewDidLayoutSubviews() {

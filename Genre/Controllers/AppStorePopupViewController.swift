@@ -17,18 +17,30 @@ class AppStorePopupViewController: UIViewController {
     @IBOutlet weak var positiveAnswerButton: UIButton!
     @IBOutlet weak var negativeAnswerButton: UIButton!
     
+    var viewCount = 0;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if viewCount == 1 {
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        viewCount += 1
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
            self.performHandShake()
         }
-        
     }
     
     func setupView() {
@@ -38,7 +50,7 @@ class AppStorePopupViewController: UIViewController {
 
     @IBAction func positiveButtonPressed(_ sender: UIButton) {
         AppStoreReviewManager.sharedInstance.presentPopupIfAppropriate()
-        self.dismiss(animated: true, completion: nil)
+        options.set(true, forKey: kHasPresentedAppleReviewPopup)
     }
     
     @IBAction func negativeButtonPressed(_ sender: UIButton) {
