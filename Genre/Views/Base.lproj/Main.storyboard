@@ -557,6 +557,14 @@
                                             </view>
                                         </subviews>
                                     </stackView>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VVi-gU-B41" customClass="MacawChartView" customModule="Genre" customModuleProvider="target">
+                                        <rect key="frame" x="17.5" y="-110" width="300" height="300"/>
+                                        <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="300" id="9a5-e8-IdH"/>
+                                            <constraint firstAttribute="width" constant="300" id="inz-MB-kaW"/>
+                                        </constraints>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZp-XC-gH0">
                                         <rect key="frame" x="158" y="173" width="19" height="22"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -574,6 +582,8 @@
                                     <constraint firstItem="4j3-Cf-g6B" firstAttribute="centerX" secondItem="xIH-bR-29R" secondAttribute="centerX" id="DbD-Ue-EZs"/>
                                     <constraint firstAttribute="height" constant="200" id="Dd6-Jm-rps"/>
                                     <constraint firstItem="BAB-7b-9Zs" firstAttribute="leading" secondItem="xIH-bR-29R" secondAttribute="leading" id="Pt2-t5-8uG"/>
+                                    <constraint firstItem="VVi-gU-B41" firstAttribute="centerX" secondItem="xIH-bR-29R" secondAttribute="centerX" id="clz-fL-umy"/>
+                                    <constraint firstAttribute="bottom" secondItem="VVi-gU-B41" secondAttribute="bottom" constant="10" id="f6s-z0-SWQ"/>
                                     <constraint firstAttribute="bottom" secondItem="FZp-XC-gH0" secondAttribute="bottom" constant="5" id="hCq-pq-rf9"/>
                                     <constraint firstAttribute="trailing" secondItem="BAB-7b-9Zs" secondAttribute="trailing" id="kJR-25-j3t"/>
                                     <constraint firstItem="4j3-Cf-g6B" firstAttribute="top" secondItem="xIH-bR-29R" secondAttribute="top" constant="20" id="n7n-eI-RCX"/>
@@ -615,6 +625,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="Dq1-dW-GLc" id="ilV-L1-437"/>
+                        <outlet property="chartView" destination="VVi-gU-B41" id="7c6-ON-3yu"/>
+                        <outlet property="chartViewHeight" destination="9a5-e8-IdH" id="LuK-cA-pak"/>
+                        <outlet property="chartViewWidth" destination="inz-MB-kaW" id="6vQ-km-SiZ"/>
                         <outlet property="collectionView" destination="Kcr-ZS-3fe" id="Znl-z6-uV2"/>
                         <outlet property="headerExpandButton" destination="FZp-XC-gH0" id="Ve6-dL-Jhx"/>
                         <outlet property="headerHeightConstraint" destination="Dd6-Jm-rps" id="Bck-qj-C4c"/>

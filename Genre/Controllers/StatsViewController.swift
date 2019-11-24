@@ -170,7 +170,8 @@ class StatsViewController: UIViewController {
         UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         }) { (completion) in
-            return
+            
+            self.showChartView()
         }
         
     }
@@ -192,6 +193,32 @@ class StatsViewController: UIViewController {
             return
         }
     }
+    
+    //MARK:Macaw Chart View
+    
+    @IBOutlet weak var chartView: MacawChartView!
+    @IBOutlet weak var chartViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var chartViewWidth: NSLayoutConstraint!
+    
+    func showChartView() {
+        
+        chartView.contentMode = .scaleAspectFit
+        chartView.isHidden = !chartView.isHidden
+        MacawChartView.reloadSessions()
+        MacawChartView.playAnimation()
+        
+//        chartViewWidth.constant = self.chartView.frame.size.width * 0.8
+//        chartViewHeight.constant =  self.chartView.frame.size.height * 0.5
+
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+            
+            self.view.layoutIfNeeded()
+            
+        }) { (completion) in
+            return
+        }
+    }
+    
 }
 
 //MARK: UICollectionViewDelegate

@@ -36,7 +36,7 @@ class MacawChartView: MacawView {
         
         super.init(node: MacawChartView.createChart(), coder: aDecoder)
         
-        backgroundColor = .clear
+        backgroundColor = .systemPink
     }
     
     

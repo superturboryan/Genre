@@ -30,8 +30,6 @@ class StatsViewControllerOld: UIViewController {
         
         setupCircularProgressBar()
         
-        setupView()
-        
         animateProgressCircleToPercent(value: overallCorrectPercentage)
         
         setupOverallPercentLabelAnimation()
