@@ -60,7 +60,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let firstItem = UIApplicationShortcutItem(type: "ShortcutItem2", localizedTitle: "Replay game", localizedSubtitle: "With the same words", icon: UIApplicationShortcutIcon(type: .bookmark), userInfo: nil)
             
             UIApplication.shared.shortcutItems?.append(firstItem)
-        
         }
         
         if SessionManager.sharedInstance.getAllSessions().count > 0 {
@@ -68,7 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let secondItem = UIApplicationShortcutItem(type: "ShortcutItem4", localizedTitle: "View Stats", localizedSubtitle: "Review past games", icon: UIApplicationShortcutIcon(type: .time), userInfo: nil)
             
             UIApplication.shared.shortcutItems?.append(secondItem)
-            
         }
         
     }

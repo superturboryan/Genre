@@ -21,6 +21,11 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var leftHeaderStat: UILabel!
     @IBOutlet weak var rightHeaderStat: UILabel!
     
+    @IBOutlet weak var headerExpandButton: UIButton!
+    
+    @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
+    
+    
     //MARK: Properties
     var leftDisplayLink: CADisplayLink?
     var rightDisplayLink: CADisplayLink?
@@ -33,7 +38,8 @@ class StatsViewController: UIViewController {
     var cellColourArray: [UIColor] = [.systemBlue, .systemPink, .systemOrange, .systemGreen]
     var cellDescArray: [String] = ["Overall", "Exceptions", "Masculine", "Feminine"]
     
-    var originalFrame: CGRect?
+    var originalHeaderFrame: CGRect?
+    var originalCellFrame: CGRect?
     
     //MARK: Lifecycle
     override func viewDidLoad() {
@@ -139,12 +145,52 @@ class StatsViewController: UIViewController {
        }
     }
     
+    //MARK:IB Actions
     @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
         
         self.delegate?.shrinkMenu()
         self.delegate?.showButtons()
         
         self.navigationController?.popViewController(animated: false)
+    }
+    
+    
+    @IBAction func headerExpandButtonPressed(_ sender: UIButton) {
+        self.expandOrShrinkHeader()
+    }
+    
+    //MARK:UI Animations
+    func expandOrShrinkHeader() {
+        
+        if self.headerHeightConstraint.constant != 535 {
+           self.headerHeightConstraint.constant = 535
+        }
+        else {self.headerHeightConstraint.constant = 200}
+        
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        }) { (completion) in
+            return
+        }
+        
+    }
+    
+    func expandOrShrinkCell(_ cell:StatsCircleProgressCell) {
+        cell.removeCircularProgressBar()
+        
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+            
+            if (cell.frame != self.collectionView.bounds) {
+                self.originalCellFrame = cell.frame
+                cell.frame = self.collectionView.bounds
+            }
+            else {cell.frame = self.originalCellFrame!}
+            
+            cell.positionCircularProgressBar()
+            
+        }) { (completion) in
+            return
+        }
     }
 }
 
@@ -162,26 +208,12 @@ extension StatsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath) as! StatsCircleProgressCell
+        
+        expandOrShrinkCell(cell)
+        
         collectionView.isScrollEnabled = false
         collectionView.bringSubviewToFront(cell)
-        
-        cell.removeCircularProgressBar()
-        
-        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
-            
-            if (cell.frame != collectionView.bounds) {
-                self.originalFrame = cell.frame
-                cell.frame = collectionView.bounds
-            }
-            else {cell.frame = self.originalFrame!}
-            
-            cell.positionCircularProgressBar()
-            
-        }) { (completion) in
-            return
-        }
     }
-    
 }
 
 //MARK: UICollectionViewDataSource
