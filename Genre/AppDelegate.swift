@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        self.setupShortcutItems()
+        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
- 
+        self.setupShortcutItems()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -56,9 +56,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupShortcutItems() {
         
         if GameEngine.sharedInstance.gameWords.count > 0 {
+            
             let firstItem = UIApplicationShortcutItem(type: "ShortcutItem2", localizedTitle: "Replay game", localizedSubtitle: "With the same words", icon: UIApplicationShortcutIcon(type: .bookmark), userInfo: nil)
             
             UIApplication.shared.shortcutItems = [firstItem]
+        
+        }
+        else {
+            
+            UIApplication.shared.shortcutItems = []
+            
         }
         
     }
