@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OptionsViewController: UIViewController {
+class OptionsViewController: UIViewController, LanguageChange {
 
     //MARK: Outlets
     @IBOutlet weak var menuView: UIView!
@@ -60,7 +60,7 @@ class OptionsViewController: UIViewController {
         self.menuView.layer.cornerRadius = 15.0
         
         setupToggles()
-        setupLabels()
+        updateLanguageLabels()
         
         sameWordsButton.isEnabled = GameEngine.sharedInstance.gameWords.count != 0
 
@@ -76,14 +76,27 @@ class OptionsViewController: UIViewController {
             optionsMenuHeight.constant = 550.0
         }
     }
+
     
-    func setupLabels() {
-        //Set label language
-        hintsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Conseils:":"Hints:"
-        timerLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Chrono:":"Timer:"
-        progressLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Progrès:":"Progress Bar:"
-        numOfWordsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "# de mots:":"Word Count:"
-        suddenDeathLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Mort soudain:":"Sudden death:"
+    func updateLanguageLabels() {
+        
+        guard let currentLanguageIsFrench = options.value(forKey: "FrenchLanguage") as? Bool
+            else {fatalError()}
+        
+        if (currentLanguageIsFrench == true) {
+            hintsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Conseils:":"Hints:"
+            timerLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Chrono:":"Timer:"
+            progressLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Progrès:":"Progress Bar:"
+            numOfWordsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "# de mots:":"Word Count:"
+            suddenDeathLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Mort soudain:":"Sudden death:"
+        }
+        else {
+            hintsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Conseils:":"Hints:"
+            timerLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Chrono:":"Timer:"
+            progressLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Progrès:":"Progress Bar:"
+            numOfWordsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "# de mots:":"Word Count:"
+            suddenDeathLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Mort soudain:":"Sudden death:"
+        }
     }
     
     func addMenuShadow() {

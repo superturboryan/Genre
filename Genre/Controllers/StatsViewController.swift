@@ -9,7 +9,7 @@
 import UIKit
 
 
-class StatsViewController: UIViewController {
+class StatsViewController: UIViewController, LanguageChange {
     
     //MARK: Outlets
     @IBOutlet weak var backButton: UIBarButtonItem!
@@ -84,6 +84,19 @@ class StatsViewController: UIViewController {
         self.navigationController?.navigationBar.backgroundColor = .white
         self.navigationController?.navigationBar.barTintColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black]
+    }
+    
+    func updateLanguageLabels() {
+        
+        guard let currentLanguageIsFrench = options.value(forKey: "FrenchLanguage") as? Bool
+            else {fatalError()}
+        
+        if (currentLanguageIsFrench == true) {
+            
+        }
+        else {
+            
+        }
     }
     
     //MARK: Load Stats

@@ -12,7 +12,7 @@ import ProgressHUD
 import ChameleonFramework
 import SpriteKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, LanguageChange {
 
     //MARK: - Outlets
     
@@ -182,6 +182,19 @@ class GameViewController: UIViewController {
     @objc func updateTimer() {
         counter += 0.1
         timerLabel.text = String(format: "%.1f" , counter)
+    }
+    
+    func updateLanguageLabels() {
+        
+        guard let currentLanguageIsFrench = options.value(forKey: "FrenchLanguage") as? Bool
+            else {fatalError()}
+        
+        if (currentLanguageIsFrench == true) {
+            
+        }
+        else {
+            
+        }
     }
     
     //MARK: SpriteKit

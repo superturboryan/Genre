@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WordDetailViewController: UIViewController {
+class WordDetailViewController: UIViewController, LanguageChange {
 
     @IBOutlet var titleLabel: UILabel!
     
@@ -30,7 +30,18 @@ class WordDetailViewController: UIViewController {
         
     }
     
-    
+    func updateLanguageLabels() {
+        
+        guard let currentLanguageIsFrench = options.value(forKey: "FrenchLanguage") as? Bool
+            else {fatalError()}
+        
+        if (currentLanguageIsFrench == true) {
+            
+        }
+        else {
+            
+        }
+    }
     
     
     

@@ -16,7 +16,7 @@ enum FilterOption : Int {
 }
 
 
-class WordListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class WordListViewController: UIViewController, LanguageChange, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -81,6 +81,19 @@ class WordListViewController: UIViewController, UITableViewDataSource, UITableVi
             self.coverView.alpha = 0
         }) { (success) in
             return
+        }
+    }
+    
+    func updateLanguageLabels() {
+        
+        guard let currentLanguageIsFrench = options.value(forKey: "FrenchLanguage") as? Bool
+            else {fatalError()}
+        
+        if (currentLanguageIsFrench == true) {
+            
+        }
+        else {
+            
         }
     }
     

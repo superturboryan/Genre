@@ -16,7 +16,11 @@ protocol MainMenuDelegate {
     func showMenu(WithDelay:Double)
 }
 
-class MainMenuViewController: UIViewController, MainMenuDelegate {
+protocol LanguageChange {
+    func updateLanguageLabels()
+}
+
+class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange {
 
     //MARK: Outlets
     @IBOutlet weak var menuView: UIView!
@@ -127,7 +131,7 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
             else {fatalError()}
         options.set(!currentLang, forKey: "FrenchLanguage")
         hideMenu(toTheRight:false,withAnimation: true,thenDo: {})
-        changeLabelLanguage()
+        updateLanguageLabels()
         showMenu(WithDelay: 0.8)
     }
     
@@ -227,7 +231,7 @@ class MainMenuViewController: UIViewController, MainMenuDelegate {
         }
     }
     
-    func changeLabelLanguage() {
+    func updateLanguageLabels() {
         
         guard let currentLanguageIsFrench = options.value(forKey: "FrenchLanguage") as? Bool
             else {fatalError()}
