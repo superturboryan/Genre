@@ -63,6 +63,8 @@ class WordListViewController: UIViewController, LanguageChange, UITableViewDataS
         
         loadAlphabeticalWordList()
         
+        updateLanguageLabels()
+        
         setupCoverView()
         
         hideCoverView()
@@ -90,10 +92,12 @@ class WordListViewController: UIViewController, LanguageChange, UITableViewDataS
             else {fatalError()}
         
         if (currentLanguageIsFrench == true) {
-            
+            self.title = "Vocabulaire"
+            self.backButton.title = "Retour"
         }
         else {
-            
+            self.title = "Word List"
+            self.backButton.title = "Back"
         }
     }
     

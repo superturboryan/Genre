@@ -12,6 +12,7 @@ import UIKit
 typealias CompletionHandler = () -> Void
 
 let options = UserDefaults.standard
+let ouiEnFrancais = options.bool(forKey: kFrenchLanguage)
 
 let vowels = ["a","e","i","o","u","h"]
 

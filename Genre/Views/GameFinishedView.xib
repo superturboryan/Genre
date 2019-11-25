@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +14,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vos résultats" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRz-OW-EUx">
-                    <rect key="frame" x="15" y="107.5" width="247" height="55"/>
+                    <rect key="frame" x="21.5" y="50" width="247" height="55"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="1UG-kl-vZo"/>
                     </constraints>
@@ -26,25 +23,25 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: XX / XX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UzN-s2-enO">
-                    <rect key="frame" x="30" y="167.5" width="139" height="23"/>
+                    <rect key="frame" x="21.5" y="135" width="139" height="23"/>
                     <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pourcentage: XXX% " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bc-60-Dna">
-                    <rect key="frame" x="30" y="195.5" width="190" height="23"/>
+                    <rect key="frame" x="21.5" y="163" width="190" height="23"/>
                     <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chrono: 0000.0s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="She-oh-e81">
-                    <rect key="frame" x="30" y="223.5" width="155" height="23"/>
+                    <rect key="frame" x="21.5" y="191" width="155" height="23"/>
                     <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MPM: 50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTi-Kj-tne">
-                    <rect key="frame" x="30" y="251.5" width="85" height="23"/>
+                    <rect key="frame" x="21.5" y="219" width="85" height="23"/>
                     <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -53,15 +50,15 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="7bc-60-Dna" firstAttribute="top" secondItem="UzN-s2-enO" secondAttribute="bottom" constant="5" id="1WF-sO-1W8"/>
-                <constraint firstItem="UzN-s2-enO" firstAttribute="top" secondItem="eRz-OW-EUx" secondAttribute="bottom" constant="5" id="CFF-30-1Od"/>
+                <constraint firstItem="UzN-s2-enO" firstAttribute="top" secondItem="eRz-OW-EUx" secondAttribute="bottom" constant="30" id="CFF-30-1Od"/>
                 <constraint firstItem="bTi-Kj-tne" firstAttribute="top" secondItem="She-oh-e81" secondAttribute="bottom" constant="5" id="Epd-u7-Mpe"/>
                 <constraint firstItem="She-oh-e81" firstAttribute="top" secondItem="7bc-60-Dna" secondAttribute="bottom" constant="5" id="L6E-ha-uao"/>
-                <constraint firstItem="UzN-s2-enO" firstAttribute="leading" secondItem="eRz-OW-EUx" secondAttribute="leading" constant="15" id="QKz-g9-ODY"/>
-                <constraint firstItem="eRz-OW-EUx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="Skx-FP-x45"/>
+                <constraint firstItem="eRz-OW-EUx" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="50" id="Oac-pc-eaB"/>
                 <constraint firstItem="bTi-Kj-tne" firstAttribute="leading" secondItem="She-oh-e81" secondAttribute="leading" id="XAZ-MG-YyW"/>
                 <constraint firstItem="7bc-60-Dna" firstAttribute="leading" secondItem="UzN-s2-enO" secondAttribute="leading" id="bdY-z7-IZ0"/>
+                <constraint firstItem="eRz-OW-EUx" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fWx-9t-Vdb"/>
+                <constraint firstItem="UzN-s2-enO" firstAttribute="leading" secondItem="eRz-OW-EUx" secondAttribute="leading" id="hJ3-Oi-HSa"/>
                 <constraint firstItem="She-oh-e81" firstAttribute="leading" secondItem="7bc-60-Dna" secondAttribute="leading" id="kQQ-Gl-huG"/>
-                <constraint firstItem="eRz-OW-EUx" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-10" id="n1g-lE-Xpg"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -69,6 +66,7 @@
                 <outlet property="chrono" destination="She-oh-e81" id="x6u-bz-FJb"/>
                 <outlet property="correctAnswers" destination="UzN-s2-enO" id="mBZ-Vg-ucj"/>
                 <outlet property="percentage" destination="7bc-60-Dna" id="MGW-W9-EN4"/>
+                <outlet property="titleLabel" destination="eRz-OW-EUx" id="Qi6-Pe-gc7"/>
                 <outlet property="wpm" destination="bTi-Kj-tne" id="sM9-v9-9rj"/>
             </connections>
             <point key="canvasLocation" x="124.8" y="290.55472263868069"/>

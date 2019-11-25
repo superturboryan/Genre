@@ -79,24 +79,13 @@ class OptionsViewController: UIViewController, LanguageChange {
 
     
     func updateLanguageLabels() {
-        
-        guard let currentLanguageIsFrench = options.value(forKey: "FrenchLanguage") as? Bool
-            else {fatalError()}
-        
-        if (currentLanguageIsFrench == true) {
-            hintsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Conseils:":"Hints:"
-            timerLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Chrono:":"Timer:"
-            progressLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Progrès:":"Progress Bar:"
-            numOfWordsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "# de mots:":"Word Count:"
-            suddenDeathLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Mort soudain:":"Sudden death:"
-        }
-        else {
-            hintsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Conseils:":"Hints:"
-            timerLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Chrono:":"Timer:"
-            progressLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Progrès:":"Progress Bar:"
-            numOfWordsLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "# de mots:":"Word Count:"
-            suddenDeathLabel.text = options.bool(forKey: kFrenchLanguage) == true ? "Mort soudain:":"Sudden death:"
-        }
+        hintsLabel.text = ouiEnFrancais ? "Conseils:":"Hints:"
+        timerLabel.text = ouiEnFrancais ? "Chrono:":"Timer:"
+        progressLabel.text = ouiEnFrancais ? "Progrès:":"Progress Bar:"
+        numOfWordsLabel.text = ouiEnFrancais ? "# de mots:":"Word Count:"
+        suddenDeathLabel.text = ouiEnFrancais ? "Mort soudain:":"Sudden death:"
+        newWordsButton.setTitle(ouiEnFrancais ? "Nouveaux" : "New words", for: .normal)
+        sameWordsButton.setTitle(ouiEnFrancais ? "Mêmes" : "Same", for: .normal)
     }
     
     func addMenuShadow() {

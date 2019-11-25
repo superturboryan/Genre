@@ -26,6 +26,7 @@ class StatsViewController: UIViewController, LanguageChange {
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
     
     
+    
     //MARK: Properties
     var leftDisplayLink: CADisplayLink?
     var rightDisplayLink: CADisplayLink?
@@ -35,8 +36,8 @@ class StatsViewController: UIViewController, LanguageChange {
     var delegate: MainMenuDelegate?
     
     var statsToDisplay: [Double] = [Double]()
-    var cellColourArray: [UIColor] = [.systemBlue, .systemPink, .systemOrange, .systemGreen]
-    var cellDescArray: [String] = ["Overall", "Exceptions", "Masculine", "Feminine"]
+    var cellColourArray: [UIColor] = [.systemGreen, .systemOrange, .systemPink, .systemBlue]
+    var cellDescArray: [String] = [String]()
     
     var originalHeaderFrame: CGRect?
     var originalCellFrame: CGRect?
@@ -49,6 +50,7 @@ class StatsViewController: UIViewController, LanguageChange {
         
         self.loadStats()
         self.setupNavigationController()
+        self.updateLanguageLabels()
         self.setupView()
         self.setupCollectionView()
     }
@@ -88,15 +90,10 @@ class StatsViewController: UIViewController, LanguageChange {
     
     func updateLanguageLabels() {
         
-        guard let currentLanguageIsFrench = options.value(forKey: "FrenchLanguage") as? Bool
-            else {fatalError()}
+        self.leftHeaderLabel.text =  ouiEnFrancais ? "Sessions Jouées":"Games Played"
+        self.rightHeaderLabel.text =  ouiEnFrancais ? "Cartes Glisées":"Cards Swiped"
         
-        if (currentLanguageIsFrench == true) {
-            
-        }
-        else {
-            
-        }
+        self.cellDescArray = ouiEnFrancais ? ["Globale", "Exceptions", "Masculin", "Féminin"] : ["Overall", "Exceptions", "Masculine", "Feminine"]
     }
     
     //MARK: Load Stats

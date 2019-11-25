@@ -489,10 +489,16 @@ class GameViewController: UIViewController, LanguageChange {
     func presentGameFinishedView() {
         let wpm = ( Double(GameEngine.sharedInstance.numberOfQuestionsForGame) / counter ) * 60.0
         let percentage = String(format: "%.1f" , (Double(GameEngine.sharedInstance.userScore) / Double(GameEngine.sharedInstance.gameWords.count)) * 100.0)
-        gameFinishedView.correctAnswers.text = "Score: \(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.gameWords.count)"
-        gameFinishedView.percentage.text = "Pourcentage: " + percentage + "%"
-        gameFinishedView.chrono.text = "Chrono: " + String(format: "%.1f" , counter) + " s"
-        gameFinishedView.wpm.text = "MPM: " + String(format: "%.1f" , wpm)
+        
+        let score = "Score: \(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.gameWords.count)"
+        let percentageText = ouiEnFrancais ? "Pourcentage: " + percentage + "%" : "Percentage: " + percentage + "%"
+        let chrono = ouiEnFrancais ? "Chrono: " + String(format: "%.1f" , counter) + " s" : "Timer: " + String(format: "%.1f" , counter) + " s"
+        let wpmText = ouiEnFrancais ? "MPM: " + String(format: "%.1f" , wpm) : "WPM: " + String(format: "%.1f" , wpm)
+        
+        gameFinishedView.correctAnswers.text = score
+        gameFinishedView.percentage.text = percentageText
+        gameFinishedView.chrono.text = chrono
+        gameFinishedView.wpm.text = wpmText
         
         gameFinishedView.alpha = 0
         gameFinishedView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
