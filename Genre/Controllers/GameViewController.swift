@@ -308,11 +308,19 @@ class GameViewController: UIViewController, LanguageChange {
     func revealAndHidePopup(forCorrect correct:Bool) {
 
         if (correct) {
-            self.feedbackPopup.image = UIImage.init(systemName: "checkmark")
+            if #available(iOS 13.0, *) {
+                self.feedbackPopup.image = UIImage(systemName: "checkmark")
+            } else {
+                self.feedbackPopup.image = UIImage()
+            }
             self.feedbackPopup.tintColor = UIColor.systemBlue
         }
         else {
-            self.feedbackPopup.image = UIImage.init(systemName: "xmark")
+            if #available(iOS 13.0, *) {
+                self.feedbackPopup.image = UIImage(systemName: "xmark")
+            } else {
+                self.feedbackPopup.image = UIImage()
+            }
             self.feedbackPopup.tintColor = UIColor.systemPink
         }
         
