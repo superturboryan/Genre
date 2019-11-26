@@ -130,9 +130,10 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
         guard let currentLang = options.value(forKey: "FrenchLanguage") as? Bool
             else {fatalError()}
         options.set(!currentLang, forKey: "FrenchLanguage")
-        hideMenu(toTheRight:false,withAnimation: true,thenDo: {})
-        updateLanguageLabels()
-        showMenu(WithDelay: 0.8)
+        hideMenu(toTheRight:false,withAnimation: true,thenDo: {
+            self.updateLanguageLabels()
+            self.showMenu(WithDelay: 0.5)
+        })
     }
     
     //MARK:Segue
@@ -158,7 +159,7 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
         if animated {
             UIView.animate(withDuration: 0.8, delay: 0.1, options: .curveEaseInOut, animations: {
                 let transform = CGAffineTransform(translationX: direction ? self.view.frame.width*1.1 : -self.view.frame.width*1.1, y: 0)
-                self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+                self.menuView.transform = CGAffineTransform(rotationAngle: direction ? CGFloat(Double.pi / 8) : -CGFloat(Double.pi / 8)).concatenating(transform)
             }) { (success) in
                 completion()
             }
@@ -166,12 +167,17 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
         else {
             // Transform similar to card swipe animation
             let transform = CGAffineTransform(translationX: direction ? self.view.frame.width*1.1 : -self.view.frame.width*1.1, y: 0)
-           self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+           self.menuView.transform = CGAffineTransform(rotationAngle: direction ? CGFloat(Double.pi / 8) : -CGFloat(Double.pi / 8)).concatenating(transform)
         }
     }
     
     func showMenu(WithDelay delay:Double) {
-        UIView.animate(withDuration: 0.8, delay: delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.8,
+                       delay: delay,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 0,
+                       options: .curveEaseOut,
+                       animations: {
                     
                     self.menuView.transform = CGAffineTransform.identity
                     self.menuView.layer.shadowColor = UIColor.black.cgColor
@@ -187,7 +193,10 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
         self.menuViewHeight.constant = self.view.frame.size.height*1.05
         self.menuViewWidth.constant = self.view.frame.size.width*1.05
         hideButtons()
-        UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.7,
+                       delay: 0,
+                       options: .curveEaseInOut,
+                       animations: {
             self.view.layoutIfNeeded()
         }) { (success) in
             thenDo()
@@ -202,7 +211,12 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
             self.menuViewWidth.constant = 375.0
             self.menuViewHeight.constant = 550.0
         }
-        UIView.animate(withDuration: 1.2, delay: 0.1, usingSpringWithDamping: 0.55, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 1.2,
+                       delay: 0.1,
+                       usingSpringWithDamping: 0.55,
+                       initialSpringVelocity: 0.2,
+                       options: .curveEaseInOut,
+                       animations: {
             self.view.layoutIfNeeded()
         }) { (success) in
             return
@@ -210,7 +224,10 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
     }
     
     func hideButtons() {
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.4,
+                       delay: 0,
+                       options: .curveEaseInOut,
+                       animations: {
             self.startGameButton.alpha = 0
             self.statsButton.alpha = 0
             self.wordListButton.alpha = 0
@@ -221,7 +238,10 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
     }
     
     func showButtons() {
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.4,
+                       delay: 0,
+                       options: .curveEaseInOut,
+                       animations: {
             self.startGameButton.alpha = 1
             self.statsButton.alpha = 1
             self.wordListButton.alpha = 1

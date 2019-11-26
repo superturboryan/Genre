@@ -101,7 +101,7 @@ class OptionsViewController: UIViewController, LanguageChange {
         if animated {
             UIView.animate(withDuration: 0.8, delay: 0.1, options: .curveEaseInOut, animations: {
                 let transform = CGAffineTransform(translationX: direction ? self.view.frame.width*1.1 : -self.view.frame.width*1.1, y: 0)
-                self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+                self.menuView.transform = CGAffineTransform(rotationAngle: direction ? CGFloat(Double.pi / 8) : -CGFloat(Double.pi / 8)).concatenating(transform)
             }) { (success) in
                 completion()
             }
@@ -109,7 +109,7 @@ class OptionsViewController: UIViewController, LanguageChange {
         else {
             // Transform similar to card swipe animation
             let transform = CGAffineTransform(translationX: direction ? self.view.frame.width*1.1 : -self.view.frame.width*1.1, y: 0)
-           self.menuView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
+            self.menuView.transform = CGAffineTransform(rotationAngle: direction ? CGFloat(Double.pi / 8) : -CGFloat(Double.pi / 8)).concatenating(transform)
         }
     }
     

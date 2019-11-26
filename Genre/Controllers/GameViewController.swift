@@ -190,7 +190,7 @@ class GameViewController: UIViewController, LanguageChange {
     }
     
     func updateLanguageLabels() {
-        self.restartButton.setTitle(ouiEnFrancais ? "Recommencer?":"Restart", for: .normal)
+        self.restartButton.setTitle(ouiEnFrancais ? "Recommencer ?":"Restart ?", for: .normal)
     }
     
     //MARK: SpriteKit
@@ -514,7 +514,10 @@ class GameViewController: UIViewController, LanguageChange {
         gameFinishedView.alpha = 0
         gameFinishedView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
 
-        UIView.animate(withDuration: 0.35, delay: 0.1, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.35,
+                       delay: 0.1,
+                       options: .curveEaseInOut,
+                       animations: {
             self.timerLabel.alpha = 0
             self.scoreLabel.alpha = 0
             self.gameFinishedView.alpha = 1
@@ -540,7 +543,10 @@ class GameViewController: UIViewController, LanguageChange {
         
         counter = 0
         
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       options: .curveEaseOut,
+                       animations: {
             
             //Move gameFinishedView off screen
             let transform = CGAffineTransform(translationX: self.view.frame.width, y: 0)
@@ -578,7 +584,10 @@ class GameViewController: UIViewController, LanguageChange {
     
     func simulateSwipeForDirection(_ direction:Bool) {
         
-        UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.6,
+                       delay: 0.0,
+                       options: .curveEaseIn,
+                       animations: {
             
             let transform = CGAffineTransform(translationX: direction ? self.view.frame.width*1.1 : -self.view.frame.width*1.1, y: 0)
             self.wordCardView.transform = CGAffineTransform(rotationAngle: CGFloat(direction ? Double.pi / 8 : -Double.pi / 8 )).concatenating(transform)
