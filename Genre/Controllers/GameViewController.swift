@@ -25,8 +25,7 @@ class GameViewController: UIViewController, LanguageChange {
     
     @IBOutlet var backButton: UIButton!
     
-    @IBOutlet var correctPopup: UIImageView!
-    @IBOutlet var incorrectPopup: UIImageView!
+    @IBOutlet var feedbackPopup: UIImageView!
     
     @IBOutlet weak var leftAnswerButton: UIButton!
     @IBOutlet weak var rightAnswerButon: UIButton!
@@ -70,6 +69,7 @@ class GameViewController: UIViewController, LanguageChange {
         super.viewWillAppear(true)
         hideAnswerButtons(animated: false)
         setupView()
+        updateLanguageLabels()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -107,11 +107,11 @@ class GameViewController: UIViewController, LanguageChange {
         restartButton.alpha = 0
         progressBar.frame.size.width = CGFloat(0)
         
-        correctPopup.alpha = 0
-        incorrectPopup.alpha = 0
+        feedbackPopup.alpha = 0
+        feedbackPopup.transform = .init(scaleX: 0, y: 0)
         
-        correctPopup.layer.cornerRadius = 10
-        incorrectPopup.layer.cornerRadius = 10
+        addShadow(toView: self.leftAnswerButton)
+        addShadow(toView: self.rightAnswerButon)
         
        //Check whether to display timer
         if options.value(forKey: "Timer") as! Bool == false { timerLabel.alpha = 0 }
@@ -125,7 +125,12 @@ class GameViewController: UIViewController, LanguageChange {
         loadEmptyScene()
     }
     
-    
+    func addShadow(toView view:UIView) {
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.4
+        view.layer.shadowOffset = CGSize.zero
+        view.layer.shadowRadius = CGFloat(5)
+    }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         
@@ -185,16 +190,7 @@ class GameViewController: UIViewController, LanguageChange {
     }
     
     func updateLanguageLabels() {
-        
-        guard let currentLanguageIsFrench = options.value(forKey: "FrenchLanguage") as? Bool
-            else {fatalError()}
-        
-        if (currentLanguageIsFrench == true) {
-            
-        }
-        else {
-            
-        }
+        self.restartButton.setTitle(ouiEnFrancais ? "Recommencer?":"Restart", for: .normal)
     }
     
     //MARK: SpriteKit
@@ -312,27 +308,36 @@ class GameViewController: UIViewController, LanguageChange {
     func revealAndHidePopup(forCorrect correct:Bool) {
 
         if (correct) {
-            
-            UIView.animate(withDuration: 0.4, animations: {
-                self.correctPopup.alpha = 1
-               self.scoreLabel.alpha = 0
-            }) { (success) in
-                UIView.animate(withDuration: 0.2, animations: {
-                self.correctPopup.alpha = 0
-                self.scoreLabel.alpha = 1
-                }, completion: nil)
-            }
+            self.feedbackPopup.image = UIImage.init(systemName: "checkmark")
+            self.feedbackPopup.tintColor = UIColor.systemBlue
         }
         else {
-            UIView.animate(withDuration: 0.4, animations: {
-                self.incorrectPopup.alpha = 1
+            self.feedbackPopup.image = UIImage.init(systemName: "xmark")
+            self.feedbackPopup.tintColor = UIColor.systemPink
+        }
+        
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+            
+            self.feedbackPopup.transform = .identity
+            self.feedbackPopup.alpha = 1
+            self.scoreLabel.alpha = 0
+        
+        }) { (success) in
+           
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+                
+                self.feedbackPopup.transform = .init(scaleX: 0, y: 0)
+                self.feedbackPopup.alpha = 0
+                self.scoreLabel.alpha = 1
+                
             }) { (success) in
-                UIView.animate(withDuration: 0.2, animations: {
-                self.incorrectPopup.alpha = 0
-                }, completion: nil)
+                
+                return
             }
         }
+        
     }
+    
     
 
     func animateSwipe(direction : SwipeDirection) {
@@ -472,11 +477,17 @@ class GameViewController: UIViewController, LanguageChange {
     func addGameFinishedView() {
         gameFinishedView = UINib(nibName: "GameFinishedView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? GameFinishedView
         
-        gameFinishedView.frame = CGRect(x: 30, y: (view.frame.height - CGFloat(290)) / 2 , width: view.frame.width - CGFloat(60), height: 290)
+        gameFinishedView.frame = CGRect(x: 30,
+                                        y: (view.frame.height - CGFloat(290)) / 2 ,
+                                        width: view.frame.width - CGFloat(60),
+                                        height: view.frame.width - CGFloat(60))
         
         //iPad sizing
         if (UIScreen.main.bounds.size.height >= 834) {
-            gameFinishedView.frame = CGRect(x: (view.frame.width-400)/2, y: (view.frame.height - CGFloat(400))/2 , width: 400, height: 400)
+            gameFinishedView.frame = CGRect(x: (view.frame.width-400)/2,
+                                            y: (view.frame.height - CGFloat(400))/2 ,
+                                            width: 400,
+                                            height: 400)
         }
         
         view.addSubview(gameFinishedView)

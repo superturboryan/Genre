@@ -333,13 +333,15 @@ extension MainMenuViewController: CAAnimationDelegate {
 extension UIView {
     
     func setupGradientBG(withFrame frame:CGRect) {
+        
         let gradient = CAGradientLayer()
-        let colorTop = UIColor(hexString: "00b4db")?.cgColor
-        let colorBottom = UIColor(hexString: "0083b0")?.cgColor
-        let thirdColor = UIColor(hexString: "#02AAB0")?.cgColor
-        let fourthColor = UIColor(hexString: "#00CDAC")?.cgColor
-        gradient.colors = [thirdColor,colorTop]
-        gradient.locations = [0.0, 1.0]
+
+        let colorTop = UIColor(named: "primary")?.cgColor
+        let colorMiddle = UIColor(named: "light")?.cgColor
+        let colorBottom = UIColor(named: "dark")?.cgColor
+        
+        gradient.colors = [colorTop,colorBottom]
+        gradient.locations = [0.5,1.0]
         gradient.frame = frame
         self.layer.insertSublayer(gradient, at: 0)
     }

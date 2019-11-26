@@ -32,6 +32,7 @@
 		94807A6E237FC827008A7773 /* ConfettiScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94807A6D237FC827008A7773 /* ConfettiScene.swift */; };
 		94807A70237FCA9D008A7773 /* ConfettiExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 94807A6F237FCA9D008A7773 /* ConfettiExplosion.sks */; };
 		94807A72237FCFB5008A7773 /* ConfettiDrop.sks in Resources */ = {isa = PBXBuildFile; fileRef = 94807A71237FCFB5008A7773 /* ConfettiDrop.sks */; };
+		94ABD1E1238CDC09003DCD4A /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94ABD1E0238CDC09003DCD4A /* Media.xcassets */; };
 		94CD98212344223E00AADAE7 /* WordChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD98202344223E00AADAE7 /* WordChecker.swift */; };
 		94CD9848234821EF00AADAE7 /* WordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD9847234821EF00AADAE7 /* WordManager.swift */; };
 		94EF25532239B979003240B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF25522239B979003240B9 /* AppDelegate.swift */; };
@@ -76,6 +77,7 @@
 		94807A6D237FC827008A7773 /* ConfettiScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiScene.swift; sourceTree = "<group>"; };
 		94807A6F237FCA9D008A7773 /* ConfettiExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ConfettiExplosion.sks; sourceTree = "<group>"; };
 		94807A71237FCFB5008A7773 /* ConfettiDrop.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ConfettiDrop.sks; sourceTree = "<group>"; };
+		94ABD1E0238CDC09003DCD4A /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		94CD98202344223E00AADAE7 /* WordChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordChecker.swift; sourceTree = "<group>"; };
 		94CD9847234821EF00AADAE7 /* WordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordManager.swift; sourceTree = "<group>"; };
 		94EF254F2239B979003240B9 /* Genre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Genre.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +172,7 @@
 				945CA3822343055900F1677E /* Words1592WithAccents.csv */,
 				94EF255E2239B97B003240B9 /* Info.plist */,
 				94EF25592239B97B003240B9 /* Assets.xcassets */,
+				94ABD1E0238CDC09003DCD4A /* Media.xcassets */,
 			);
 			path = Genre;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 			files = (
 				94EF255D2239B97B003240B9 /* LaunchScreen.storyboard in Resources */,
 				945478E523824AE2001A7F17 /* AppStorePopupViewController.xib in Resources */,
+				94ABD1E1238CDC09003DCD4A /* Media.xcassets in Resources */,
 				94EF255A2239B97B003240B9 /* Assets.xcassets in Resources */,
 				945CA3832343055900F1677E /* Words1592WithAccents.csv in Resources */,
 				94807A72237FCFB5008A7773 /* ConfettiDrop.sks in Resources */,
