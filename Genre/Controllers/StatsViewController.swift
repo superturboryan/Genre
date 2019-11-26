@@ -89,7 +89,7 @@ class StatsViewController: UIViewController, LanguageChange {
     }
     
     func updateLanguageLabels() {
-        
+        self.title = ouiEnFrancais ? "Statistiques" : "Stats"
         self.leftHeaderLabel.text =  ouiEnFrancais ? "Sessions Jouées":"Games Played"
         self.rightHeaderLabel.text =  ouiEnFrancais ? "Cartes Glisées":"Cards Swiped"
         

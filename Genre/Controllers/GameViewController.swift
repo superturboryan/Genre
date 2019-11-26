@@ -522,8 +522,6 @@ class GameViewController: UIViewController, LanguageChange {
             self.scoreLabel.alpha = 0
             self.gameFinishedView.alpha = 1
             self.gameFinishedView.transform = .identity
-//            self.scoreLabel.alpha = 0
-//            self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.7)
             self.restartButton.alpha = 1
         }) { (success) in
             self.playConfetti()
