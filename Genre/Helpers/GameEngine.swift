@@ -149,14 +149,15 @@ class GameEngine: NSObject {
         if correctResult {
             incrementUserScore()
             incrementCountFor(word: currentWord, correct: true)
+            if #available(iOS 13.0, *) { Haptics.impact(forStyle: .soft) }
+            else { Haptics.impact(forStyle: .light) }
             return true
         }
         else{
             incrementCountFor(word: currentWord, correct: false)
+            options.bool(forKey: kSuddenDeath) ? Haptics.impact(forStyle: .heavy) :  Haptics.notification(forType: .warning)
             return false
         }
-        
-        
     }
     
     func incrementCountFor(word: Word, correct: Bool) {

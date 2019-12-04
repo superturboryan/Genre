@@ -125,7 +125,6 @@ bonjour,True
 bonsoir,True 
 bord,True 
 bordel,True 
-bordel,True 
 bouche,False 
 bouffe,False 
 bougie,False 
@@ -676,8 +675,7 @@ liste,False
 lit,True 
 litière,False 
 litre,True 
-livraison,False 
-livre,False 
+livraison,False
 lobby,True 
 logarithme,True 
 logement,True 
@@ -737,7 +735,7 @@ menu,True
 mer,False 
 mercure,True 
 merde,False 
-mere,False 
+mère,False
 message,True 
 messe,False 
 mesure,False 
@@ -754,7 +752,7 @@ milliard,True
 millier,True 
 millilitre,True 
 million,True 
-minceur,False 
+mineur,False
 miniature,False 
 minibus,True 
 minimum,True 
@@ -1024,7 +1022,7 @@ poursuite,False
 poussette,False 
 poussière,False
 pratique,False 
-preference,False 
+préférence,False
 présent,True 
 président,True 
 presse,False 
@@ -1099,7 +1097,7 @@ recto,True
 recyclage,True 
 redaction,False 
 redondance,False 
-refigerateur,True 
+réfigérateur,True
 refrain,True 
 regard,True 
 régie,False 
@@ -1112,7 +1110,8 @@ regret,True
 reine,False 
 relais,True 
 relation,False 
-releve,False 
+relève,False
+relevé,True
 religion,False 
 relique,False 
 remarque,False 
@@ -1464,7 +1463,7 @@ urgence,False
 usage,True 
 usine,False 
 usure,False 
-utensile,True 
+ustensile,True
 utopie,False 
 vacance,False 
 vaccin,True 

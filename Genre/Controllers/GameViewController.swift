@@ -23,6 +23,8 @@ class GameViewController: UIViewController, LanguageChange {
     @IBOutlet weak var progressBar: UIView!
     @IBOutlet weak var timerLabel: UILabel!
     
+    @IBOutlet weak var progressWidth: NSLayoutConstraint!
+    
     @IBOutlet var backButton: UIButton!
     
     @IBOutlet var feedbackPopup: UIImageView!
@@ -105,6 +107,9 @@ class GameViewController: UIViewController, LanguageChange {
         
         restartButton.layer.cornerRadius = CGFloat(10)
         restartButton.alpha = 0
+        restartButton.transform = .init(scaleX: 0, y: 0)
+        
+        
         progressBar.frame.size.width = CGFloat(0)
         
         feedbackPopup.alpha = 0
@@ -112,6 +117,7 @@ class GameViewController: UIViewController, LanguageChange {
         
         addShadow(toView: self.leftAnswerButton)
         addShadow(toView: self.rightAnswerButon)
+        addShadow(toView: self.restartButton)
         
        //Check whether to display timer
         if options.value(forKey: "Timer") as! Bool == false { timerLabel.alpha = 0 }
@@ -202,10 +208,19 @@ class GameViewController: UIViewController, LanguageChange {
     }
     
     func playConfetti() {
-        self.skView.isHidden = false
+//        self.skView.isHidden = false
+        
         let confettiScene = ConfettiScene(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
         confettiScene.setupConfetti(withPositon: CGPoint(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height*0.99))
         self.skView.presentScene(confettiScene)
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+            self.skView.alpha = 1.0
+        }) { (success) in
+
+            
+        }
+        
     }
     
     //MARK: Gesture Recognizer
@@ -291,22 +306,27 @@ class GameViewController: UIViewController, LanguageChange {
         
         scoreLabel.text = "\(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.numberOfQuestionsForGame)"
 
-        if options.value(forKey: "Progress") as! Bool == true {
-            UIView.animate(withDuration: 0.8, delay: 0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
-                self.progressBar.frame.size.width = (self.view.frame.size.width / CGFloat(GameEngine.sharedInstance.numberOfQuestionsForGame)) * CGFloat(GameEngine.sharedInstance.currentQuestionIndex)
-            }, completion: nil)
-        }
+        if options.bool(forKey: "Progress") {self.updateProgressBar()}
         
         if (count != 0) {
             for _ in 0..<count {
                addNextCard()
-                
             }
         }
     }
     
+    func updateProgressBar() {
+        
+        self.progressWidth.constant = (self.view.frame.size.width * (CGFloat(GameEngine.sharedInstance.currentQuestionIndex) / CGFloat(GameEngine.sharedInstance.numberOfQuestionsForGame)))
+        UIView.animate(withDuration: 0.8, delay: 0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
     func revealAndHidePopup(forCorrect correct:Bool) {
-
+        
+        
+        
         if (correct) {
             if #available(iOS 13.0, *) {
                 self.feedbackPopup.image = UIImage(systemName: "checkmark")
@@ -339,7 +359,7 @@ class GameViewController: UIViewController, LanguageChange {
                 self.scoreLabel.alpha = 1
                 
             }) { (success) in
-                
+                self.feedbackPopup.image = UIImage()
                 return
             }
         }
@@ -464,9 +484,10 @@ class GameViewController: UIViewController, LanguageChange {
         self.hideAnswerButtons(animated: true)
         
         self.timer.invalidate()
+        self.progressWidth.constant = self.view.frame.size.width
        UIView.animate(withDuration: 0.7, animations: {
            self.scoreLabel.alpha = 0
-           self.progressBar.frame.size.width = self.view.frame.size.width
+        self.view.layoutIfNeeded()
        })
        self.updateUI(withNewCards: 0)
        //Delay finish popup to show +1 label
@@ -530,23 +551,23 @@ class GameViewController: UIViewController, LanguageChange {
             self.scoreLabel.alpha = 0
             self.gameFinishedView.alpha = 1
             self.gameFinishedView.transform = .identity
-            self.restartButton.alpha = 1
         }) { (success) in
-            self.playConfetti()
+            
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                self.restartButton.alpha = 1.0
+                self.restartButton.transform = .identity
+            }) { (success) in
+                self.playConfetti()
+            }
         }
-                
     }
     
     //MARK: Restart
     
     @IBAction func restartPressed(_ sender: UIButton) {
         
-        self.view.sendSubviewToBack(self.skView)
-        
         self.showAnswerButtons(animated: true)
-        
         GameEngine.sharedInstance.restartGame(withNewWords: true)
-        
         counter = 0
         
         UIView.animate(withDuration: 0.5,
@@ -554,12 +575,14 @@ class GameViewController: UIViewController, LanguageChange {
                        options: .curveEaseOut,
                        animations: {
             
+            self.skView.alpha = 0.0
             //Move gameFinishedView off screen
             let transform = CGAffineTransform(translationX: self.view.frame.width, y: 0)
             //Combine previous transform with rotation
             self.gameFinishedView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 8)).concatenating(transform)
             
             self.restartButton.alpha = 0
+            self.restartButton.transform = .init(scaleX: 0, y: 0)
             self.scoreLabel.alpha = 1
             self.timerLabel.alpha = 1
             
@@ -568,12 +591,11 @@ class GameViewController: UIViewController, LanguageChange {
             self.progressBar.backgroundColor = self.progressBar.backgroundColor?.lighten(byPercentage: 0.4)
             
         }) { (success) in
-            
+
+            self.view.sendSubviewToBack(self.skView)
             //And remove from SuperView
             self.gameFinishedView.removeFromSuperview()
-
             self.updateUI(withNewCards: 1)
-            
             ///////////////////////////////////////////////////////
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)

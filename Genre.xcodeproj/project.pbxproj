@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9402913E23972C7700465989 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9402913D23972C7700465989 /* Haptics.swift */; };
 		943DFDC1235EA1D400F66AA2 /* MacawChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943DFDC0235EA1D400F66AA2 /* MacawChartView.swift */; };
 		943FE2332381046000A2CB7E /* StatsCircleProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943FE2312381046000A2CB7E /* StatsCircleProgressCell.swift */; };
 		943FE2342381046000A2CB7E /* StatsCircleProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943FE2322381046000A2CB7E /* StatsCircleProgressCell.xib */; };
@@ -52,6 +53,7 @@
 
 /* Begin PBXFileReference section */
 		0C44F809E8721941472BA448 /* Pods-Genre.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Genre.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Genre/Pods-Genre.debug.xcconfig"; sourceTree = "<group>"; };
+		9402913D23972C7700465989 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		943DFDC0235EA1D400F66AA2 /* MacawChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawChartView.swift; sourceTree = "<group>"; };
 		943FE2312381046000A2CB7E /* StatsCircleProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCircleProgressCell.swift; sourceTree = "<group>"; };
 		943FE2322381046000A2CB7E /* StatsCircleProgressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsCircleProgressCell.xib; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				945478E0238221CF001A7F17 /* StatsManager.swift */,
 				945478DE23821A61001A7F17 /* Constants.swift */,
 				945478E723825111001A7F17 /* AppStoreReviewManager.swift */,
+				9402913D23972C7700465989 /* Haptics.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9402913E23972C7700465989 /* Haptics.swift in Sources */,
 				94EF2574223AA26A003240B9 /* MainMenuViewController.swift in Sources */,
 				943DFDC1235EA1D400F66AA2 /* MacawChartView.swift in Sources */,
 				94807A6E237FC827008A7773 /* ConfettiScene.swift in Sources */,
