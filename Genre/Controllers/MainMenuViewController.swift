@@ -42,6 +42,8 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
         self.setupGradientBG()
         
         hideMenu(toTheRight: false,withAnimation: false,thenDo: {})
+        
+        AppStoreReviewManager.sharedInstance.checkIfReviewShouldBeRequested()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,8 +56,6 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
         super.viewDidAppear(animated)
         
         showMenu(WithDelay: 0.3)
-        
-        AppStoreReviewManager.sharedInstance.checkIfReviewShouldBeRequested()
     }
   
     override func viewDidLayoutSubviews() {

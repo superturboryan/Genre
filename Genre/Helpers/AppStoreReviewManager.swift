@@ -35,7 +35,7 @@ class AppStoreReviewManager: NSObject {
                 let navVC = UINavigationController(rootViewController: reviewVC)
                 navVC.isNavigationBarHidden = true
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                     topController.present(navVC, animated: true, completion: nil)
                 }
             }

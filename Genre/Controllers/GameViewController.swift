@@ -80,7 +80,7 @@ class GameViewController: UIViewController, LanguageChange {
                        delay: 0.1,
                        options: .curveEaseOut,
                        animations: {
-            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
+//            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
         }, completion: nil)
 
         updateUI(withNewCards: 1)
@@ -105,10 +105,11 @@ class GameViewController: UIViewController, LanguageChange {
         
         self.view.bringSubviewToFront(self.backButton)
         
+        self.feedbackPopup.image = UIImage() //Set image to empty initially to avoid doubles on first popup
+        
         restartButton.layer.cornerRadius = CGFloat(10)
         restartButton.alpha = 0
         restartButton.transform = .init(scaleX: 0, y: 0)
-        
         
         progressBar.frame.size.width = CGFloat(0)
         
@@ -117,7 +118,11 @@ class GameViewController: UIViewController, LanguageChange {
         
         addShadow(toView: self.leftAnswerButton)
         addShadow(toView: self.rightAnswerButon)
-        addShadow(toView: self.restartButton)
+        
+        self.restartButton.layer.shadowColor = UIColor.black.cgColor
+        self.restartButton.layer.shadowOpacity = 0.3
+        self.restartButton.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        self.restartButton.layer.shadowRadius = 5.0
         
        //Check whether to display timer
         if options.value(forKey: "Timer") as! Bool == false { timerLabel.alpha = 0 }
@@ -210,7 +215,7 @@ class GameViewController: UIViewController, LanguageChange {
     func playConfetti() {
 //        self.skView.isHidden = false
         
-        let confettiScene = ConfettiScene(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
+        let confettiScene = ConfettiScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         confettiScene.setupConfetti(withPositon: CGPoint(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height*0.99))
         self.skView.presentScene(confettiScene)
         
@@ -326,7 +331,6 @@ class GameViewController: UIViewController, LanguageChange {
     func revealAndHidePopup(forCorrect correct:Bool) {
         
         
-        
         if (correct) {
             if #available(iOS 13.0, *) {
                 self.feedbackPopup.image = UIImage(systemName: "checkmark")
@@ -348,7 +352,6 @@ class GameViewController: UIViewController, LanguageChange {
             
             self.feedbackPopup.transform = .identity
             self.feedbackPopup.alpha = 1
-            self.scoreLabel.alpha = 0
         
         }) { (success) in
            
@@ -356,7 +359,6 @@ class GameViewController: UIViewController, LanguageChange {
                 
                 self.feedbackPopup.transform = .init(scaleX: 0, y: 0)
                 self.feedbackPopup.alpha = 0
-                self.scoreLabel.alpha = 1
                 
             }) { (success) in
                 self.feedbackPopup.image = UIImage()
@@ -486,7 +488,10 @@ class GameViewController: UIViewController, LanguageChange {
         self.timer.invalidate()
         self.progressWidth.constant = self.view.frame.size.width
        UIView.animate(withDuration: 0.7, animations: {
-           self.scoreLabel.alpha = 0
+        
+        self.view.backgroundColor = self.view.backgroundColor?.darken(byPercentage: 0.3)
+            
+        self.scoreLabel.alpha = 0
         self.view.layoutIfNeeded()
        })
        self.updateUI(withNewCards: 0)
@@ -528,10 +533,11 @@ class GameViewController: UIViewController, LanguageChange {
     
     func presentGameFinishedView() {
         let wpm = ( Double(GameEngine.sharedInstance.numberOfQuestionsForGame) / counter ) * 60.0
-        let percentage = String(format: "%.1f" , (Double(GameEngine.sharedInstance.userScore) / Double(GameEngine.sharedInstance.gameWords.count)) * 100.0)
+        let floatPercent = (Float(GameEngine.sharedInstance.userScore) / Float(GameEngine.sharedInstance.gameWords.count))
+        let percentage = String(format: "%.1f" , floatPercent * 100.0)
         
-        let score = "Score: \(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.gameWords.count)"
-        let percentageText = ouiEnFrancais ? "Pourcentage: " + percentage + "%" : "Percentage: " + percentage + "%"
+        let score = "\(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.gameWords.count)"
+        let percentageText = ouiEnFrancais ? "Correcte: " + percentage + "%" : "Correct: " + percentage + "%"
         let chrono = ouiEnFrancais ? "Chrono: " + String(format: "%.1f" , counter) + " s" : "Timer: " + String(format: "%.1f" , counter) + " s"
         let wpmText = ouiEnFrancais ? "MPM: " + String(format: "%.1f" , wpm) : "WPM: " + String(format: "%.1f" , wpm)
         
@@ -539,6 +545,7 @@ class GameViewController: UIViewController, LanguageChange {
         gameFinishedView.percentage.text = percentageText
         gameFinishedView.chrono.text = chrono
         gameFinishedView.wpm.text = wpmText
+        gameFinishedView.setupGameFinishedLabel(forScore:floatPercent)
         
         gameFinishedView.alpha = 0
         gameFinishedView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
@@ -557,7 +564,7 @@ class GameViewController: UIViewController, LanguageChange {
                 self.restartButton.alpha = 1.0
                 self.restartButton.transform = .identity
             }) { (success) in
-                self.playConfetti()
+                floatPercent > 0.59 ? self.playConfetti() : nil
             }
         }
     }
@@ -588,7 +595,6 @@ class GameViewController: UIViewController, LanguageChange {
             
             //Lighten background and progress bar to normal
             self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.4)
-            self.progressBar.backgroundColor = self.progressBar.backgroundColor?.lighten(byPercentage: 0.4)
             
         }) { (success) in
 
