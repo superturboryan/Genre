@@ -62,10 +62,10 @@ class GameFinishedView: UIView, LanguageChange {
                 displayText = ouiEnFrancais ? "Du progres, continuez!" : "Getting there, keep going!"
                 break
             case 0.8..<0.9:
-                displayText = ouiEnFrancais ? "Allez presque parfait!" : "Keep it up, almost there!"
+                displayText = ouiEnFrancais ? "Allez presque rendu!" : "Keep it up, almost there!"
                 break
             case 0.9...:
-                displayText = ouiEnFrancais ? "Bravo, excellent travail!" : "Bravo! Well done!"
+                displayText = ouiEnFrancais ? "Bravo, excellent travail!" : "Bravo! Job well done!"
                 break
             default:
                 displayText = "Bravo! Well done!"

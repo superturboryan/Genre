@@ -82,7 +82,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="8Wq-mF-T2H" secondAttribute="bottom" constant="30" id="138-JS-fhT"/>
-                                    <constraint firstAttribute="width" secondItem="c8Q-bV-hhm" secondAttribute="height" multiplier="19:30" id="2fg-ri-dAm"/>
                                     <constraint firstItem="MpY-Az-l0K" firstAttribute="centerX" secondItem="c8Q-bV-hhm" secondAttribute="centerX" id="6EB-Q7-59w"/>
                                     <constraint firstItem="MpY-Az-l0K" firstAttribute="top" secondItem="c8Q-bV-hhm" secondAttribute="top" constant="25" id="Bqy-eF-3Oz"/>
                                     <constraint firstAttribute="height" constant="450" id="CiQ-lB-s6D"/>
@@ -248,7 +247,6 @@
                                     <constraint firstItem="9Yf-LT-R0D" firstAttribute="centerX" secondItem="EAe-7L-K24" secondAttribute="centerX" id="5QQ-QZ-bfy"/>
                                     <constraint firstItem="bRI-bn-wsM" firstAttribute="top" secondItem="9Yf-LT-R0D" secondAttribute="bottom" constant="30" id="7Dn-vl-VVx"/>
                                     <constraint firstItem="Esz-1f-GPv" firstAttribute="leading" secondItem="1tC-Kx-mDs" secondAttribute="leading" id="CXQ-uY-2Tw"/>
-                                    <constraint firstAttribute="width" secondItem="EAe-7L-K24" secondAttribute="height" multiplier="19:30" id="DTd-6i-pCa"/>
                                     <constraint firstItem="Dkz-rQ-Y8C" firstAttribute="centerY" secondItem="5H4-1d-6ls" secondAttribute="centerY" id="DqV-vd-ikF"/>
                                     <constraint firstAttribute="width" constant="285" id="Jkr-e2-SrM"/>
                                     <constraint firstItem="Esz-1f-GPv" firstAttribute="top" secondItem="1tC-Kx-mDs" secondAttribute="bottom" constant="30" id="LON-pm-qY0"/>
