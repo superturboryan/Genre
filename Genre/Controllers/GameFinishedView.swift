@@ -50,7 +50,7 @@ class GameFinishedView: UIView, LanguageChange {
         
         switch(score) {
             case ..<0.1:
-                displayText = ouiEnFrancais ? "Essayez l'autre réponse!" : "Try the opposite answer!"
+                displayText = ouiEnFrancais ? "Essayez l'autre réponse!" : "Try the other answer!"
                 break
             case 0.1..<0.4:
                 displayText = ouiEnFrancais ? "Faudrait étudier un peu!" : "Study the word list!"
@@ -59,7 +59,7 @@ class GameFinishedView: UIView, LanguageChange {
                 displayText = ouiEnFrancais ? "Presque mieux que deviner" : "Almost better than guessing!"
                 break
             case 0.6..<0.8:
-                displayText = ouiEnFrancais ? "Du progres, continuez!" : "Getting there, keep going!"
+                displayText = ouiEnFrancais ? "Continuez c'est bien!" : "Getting there, keep going!"
                 break
             case 0.8..<0.9:
                 displayText = ouiEnFrancais ? "Allez presque rendu!" : "Keep it up, almost there!"

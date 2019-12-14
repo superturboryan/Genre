@@ -12,11 +12,13 @@ class OptionsViewController: UIViewController, LanguageChange {
 
     //MARK: Outlets
     @IBOutlet weak var menuView: UIView!
-    @IBOutlet weak var hintsSwitch: UISwitch!
+//    @IBOutlet weak var hintsSwitch: UISwitch!
     @IBOutlet weak var timerSwitch: UISwitch!
     @IBOutlet weak var progressBarSwitch: UISwitch!
     @IBOutlet var suddenDeathSwitch: UISwitch!
     @IBOutlet weak var timeAttackSwitch: UISwitch!
+    @IBOutlet weak var hapticsSwitch: UISwitch!
+    
     @IBOutlet weak var numOfWordsSlider: UISlider!
     @IBOutlet var newWordsButton: UIButton!
     @IBOutlet var sameWordsButton: UIButton!
@@ -24,13 +26,14 @@ class OptionsViewController: UIViewController, LanguageChange {
     @IBOutlet var optionsMenuWidth: NSLayoutConstraint!
     @IBOutlet var optionsMenuHeight: NSLayoutConstraint!
 
-    @IBOutlet weak var hintsLabel: UILabel!
+//    @IBOutlet weak var hintsLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var numOfWords: UILabel!
     @IBOutlet weak var numOfWordsLabel: UILabel!
     @IBOutlet var suddenDeathLabel: UILabel!
     @IBOutlet weak var timeAttackLabel: UILabel!
+    @IBOutlet weak var hapticsLabel: UILabel!
     
     var delegate:MainMenuDelegate?
 
@@ -81,13 +84,17 @@ class OptionsViewController: UIViewController, LanguageChange {
 
     
     func updateLanguageLabels() {
-        hintsLabel.text = ouiEnFrancais ? "Conseils:":"Hints:"
         timerLabel.text = ouiEnFrancais ? "Chrono:":"Timer:"
         progressLabel.text = ouiEnFrancais ? "Progrès:":"Progress Bar:"
         numOfWordsLabel.text = ouiEnFrancais ? "# de mots:":"Word Count:"
         suddenDeathLabel.text = ouiEnFrancais ? "Mort soudain:":"Sudden death:"
+        
+        timeAttackLabel.text = ouiEnFrancais ? "3s max:":"Time attack:"
+        hapticsLabel.text = ouiEnFrancais ? "Haptiques:":"Haptics:"
+        
         newWordsButton.setTitle(ouiEnFrancais ? "Nouveaux" : "New words", for: .normal)
         sameWordsButton.setTitle(ouiEnFrancais ? "Mêmes" : "Same", for: .normal)
+        
     }
     
     func addMenuShadow() {
@@ -139,8 +146,8 @@ class OptionsViewController: UIViewController, LanguageChange {
     //MARK: Toggles
     func setupToggles() {
 
-        guard let hintOption = options.value(forKey: kHints) as? Bool else {print("Error loading User Defaults"); return;}
-        hintsSwitch.isOn = hintOption
+//        guard let hintOption = options.value(forKey: kHints) as? Bool else {print("Error loading User Defaults"); return;}
+//        hintsSwitch.isOn = hintOption
         guard let timerOption = options.value(forKey: kTimer) as? Bool else {print("Error loading User Defaults"); return;}
         timerSwitch.isOn = timerOption
         guard let progressOption = options.value(forKey: kProgress) as? Bool else {print("Error loading User Defaults"); return;}
@@ -149,6 +156,8 @@ class OptionsViewController: UIViewController, LanguageChange {
         suddenDeathSwitch.isOn = suddenDeathOption
         guard let timeAttackOption = options.value(forKey: kTimeAttack) as? Bool else {print("Error loading User Defaults"); return;}
         timeAttackSwitch.isOn = timeAttackOption
+        guard let hapticsOptions = options.value(forKey: kHaptics) as? Bool else {print("Error loading User Defaults"); return;}
+        hapticsSwitch.isOn = hapticsOptions
         guard let wordCountOption = options.value(forKey: kWordCount) as? Int else {print("Error loading User Defaults"); return;}
         numOfWords.text = String(wordCountOption)
         numOfWordsSlider.value = Float(wordCountOption)
@@ -173,6 +182,11 @@ class OptionsViewController: UIViewController, LanguageChange {
     @IBAction func timeAttackPressed(_ sender: UISwitch) {
         options.set(sender.isOn, forKey: kTimeAttack)
     }
+    
+    @IBAction func hapticsPressed(_ sender: UISwitch) {
+        options.set(sender.isOn, forKey: kHaptics)
+    }
+    
     
     
     @IBAction func numOfWordsSet(_ sender: UISlider) {
@@ -233,30 +247,35 @@ class OptionsViewController: UIViewController, LanguageChange {
         width: 2 * radius,
         height: 2 * radius))
         
-        let secondLabelPath = getRoundRectBezierForRect(CGRect(
-        x: self.hintsLabel.frame.minX+radius-25,
-        y: self.hintsLabel.frame.maxY+radius-10,
-        width: 2 * radius,
-        height: 2 * radius))
+//        let secondLabelPath = getRoundRectBezierForRect(CGRect(
+//        x: self.hintsLabel.frame.minX+radius-25,
+//        y: self.hintsLabel.frame.maxY+radius-10,
+//        width: 2 * radius,
+//        height: 2 * radius))
         
-        let thirdLabelPath = getRoundRectBezierForRect(CGRect(
+        let secondLabelPath = getRoundRectBezierForRect(CGRect(
         x: self.timerLabel.frame.minX+radius-25,
         y: self.timerLabel.frame.maxY+radius-10,
         width: 2 * radius,
         height: 2 * radius))
         
-        let fourthLabelPath = getRoundRectBezierForRect(CGRect(
+        let thirdLabelPath = getRoundRectBezierForRect(CGRect(
         x: self.progressLabel.frame.minX+radius-25,
         y: self.progressLabel.frame.maxY+radius-10,
         width: 2 * radius,
         height: 2 * radius))
         
-        let fifthLabelPath = getRoundRectBezierForRect(CGRect(
+        let fourthLabelPath = getRoundRectBezierForRect(CGRect(
         x: self.suddenDeathLabel.frame.minX+radius-25,
         y: self.suddenDeathLabel.frame.maxY+radius-10,
         width: 2 * radius,
         height: 2 * radius))
         
+        let fifthLabelPath = getRoundRectBezierForRect(CGRect(
+        x: self.timeAttackLabel.frame.minX+radius-25,
+        y: self.timeAttackLabel.frame.maxY+radius-10,
+        width: 2 * radius,
+        height: 2 * radius))
         
         maskLayer.path = bigPath.cgPath
         
@@ -269,11 +288,11 @@ class OptionsViewController: UIViewController, LanguageChange {
         let circleMove3 = getAnimationFromPathToPath(from: thirdLabelPath, to: fourthLabelPath, withDuration: 1.0)
         let circleMove4 = getAnimationFromPathToPath(from: fourthLabelPath, to: fifthLabelPath, withDuration: 1.0)
         
-        let numWordsText = "Move the slider to set the quiz length"
-        let hintsText = "Turn on hints to get tips about spotting the noun's gender"
-        let timerText = "Turn on the timer to see a counter showing you how long you're taking"
-        let progressText = "Turn on to display the progress bar to see how far along you are in the quiz"
-        let suddenDeathText = "Turn on sudden death move to end the quiz on your first wrong answer. For experts only!"
+        let numWordsText = ouiEnFrancais ? "Choisir le nombre de mots par quiz" : "Move the slider to set the quiz length"
+        let timerText = ouiEnFrancais ? "Voir un chronomètre du temps accumulé" : "Turn on the timer to see a counter showing you how long you're taking"
+        let progressText = ouiEnFrancais ? "La barre de progrès en bas" : "Turn on to display the progress bar to see how far along you are in the quiz"
+        let suddenDeathText = ouiEnFrancais ? "Une seule faute sera permise, pour les experts!" : "Turn on sudden death move to end the quiz on your first wrong answer. For experts only!"
+        let timeAttackText = ouiEnFrancais ? "Vous aurez seulement trois secondes à répondre pour chaque question" : "You'll only have three seconds to answer, test your reflexes"
 
         self.animateBezierPath(forLayer: maskLayer, withAnimation: circleShrink, withDelay: 0.0) {
             
@@ -281,19 +300,19 @@ class OptionsViewController: UIViewController, LanguageChange {
                     
                 self.animateBezierPath(forLayer: maskLayer, withAnimation: circleMove1, withDelay: 0.0) {
                     
-                    self.fadeInAndOutLabel(inView: self.overlay, withText: hintsText, positionNextToView:self.hintsLabel, afterDelay: 0.2) {
+                    self.fadeInAndOutLabel(inView: self.overlay, withText: timerText, positionNextToView:self.self.timerLabel, afterDelay: 0.2) {
                         
                         self.animateBezierPath(forLayer: maskLayer, withAnimation: circleMove2, withDelay: 0.0) {
                             
-                            self.fadeInAndOutLabel(inView: self.overlay, withText: timerText, positionNextToView:self.timerLabel, afterDelay: 0.2) {
+                            self.fadeInAndOutLabel(inView: self.overlay, withText: progressText, positionNextToView:self.progressLabel, afterDelay: 0.2) {
                                 
                                 self.animateBezierPath(forLayer: maskLayer, withAnimation: circleMove3, withDelay: 0.0) {
                                     
-                                    self.fadeInAndOutLabel(inView: self.overlay, withText: progressText, positionNextToView:self.progressLabel, afterDelay: 0.2) {
+                                    self.fadeInAndOutLabel(inView: self.overlay, withText: suddenDeathText, positionNextToView:self.suddenDeathLabel, afterDelay: 0.2) {
                                         
                                         self.animateBezierPath(forLayer: maskLayer, withAnimation: circleMove4, withDelay: 0.0) {
                                             
-                                            self.fadeInAndOutLabel(inView: self.overlay, withText: suddenDeathText, positionNextToView:self.suddenDeathLabel, afterDelay: 0.2) {
+                                            self.fadeInAndOutLabel(inView: self.overlay, withText: timeAttackText, positionNextToView:self.timeAttackLabel, afterDelay: 0.2) {
                                                 
                                                 UIView.animate(withDuration: 0.5, delay: 1.0, options: .curveEaseInOut, animations: {
                                                     self.overlay.alpha = 0
@@ -322,7 +341,7 @@ class OptionsViewController: UIViewController, LanguageChange {
         
         let labelFrame = self.menuView.convert(view.frame, to: inView)
         
-        let label = UILabel(frame: CGRect(x: labelFrame.maxX + 15, y: labelFrame.maxY, width: 150, height: 100))
+        let label = UILabel(frame: CGRect(x: labelFrame.maxX - 15, y: labelFrame.maxY, width: 200, height: 150))
         label.text = text
         label.textColor = .white
         label.numberOfLines = 0

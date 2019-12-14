@@ -314,6 +314,10 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
             }
             self.feedbackPopup.tintColor = UIColor.systemBlue
         }
+        else if options.bool(forKey: kTimeAttack) {
+            self.feedbackPopup.image = UIImage(named: "Timer")
+            self.feedbackPopup.tintColor = UIColor.systemPink
+        }
         else {
             if #available(iOS 13.0, *) {
                 self.feedbackPopup.image = UIImage(systemName: "xmark")
@@ -330,7 +334,7 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
         
         }) { (success) in
            
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+            UIView.animate(withDuration: 0.3, delay: 0.3, options: .curveEaseIn, animations: {
                 
                 self.feedbackPopup.transform = .init(scaleX: 0, y: 0)
                 self.feedbackPopup.alpha = 0
@@ -540,7 +544,9 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
                 self.restartButton.alpha = 1.0
                 self.restartButton.transform = .identity
             }) { (success) in
-                floatPercent > 0.59 ? self.playConfetti() : nil
+                floatPercent > 0.79 ?
+                    self.playConfetti() :
+                    nil
             }
         }
     }
