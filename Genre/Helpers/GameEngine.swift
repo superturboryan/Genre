@@ -102,13 +102,12 @@ class GameEngine: NSObject {
     
     @objc func updateTimeAttackTimer() {
         
+        timeAttackCounter -= 1
+        
         if timeAttackCounter == 0 {
             self.timeAttackTimer.invalidate()
             self.startTimeAttackTimer()
             self.gameViewDelegate?.timeAttackExpired()
-        }
-        else {
-            timeAttackCounter -= 1
         }
     }
     

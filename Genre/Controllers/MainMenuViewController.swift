@@ -40,9 +40,7 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
         super.viewDidLoad()
 
         self.setupGradientBG()
-        
         hideMenu(toTheRight: false,withAnimation: false,thenDo: {})
-        
         AppStoreReviewManager.sharedInstance.checkIfReviewShouldBeRequested()
     }
     
@@ -54,14 +52,12 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         showMenu(WithDelay: 0.3)
     }
   
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
          setupView()
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -119,6 +115,10 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
     }
     
     @IBAction func statsPressed(_ sender: UIButton) {
+        if (StatsManager.sharedInstance.getTotalSessionsCount() == 0) {
+            presentAlertWithMessage(ouiEnFrancais ? "Il faut jouer au moins une session avant de voir les statistiques" : "You must play at least one session before viewing the stats")
+            return
+        }
         expandMenu {
         self.performSegue(withIdentifier: "goToStats", sender: nil)
         }
@@ -251,6 +251,7 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
         }
     }
     
+    //MARK:Helpers
     func updateLanguageLabels() {
         
         guard let currentLanguageIsFrench = options.value(forKey: "FrenchLanguage") as? Bool
@@ -268,15 +269,30 @@ class MainMenuViewController: UIViewController, MainMenuDelegate, LanguageChange
         }
     }
     
+    func presentAlertWithMessage(_ message:String) {
+        let alert = UIAlertController(title: ouiEnFrancais ? "Attendez..." : "Wait a second...", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+              switch action.style{
+              case .default:
+                    print("default")
+
+              case .cancel:
+                    print("cancel")
+
+              case .destructive:
+                    print("destructive")
+        }}))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     //MARK: Gradient variables
     let gradient = CAGradientLayer()
     var currentGradient = 0
     var gradientSet = [[CGColor]]()
-    
 }
 
 extension MainMenuViewController: CAAnimationDelegate {
-    
+
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         
         if flag {
@@ -298,13 +314,9 @@ extension MainMenuViewController: CAAnimationDelegate {
         gradientSet.append([colorTop!, thirdColor!])
         gradientSet.append([thirdColor!, fourthColor!])
         gradientSet.append([fourthColor!, colorBottom!])
-        
         gradient.startPoint = CGPoint(x: 0, y: 0)
-        
         gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-        
         gradient.drawsAsynchronously = true
-        
         self.view.layer.insertSublayer(gradient, at: 1)
     }
     
@@ -313,41 +325,28 @@ extension MainMenuViewController: CAAnimationDelegate {
         var previousGradient: Int!
         
         if currentGradient < gradientSet.count - 1 {
-            
             currentGradient += 1
-            
             previousGradient = currentGradient - 1
-            
         }
         else {
-            
             currentGradient = 0
-            
             previousGradient = gradientSet.count - 1
-            
         }
         
         let gradientChangeAnim = CABasicAnimation(keyPath: "colors")
-        
         gradientChangeAnim.duration = 5.0
-        
         gradientChangeAnim.fromValue = gradientSet[previousGradient]
-        
         gradientChangeAnim.toValue = gradientSet[currentGradient]
-        
         gradient.setValue(currentGradient, forKeyPath: "colorChange")
-        
         gradientChangeAnim.fillMode = CAMediaTimingFillMode.forwards
-        
         gradientChangeAnim.isRemovedOnCompletion = false
-        
         gradientChangeAnim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        
         gradientChangeAnim.delegate = self
-        
         gradient.add(gradientChangeAnim, forKey: nil)
         
     }
+    
+    
 }
 
 extension UIView {

@@ -341,7 +341,7 @@ class OptionsViewController: UIViewController, LanguageChange {
         
         let labelFrame = self.menuView.convert(view.frame, to: inView)
         
-        let label = UILabel(frame: CGRect(x: labelFrame.maxX - 15, y: labelFrame.maxY, width: 200, height: 150))
+        let label = UILabel(frame: CGRect(x: labelFrame.maxX - 25, y: labelFrame.maxY, width: 150, height: 150))
         label.text = text
         label.textColor = .white
         label.numberOfLines = 0
