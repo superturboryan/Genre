@@ -26,6 +26,9 @@ class GameEngine: NSObject {
     var counter = 0.0
     var timer = Timer()
     
+    var timeAttackCounter = 0.0
+    var timeAttackTimer = Timer()
+    
     var currentQuestionIndex : Int = 0
     var numberOfQuestionsForGame : Int = 10
     var userScore : Int = 0
@@ -55,25 +58,31 @@ class GameEngine: NSObject {
     func restartGame(withNewWords toggle:Bool) {
         
         if toggle {
-            loadSettings()
             loadNewGameWords()
         }
-        self.counter = 0.0;
+        
+        loadSettings()
         resetCurrentQuestionNumber()
         resetUserScore()
         
         startTimer()
+        
+        if options.bool(forKey: kTimeAttack) {
+            startTimeAttackTimer()
+        }
+        
     }
     
     func finishGame() {
+        
         self.timer.invalidate()
+        self.timeAttackTimer.invalidate()
     }
     
-    @objc func startTimer() {
+    func startTimer() {
+        self.counter = 0
         self.timer = Timer()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
-        }
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
     }
     
     @objc func updateTimer() {
@@ -83,13 +92,42 @@ class GameEngine: NSObject {
         }
     }
     
+    
+    
+    func startTimeAttackTimer() {
+        self.timeAttackCounter = 3.0
+        self.timeAttackTimer = Timer()
+        self.timeAttackTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimeAttackTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimeAttackTimer() {
+        
+        if timeAttackCounter == 0 {
+            self.timeAttackTimer.invalidate()
+            self.startTimeAttackTimer()
+            self.gameViewDelegate?.timeAttackExpired()
+        }
+        else {
+            timeAttackCounter -= 1
+        }
+    }
+    
+    func stopTimeAttackTimer(AndReset reset:Bool) {
+        
+        timeAttackTimer.invalidate()
+        
+        if reset {
+            startTimeAttackTimer()
+        }
+    }
+    
     //MARK:- Loading
 
     func loadSettings() {
-        numberOfQuestionsForGame = AppOptions.integer(forKey: "WordCount")
-        showHints = AppOptions.bool(forKey: "Hints")
-        showTimer = AppOptions.bool(forKey: "Timer")
-        showProgressBar = AppOptions.bool(forKey: "Progress")
+        numberOfQuestionsForGame = AppOptions.integer(forKey: kWordCount)
+        showHints = AppOptions.bool(forKey: kHints)
+        showTimer = AppOptions.bool(forKey: kTimer)
+        showProgressBar = AppOptions.bool(forKey: kProgress)
     }
 
     func loadNewGameWords() {
@@ -98,12 +136,9 @@ class GameEngine: NSObject {
     
     //MARK:- Game State
     func isGameFinished() -> Bool {
+        currentQuestionIndex += 1
         if currentQuestionIndex == numberOfQuestionsForGame { return true };
         return false;
-    }
-
-    func goToNextQuestion() {
-        currentQuestionIndex += 1
     }
     
     func addAnswerToEngine(_ answer:Answer) {
@@ -145,7 +180,7 @@ class GameEngine: NSObject {
     
     //MARK:- Current word properties
     
-    func getCurredWord() -> Word {
+    func getCurrentWord() -> Word {
         return gameWords[currentQuestionIndex]
     }
     
@@ -198,4 +233,6 @@ class GameEngine: NSObject {
         
         WordManager.sharedInstance.saveChangesToCoreData()
     }
+    
+    
 }

@@ -129,7 +129,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EAe-7L-K24">
-                                <rect key="frame" x="45" y="108.5" width="285" height="450"/>
+                                <rect key="frame" x="45" y="83.5" width="285" height="500"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hints: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRI-bn-wsM">
                                         <rect key="frame" x="20" y="126.5" width="65" height="30"/>
@@ -208,7 +208,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5H4-1d-6ls">
-                                        <rect key="frame" x="20" y="366" width="120" height="50"/>
+                                        <rect key="frame" x="20" y="416" width="120" height="50"/>
                                         <color key="backgroundColor" name="primary"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="87U-Cj-yg3"/>
@@ -223,7 +223,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dkz-rQ-Y8C">
-                                        <rect key="frame" x="155" y="366" width="100" height="50"/>
+                                        <rect key="frame" x="155" y="416" width="100" height="50"/>
                                         <color key="backgroundColor" name="light"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="6hz-w8-vE9"/>
@@ -237,6 +237,18 @@
                                             <action selector="sameWordsPressed:" destination="2La-X6-BlC" eventType="touchUpInside" id="HC6-l0-nuY"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time attack:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qdk-GO-SgU">
+                                        <rect key="frame" x="20" y="356" width="125.5" height="26.5"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BxB-Z1-doA">
+                                        <rect key="frame" x="206" y="354" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="timeAttackPressed:" destination="2La-X6-BlC" eventType="valueChanged" id="Nsv-rJ-UQK"/>
+                                        </connections>
+                                    </switch>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -248,6 +260,7 @@
                                     <constraint firstItem="bRI-bn-wsM" firstAttribute="top" secondItem="9Yf-LT-R0D" secondAttribute="bottom" constant="30" id="7Dn-vl-VVx"/>
                                     <constraint firstItem="Esz-1f-GPv" firstAttribute="leading" secondItem="1tC-Kx-mDs" secondAttribute="leading" id="CXQ-uY-2Tw"/>
                                     <constraint firstItem="Dkz-rQ-Y8C" firstAttribute="centerY" secondItem="5H4-1d-6ls" secondAttribute="centerY" id="DqV-vd-ikF"/>
+                                    <constraint firstItem="BxB-Z1-doA" firstAttribute="centerY" secondItem="Qdk-GO-SgU" secondAttribute="centerY" id="HeA-t4-pwl"/>
                                     <constraint firstAttribute="width" constant="285" id="Jkr-e2-SrM"/>
                                     <constraint firstItem="Esz-1f-GPv" firstAttribute="top" secondItem="1tC-Kx-mDs" secondAttribute="bottom" constant="30" id="LON-pm-qY0"/>
                                     <constraint firstItem="0th-oW-anG" firstAttribute="leading" secondItem="bRI-bn-wsM" secondAttribute="leading" id="MHe-yu-MtJ"/>
@@ -256,19 +269,22 @@
                                     <constraint firstItem="1tC-Kx-mDs" firstAttribute="top" secondItem="0th-oW-anG" secondAttribute="bottom" constant="30" id="QlO-QP-55x"/>
                                     <constraint firstItem="Dkz-rQ-Y8C" firstAttribute="trailing" secondItem="ot1-4j-o2o" secondAttribute="trailing" id="SDD-ZA-SH9"/>
                                     <constraint firstItem="1tC-Kx-mDs" firstAttribute="leading" secondItem="EAe-7L-K24" secondAttribute="leading" constant="20" id="TbS-Gy-ttp"/>
+                                    <constraint firstItem="Qdk-GO-SgU" firstAttribute="leading" secondItem="Esz-1f-GPv" secondAttribute="leading" id="X8P-nn-1TK"/>
                                     <constraint firstAttribute="trailing" secondItem="yI1-uG-hnM" secondAttribute="trailing" constant="30" id="XJZ-IF-0mQ"/>
                                     <constraint firstItem="ot1-4j-o2o" firstAttribute="centerY" secondItem="Esz-1f-GPv" secondAttribute="centerY" id="Zk7-LT-mfL"/>
                                     <constraint firstAttribute="bottom" secondItem="5H4-1d-6ls" secondAttribute="bottom" constant="34" id="aDC-po-TdR"/>
-                                    <constraint firstAttribute="height" constant="450" id="bKi-Lm-4S1"/>
+                                    <constraint firstAttribute="height" constant="500" id="bKi-Lm-4S1"/>
                                     <constraint firstItem="5H4-1d-6ls" firstAttribute="leading" secondItem="Esz-1f-GPv" secondAttribute="leading" id="fYn-jR-drY"/>
                                     <constraint firstItem="1HL-df-RDT" firstAttribute="leading" secondItem="9Ly-kz-fvp" secondAttribute="trailing" constant="13.5" id="gzT-IB-hRh"/>
                                     <constraint firstItem="9Yf-LT-R0D" firstAttribute="leading" secondItem="EAe-7L-K24" secondAttribute="leading" constant="37" id="j1l-Pk-cNg"/>
                                     <constraint firstItem="1HL-df-RDT" firstAttribute="bottom" secondItem="9Ly-kz-fvp" secondAttribute="bottom" id="lFy-st-XQ5"/>
                                     <constraint firstAttribute="trailing" secondItem="Mnd-SG-d5M" secondAttribute="trailing" constant="30" id="ly6-jV-6me"/>
+                                    <constraint firstAttribute="trailing" secondItem="BxB-Z1-doA" secondAttribute="trailing" constant="30" id="pTs-9Q-Anl"/>
                                     <constraint firstItem="Mnd-SG-d5M" firstAttribute="centerY" secondItem="1tC-Kx-mDs" secondAttribute="centerY" id="rOF-x9-Xai"/>
                                     <constraint firstItem="yI1-uG-hnM" firstAttribute="centerY" secondItem="bRI-bn-wsM" secondAttribute="centerY" id="uGO-mV-qrO"/>
                                     <constraint firstItem="bRI-bn-wsM" firstAttribute="leading" secondItem="EAe-7L-K24" secondAttribute="leading" constant="20" id="umA-eb-4BH"/>
                                     <constraint firstItem="VI6-hI-wWH" firstAttribute="bottom" secondItem="0th-oW-anG" secondAttribute="bottom" id="xQY-jc-PUN"/>
+                                    <constraint firstItem="Qdk-GO-SgU" firstAttribute="top" secondItem="Esz-1f-GPv" secondAttribute="bottom" constant="30" id="zGc-YX-82f"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yuj-W8-T33">
@@ -320,6 +336,8 @@
                         <outlet property="sameWordsButton" destination="Dkz-rQ-Y8C" id="g3J-oG-grc"/>
                         <outlet property="suddenDeathLabel" destination="Esz-1f-GPv" id="g5M-Rx-Xog"/>
                         <outlet property="suddenDeathSwitch" destination="ot1-4j-o2o" id="MED-nu-LJN"/>
+                        <outlet property="timeAttackLabel" destination="Qdk-GO-SgU" id="2M9-pz-b8D"/>
+                        <outlet property="timeAttackSwitch" destination="BxB-Z1-doA" id="ouq-YH-Hso"/>
                         <outlet property="timerLabel" destination="0th-oW-anG" id="Ty5-uH-fjQ"/>
                         <outlet property="timerSwitch" destination="VI6-hI-wWH" id="JYq-kq-I6Q"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="goToGame" animates="NO" id="dTx-iS-kdH"/>

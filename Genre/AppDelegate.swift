@@ -161,6 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             options.set(false, forKey: kTimer)
             options.set(true, forKey: kProgress)
             options.set(false, forKey: kSuddenDeath)
+            options.set(false, forKey:kTimeAttack)
             options.set(10, forKey: kWordCount)
             options.set(0, forKey: kCorrectCount)
             options.set(0, forKey: kIncorrectCount)

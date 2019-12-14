@@ -16,6 +16,7 @@ class OptionsViewController: UIViewController, LanguageChange {
     @IBOutlet weak var timerSwitch: UISwitch!
     @IBOutlet weak var progressBarSwitch: UISwitch!
     @IBOutlet var suddenDeathSwitch: UISwitch!
+    @IBOutlet weak var timeAttackSwitch: UISwitch!
     @IBOutlet weak var numOfWordsSlider: UISlider!
     @IBOutlet var newWordsButton: UIButton!
     @IBOutlet var sameWordsButton: UIButton!
@@ -29,6 +30,7 @@ class OptionsViewController: UIViewController, LanguageChange {
     @IBOutlet weak var numOfWords: UILabel!
     @IBOutlet weak var numOfWordsLabel: UILabel!
     @IBOutlet var suddenDeathLabel: UILabel!
+    @IBOutlet weak var timeAttackLabel: UILabel!
     
     var delegate:MainMenuDelegate?
 
@@ -129,9 +131,7 @@ class OptionsViewController: UIViewController, LanguageChange {
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         hideOptionsMenu(toTheRight: false, withAnimation: true) {
-//            if let del = self.delegate {
-//                del.showMenu(WithDelay: 0.2)
-//            }
+
             self.navigationController?.popViewController(animated: false)
         }
     }
@@ -147,6 +147,8 @@ class OptionsViewController: UIViewController, LanguageChange {
         progressBarSwitch.isOn = progressOption
         guard let suddenDeathOption = options.value(forKey: kSuddenDeath) as? Bool else {print("Error loading User Defaults"); return;}
         suddenDeathSwitch.isOn = suddenDeathOption
+        guard let timeAttackOption = options.value(forKey: kTimeAttack) as? Bool else {print("Error loading User Defaults"); return;}
+        timeAttackSwitch.isOn = timeAttackOption
         guard let wordCountOption = options.value(forKey: kWordCount) as? Int else {print("Error loading User Defaults"); return;}
         numOfWords.text = String(wordCountOption)
         numOfWordsSlider.value = Float(wordCountOption)
@@ -167,6 +169,11 @@ class OptionsViewController: UIViewController, LanguageChange {
     @IBAction func suddenDeathPressed(_ sender: UISwitch) {
         options.set(sender.isOn, forKey: kSuddenDeath)
     }
+    
+    @IBAction func timeAttackPressed(_ sender: UISwitch) {
+        options.set(sender.isOn, forKey: kTimeAttack)
+    }
+    
     
     @IBAction func numOfWordsSet(_ sender: UISlider) {
         numOfWords.text = String(Int(sender.value))

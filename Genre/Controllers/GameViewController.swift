@@ -14,9 +14,12 @@ import SpriteKit
 
 protocol GameViewDelegate {
     var timerLabel: UILabel! { get set }
+    
+    func timeAttackExpired()
 }
 
 class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
+    
     //MARK: - Outlets
     
     @IBOutlet var skView: SKView!
@@ -126,6 +129,10 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         
+        if options.bool(forKey: kTimeAttack) {
+            GameEngine.sharedInstance.stopTimeAttackTimer(AndReset: false)
+        }
+        
         UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
             // Transform similar to card swipe animation
             let transform = CGAffineTransform(translationX: self.view.frame.width, y: 0)
@@ -171,6 +178,13 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
     
     func updateLanguageLabels() {
         self.restartButton.setTitle(ouiEnFrancais ? "Recommencer ?":"Restart ?", for: .normal)
+    }
+    
+    //MARK:Gameview delegate
+    
+    func timeAttackExpired() {
+
+        self.userSelectedAnswer(!GameEngine.sharedInstance.getCurrentWordGender())
     }
     
     //MARK: SpriteKit
@@ -222,42 +236,15 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
         case .ended:
             let velocity = recognizer.velocity(in: wordCardView)
             //If more than 0.4 is complete, do completion block and remove
-            if velocity.x > 90 || velocity.x < -90 || animator.fractionComplete > 0.5 {
+            let velocityTolerance:CGFloat = 90.0
+            if velocity.x > velocityTolerance || velocity.x < -velocityTolerance || animator.fractionComplete > 0.6 {
+                
                 animator.addCompletion {(position) in
                     
-                    var pickedAnswer: Bool = true
-
-                    if velocity.x < 0 { pickedAnswer = false }
-                    
-                    if (GameEngine.sharedInstance.checkAnswer(pickedAnswer: pickedAnswer)) {
-                        
-                        self.revealAndHidePopup(forCorrect: true)
-                        
-                    }
-                    // Check if sudden death is enabled
-                    else if options.bool(forKey: kSuddenDeath) {
-                        self.revealAndHidePopup(forCorrect: false)
-                        self.wordCardView.removeFromSuperview()
-                        self.finishGame()
-                        
-                        return
-                    }
-                    else {
-                        self.revealAndHidePopup(forCorrect: false)
-                    }
-
-                    //Remove answered card from view
-                    self.wordCardView.removeFromSuperview()
-                    GameEngine.sharedInstance.goToNextQuestion()
-                    
-                    //Check if quiz has finished!
-                    if GameEngine.sharedInstance.isGameFinished() {
-                        self.finishGame()
-                    }
-                    else{
-                        self.updateUI(withNewCards: 1)
-                    }
+                    let pickedAnswer = velocity.x > 0
+                    self.userSelectedAnswer(pickedAnswer)
                 }
+                
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
                 break
             }
@@ -266,6 +253,32 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
             
         default:
             break
+        }
+    }
+    
+    func userSelectedAnswer(_ answer: Bool) {
+        
+        if (GameEngine.sharedInstance.checkAnswer(pickedAnswer: answer)) {
+            self.revealAndHidePopup(forCorrect: true)
+        }
+        else if options.bool(forKey: kSuddenDeath) {
+            self.revealAndHidePopup(forCorrect: false)
+            self.wordCardView.removeFromSuperview()
+            self.finishGame()
+            return
+        }
+        else {
+            self.revealAndHidePopup(forCorrect: false)
+        }
+    
+        self.wordCardView.removeFromSuperview()
+        
+        if GameEngine.sharedInstance.isGameFinished() {
+            self.finishGame()
+        }
+        else{
+            self.updateUI(withNewCards: 1)
+            GameEngine.sharedInstance.stopTimeAttackTimer(AndReset: true)
         }
     }
     
@@ -569,7 +582,6 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
     //MARK: Answer buttons
     
     @IBAction func answerButtonPressed(_ sender: UIButton) {
-        
         simulateSwipeForDirection(sender.tag==2)
     }
     
@@ -585,28 +597,7 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
             
         }) { (completion) in
             
-            if (GameEngine.sharedInstance.checkAnswer(pickedAnswer: direction)) {
-                self.revealAndHidePopup(forCorrect: true)
-            }
-            else if options.bool(forKey: kSuddenDeath) {
-                self.revealAndHidePopup(forCorrect: false)
-                self.wordCardView.removeFromSuperview()
-                self.finishGame()
-                return
-            }
-            else {
-                self.revealAndHidePopup(forCorrect: false)
-            }
-        
-            self.wordCardView.removeFromSuperview()
-            GameEngine.sharedInstance.goToNextQuestion()
-            
-            if GameEngine.sharedInstance.isGameFinished() {
-                self.finishGame()
-            }
-            else{
-                self.updateUI(withNewCards: 1)
-            }
+            self.userSelectedAnswer(direction)
         }
     }
     
