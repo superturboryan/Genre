@@ -22,6 +22,10 @@ class GameEngine: NSObject {
     
     let AppOptions = UserDefaults.standard
     
+    //Timer variables
+    var counter = 0.0
+    var timer = Timer()
+    
     var currentQuestionIndex : Int = 0
     var numberOfQuestionsForGame : Int = 10
     var userScore : Int = 0
@@ -38,6 +42,8 @@ class GameEngine: NSObject {
     
     var gameWords: [Word] = Array()
     
+    var gameViewDelegate: GameViewDelegate?
+    
     //MARK:- Init and lifecycle
     
     override init() {
@@ -52,10 +58,29 @@ class GameEngine: NSObject {
             loadSettings()
             loadNewGameWords()
         }
-        
-        resetCurrentQuestionNumber()
+        self.counter = 0.0;
         resetCurrentQuestionNumber()
         resetUserScore()
+        
+        startTimer()
+    }
+    
+    func finishGame() {
+        self.timer.invalidate()
+    }
+    
+    @objc func startTimer() {
+        self.timer = Timer()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
+        }
+    }
+    
+    @objc func updateTimer() {
+        counter += 1
+        if self.gameViewDelegate?.timerLabel != nil {
+            self.gameViewDelegate?.timerLabel.text = String(format:"%.0f",counter)
+        }
     }
     
     //MARK:- Loading

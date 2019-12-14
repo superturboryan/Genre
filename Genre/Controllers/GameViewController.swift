@@ -12,8 +12,11 @@ import ProgressHUD
 import ChameleonFramework
 import SpriteKit
 
-class GameViewController: UIViewController, LanguageChange {
+protocol GameViewDelegate {
+    var timerLabel: UILabel! { get set }
+}
 
+class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
     //MARK: - Outlets
     
     @IBOutlet var skView: SKView!
@@ -32,22 +35,17 @@ class GameViewController: UIViewController, LanguageChange {
     @IBOutlet weak var leftAnswerButton: UIButton!
     @IBOutlet weak var rightAnswerButon: UIButton!
     
+    enum SwipeDirection {
+        case left,
+             right
+    }
     
     //MARK: Variables
-    
-    //Timer variables
-    private var counter = 0.0
-    private var timer = Timer()
- 
     
     //UI Variables
     var wordCardView : WordCardView!
     var gameFinishedView : GameFinishedView!
-    
-    enum SwipeDirection {
-        case left, right
-    }
-    
+
     //Pan recognizer for word cards
     lazy var panRecognizer : UIPanGestureRecognizer = {
         let recognizer = UIPanGestureRecognizer()
@@ -60,11 +58,10 @@ class GameViewController: UIViewController, LanguageChange {
     var animateProgress : CGFloat = 0
     var currentSwipeDirection : SwipeDirection!
     
-//MARK: Lifecycle
-    
+    //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        GameEngine.sharedInstance.gameViewDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,29 +73,13 @@ class GameViewController: UIViewController, LanguageChange {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIView.animate(withDuration: 0.5,
-                       delay: 0.1,
-                       options: .curveEaseOut,
-                       animations: {
-//            self.view.backgroundColor = self.view.backgroundColor?.lighten(byPercentage: 0.33)
-        }, completion: nil)
 
         updateUI(withNewCards: 1)
-        startTimer()
         
         showAnswerButtons(animated: true)
-        
-        
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
 
-    }
-    
     //MARK: Setup UI
-    
     func setupView() {
         
         self.view.setupGradientBG(withFrame: self.view.bounds)
@@ -129,7 +110,7 @@ class GameViewController: UIViewController, LanguageChange {
        //And whether to display progress bar
         if options.value(forKey: "Progress") as! Bool == false { progressBar.alpha = 0 }
     
-        timerLabel.text = String(counter)
+        timerLabel.text = "\(GameEngine.sharedInstance.counter)"
     
         hideNavBar()
         
@@ -159,12 +140,6 @@ class GameViewController: UIViewController, LanguageChange {
         self.navigationController?.isNavigationBarHidden = true
     }
     
-    @objc func startTimer() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
-        }
-    }
-    
     func hideAnswerButtons(animated:Bool) {
         
         if animated {
@@ -177,7 +152,6 @@ class GameViewController: UIViewController, LanguageChange {
             self.leftAnswerButton.transform = CGAffineTransform.init(scaleX: 0, y: 0)
             self.rightAnswerButon.transform = CGAffineTransform.init(scaleX: 0, y: 0)
         }
-        
     }
     
     func showAnswerButtons(animated:Bool) {
@@ -195,17 +169,11 @@ class GameViewController: UIViewController, LanguageChange {
         
     }
     
-    @objc func updateTimer() {
-        counter += 0.1
-        timerLabel.text = String(format: "%.1f" , counter)
-    }
-    
     func updateLanguageLabels() {
         self.restartButton.setTitle(ouiEnFrancais ? "Recommencer ?":"Restart ?", for: .normal)
     }
     
     //MARK: SpriteKit
-    
     func loadEmptyScene() {
         let emptyScene = SKScene()
         skView.backgroundColor = .clear
@@ -214,22 +182,17 @@ class GameViewController: UIViewController, LanguageChange {
     
     func playConfetti() {
 //        self.skView.isHidden = false
-        
         let confettiScene = ConfettiScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         confettiScene.setupConfetti(withPositon: CGPoint(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height*0.99))
         self.skView.presentScene(confettiScene)
         
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
             self.skView.alpha = 1.0
-        }) { (success) in
-
-            
-        }
+        }) { (success) in }
         
     }
     
     //MARK: Gesture Recognizer
-    
     @objc func wordCardViewPanned(recognizer : UIPanGestureRecognizer) {
 
         switch recognizer.state {
@@ -276,6 +239,7 @@ class GameViewController: UIViewController, LanguageChange {
                         self.revealAndHidePopup(forCorrect: false)
                         self.wordCardView.removeFromSuperview()
                         self.finishGame()
+                        
                         return
                     }
                     else {
@@ -306,7 +270,6 @@ class GameViewController: UIViewController, LanguageChange {
     }
     
     //MARK: Game UI
-    
     @objc func updateUI(withNewCards count:Int) {
         
         scoreLabel.text = "\(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.numberOfQuestionsForGame)"
@@ -329,7 +292,6 @@ class GameViewController: UIViewController, LanguageChange {
     }
     
     func revealAndHidePopup(forCorrect correct:Bool) {
-        
         
         if (correct) {
             if #available(iOS 13.0, *) {
@@ -485,7 +447,7 @@ class GameViewController: UIViewController, LanguageChange {
         
         self.hideAnswerButtons(animated: true)
         
-        self.timer.invalidate()
+        GameEngine.sharedInstance.finishGame()
         self.progressWidth.constant = self.view.frame.size.width
        UIView.animate(withDuration: 0.7, animations: {
         
@@ -532,13 +494,14 @@ class GameViewController: UIViewController, LanguageChange {
     }
     
     func presentGameFinishedView() {
-        let wpm = ( Double(GameEngine.sharedInstance.numberOfQuestionsForGame) / counter ) * 60.0
+        let seconds = GameEngine.sharedInstance.counter
+        let wpm = ( Double(GameEngine.sharedInstance.numberOfQuestionsForGame) / seconds) * 60.0
         let floatPercent = (Float(GameEngine.sharedInstance.userScore) / Float(GameEngine.sharedInstance.gameWords.count))
         let percentage = String(format: "%.1f" , floatPercent * 100.0)
         
         let score = "\(GameEngine.sharedInstance.userScore) / \(GameEngine.sharedInstance.gameWords.count)"
         let percentageText = ouiEnFrancais ? "Correcte: " + percentage + "%" : "Correct: " + percentage + "%"
-        let chrono = ouiEnFrancais ? "Chrono: " + String(format: "%.1f" , counter) + " s" : "Timer: " + String(format: "%.1f" , counter) + " s"
+        let chrono = ouiEnFrancais ? "Chrono: " + String(format: "%.1f" , seconds) + " s" : "Timer: " + String(format: "%.1f" , seconds) + " s"
         let wpmText = ouiEnFrancais ? "MPM: " + String(format: "%.1f" , wpm) : "WPM: " + String(format: "%.1f" , wpm)
         
         gameFinishedView.correctAnswers.text = score
@@ -570,12 +533,10 @@ class GameViewController: UIViewController, LanguageChange {
     }
     
     //MARK: Restart
-    
     @IBAction func restartPressed(_ sender: UIButton) {
         
         self.showAnswerButtons(animated: true)
         GameEngine.sharedInstance.restartGame(withNewWords: true)
-        counter = 0
         
         UIView.animate(withDuration: 0.5,
                        delay: 0,
@@ -602,10 +563,6 @@ class GameViewController: UIViewController, LanguageChange {
             //And remove from SuperView
             self.gameFinishedView.removeFromSuperview()
             self.updateUI(withNewCards: 1)
-            ///////////////////////////////////////////////////////
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
-            }
         }
     }
     
