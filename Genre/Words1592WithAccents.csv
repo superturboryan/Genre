@@ -1090,7 +1090,7 @@ rebord,True
 recette,False 
 recharge,False 
 recherche,False 
-reclame,False 
+réclame,False
 récompense,False 
 réconfort,True 
 recto,True 
@@ -1201,8 +1201,7 @@ saison,False
 salade,False 
 salaud,True 
 salive,False 
-salle,False 
-salope,False 
+salle,False  
 salut,True 
 samedi,True 
 sang,True 

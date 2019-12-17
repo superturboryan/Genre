@@ -129,9 +129,7 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         
-        if options.bool(forKey: kTimeAttack) {
-            GameEngine.sharedInstance.stopTimeAttackTimer(AndReset: false)
-        }
+        GameEngine.sharedInstance.finishGame()
         
         UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
             // Transform similar to card swipe animation

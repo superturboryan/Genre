@@ -191,7 +191,7 @@ class OptionsViewController: UIViewController, LanguageChange {
     
     @IBAction func numOfWordsSet(_ sender: UISlider) {
         numOfWords.text = String(Int(sender.value))
-        options.set(Int(sender.value), forKey: "WordCount")
+        options.set(Int(sender.value), forKey: kWordCount)
     }
     
     //MARK: IBActions

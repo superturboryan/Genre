@@ -77,6 +77,7 @@ class GameEngine: NSObject {
         
         self.timer.invalidate()
         self.timeAttackTimer.invalidate()
+        
     }
     
     func startTimer() {

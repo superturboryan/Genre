@@ -23,8 +23,8 @@
             filePath = "Genre/Controllers/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
             landmarkName = "userSelectedAnswer(_:)"
             landmarkType = "7">
          </BreakpointContent>
