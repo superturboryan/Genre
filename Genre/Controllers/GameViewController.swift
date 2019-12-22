@@ -396,10 +396,6 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
             wordCardView.frame = CGRect(x: (view.frame.width-400)/2, y: (view.frame.height - CGFloat(400))/2 , width: 400, height: 400)
         }
         
-        if !GameEngine.sharedInstance.showHints {
-            wordCardView.hintLabel.alpha = 0
-        }
-        
         let currentQuestionNumber = GameEngine.sharedInstance.currentQuestionIndex
         
         wordCardView.wordLabel.text = GameEngine.sharedInstance.gameWords[currentQuestionNumber].word
@@ -431,7 +427,6 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
         wordCardView.frame = CGRect(x: 30, y: (view.frame.height - CGFloat(290)) / 2 , width: view.frame.width - CGFloat(60), height: 290)
         
         if options.value(forKey: "Hints") as! Bool == false {
-            
             wordCardView.hintLabel.alpha = 0
         }
         
