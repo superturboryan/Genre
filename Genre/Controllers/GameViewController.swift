@@ -276,7 +276,7 @@ class GameViewController: UIViewController, LanguageChange, GameViewDelegate {
         }
         else{
             self.updateUI(withNewCards: 1)
-            GameEngine.sharedInstance.stopTimeAttackTimer(AndReset: true)
+            if options.bool(forKey: kTimeAttack) {GameEngine.sharedInstance.stopTimeAttackTimer(AndReset: true)}
         }
     }
     
